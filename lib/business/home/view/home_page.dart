@@ -52,7 +52,28 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (_) => TabCubit(),
       child: Scaffold(
-        // appBar: AppBar(title: const Text('Home')),
+        appBar: AppBar(
+          title: BlocBuilder<TabCubit, int>(builder: (context, state) { return Text(
+            appBarTitles[state],
+            style: TextStyle(color: Colors.white),
+          );
+          }),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+//                为什么不直接Navigator.push(context,
+//                   MaterialPageRoute(
+//                      builder: (context) =>  SearchPage()))
+//                  https://stackoverflow.com/questions/50124355/flutter-navigator-not-working
+
+                  // navigatorKey.currentState
+                  //     .push(MaterialPageRoute(builder: (context) {
+                  //   return SearchPage(null);
+                  // }));
+                })
+          ],
+        ),
         bottomNavigationBar:
             BlocBuilder<TabCubit, int>(builder: (context, state) {
           return CupertinoTabBar(
