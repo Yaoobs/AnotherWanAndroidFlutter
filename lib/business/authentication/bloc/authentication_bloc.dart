@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:meta/meta.dart';
 import 'package:anotherwanandroidflutter/business/user/user.dart';
 import '../authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -9,8 +10,8 @@ part 'authentication_state.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({
-    required AuthenticationRepository authenticationRepository,
-    required UserRepository userRepository,
+    @required AuthenticationRepository authenticationRepository,
+    @required UserRepository userRepository,
   })  : assert(authenticationRepository != null),
         assert(userRepository != null),
         _authenticationRepository = authenticationRepository,
@@ -23,7 +24,7 @@ class AuthenticationBloc
 
   final AuthenticationRepository _authenticationRepository;
   final UserRepository _userRepository;
-  late StreamSubscription<AuthenticationStatus> _authenticationStatusSubscription;
+  StreamSubscription<AuthenticationStatus> _authenticationStatusSubscription;
 
   @override
   Stream<AuthenticationState> mapEventToState(

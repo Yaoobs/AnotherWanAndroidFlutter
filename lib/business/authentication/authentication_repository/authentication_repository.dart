@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'package:meta/meta.dart';
 import 'package:anotherwanandroidflutter/network/network.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 
 class AuthenticationRepository {
   final _controller = StreamController<AuthenticationStatus>();
-  late Map<dynamic, dynamic> _userData;
+  Map<dynamic, dynamic> _userData;
 
   Stream<AuthenticationStatus> get status async* {
     await Future<void>.delayed(const Duration(seconds: 1));
@@ -18,8 +19,8 @@ class AuthenticationRepository {
   }
 
   Future<void> logIn({
-    required String username,
-    required String password,
+    @required String username,
+    @required String password,
   }) async {
     assert(username != null);
     assert(password != null);

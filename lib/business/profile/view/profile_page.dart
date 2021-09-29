@@ -18,7 +18,7 @@ final List _listItems = [
 ];
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +34,7 @@ class ProfilePage extends StatelessWidget {
       ),
     );
     slivers.add(_list());
+    slivers.add(_logoutBtn(context));
     return SafeArea(
       child: Scaffold(
           body: CustomScrollView(
@@ -68,7 +69,7 @@ class ProfilePage extends StatelessWidget {
               ),
               Padding(
                   padding: const EdgeInsets.only(left: 0),
-                  child: Text(state.user.nickname.isNotEmpty ? state.user.nickname:'昵称',
+                  child: Text(state.user.nickname ?? '昵称',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -126,5 +127,31 @@ class ProfilePage extends StatelessWidget {
             ),
           ]),
     );
+  }
+
+  Widget _logoutBtn(BuildContext context) {
+    return SliverToBoxAdapter(child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      builder: (context, state) {
+        return state.status != AuthenticationStatus.authenticated ? Container() : Padding(
+          padding: const EdgeInsets.only(left: 13, top: 50, right: 13),
+          child: FlatButton(
+            onPressed: () {
+              // 退出登陆
+              context
+                  .read<AuthenticationBloc>()
+                  .add(AuthenticationLogoutRequested());
+            },
+            child: Text("退出登陆",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Color(0xff303133),
+                )),
+            color: Color(0x33999999),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+          ),
+        );
+      },
+    ));
   }
 }

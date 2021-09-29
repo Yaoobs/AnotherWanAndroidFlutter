@@ -1,7 +1,7 @@
 import 'models/models.dart';
 
 class UserRepository {
-  late User _user;
+  User _user;
 
   User getUser() {
     return _user;

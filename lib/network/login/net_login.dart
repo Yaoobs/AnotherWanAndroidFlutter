@@ -21,9 +21,6 @@ class CNWLoginNetManager {
       'username': 'yaoobs',
       'password': 'wawanandroid1990517',
     };
-    // Map<String, String> queryParameters = Map();
-    // queryParameters['username'] = 'yaoobs';
-    // queryParameters['password'] = 'wawanandroid1990517';
     Map resData = await CNWNetManager.post<Map>(
       net_login_path_login,
       queryParameters: queryParameters,

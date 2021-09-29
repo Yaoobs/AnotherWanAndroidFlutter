@@ -6,9 +6,9 @@ import 'business/user/user.dart';
 
 class App extends StatelessWidget {
   const App({
-    Key? key,
-    required this.authenticationRepository,
-    required this.userRepository,
+    Key key,
+    @required this.authenticationRepository,
+    @required this.userRepository,
   })  : assert(authenticationRepository != null),
         assert(userRepository != null),
         super(key: key);
