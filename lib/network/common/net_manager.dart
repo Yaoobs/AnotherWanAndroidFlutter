@@ -16,7 +16,7 @@ class CNWNetManager {
         options: options,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress);
-    int code = response.data['code'];
+    // int code = response.data['code'];
     T data = response.data['data'];
     return data;
   }
@@ -38,7 +38,7 @@ class CNWNetManager {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress);
     
-    int code = response.data['code'];
+    // int code = response.data['code'];
     T resData = response.data['data'];
     return resData;
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:anotherwanandroidflutter/common/icons.dart';
 import 'package:anotherwanandroidflutter/business/home/cubit/tab_cubit.dart';
+import 'package:anotherwanandroidflutter/business/profile/profile.dart';
 
 List<String> appBarTitles = ['首页', '发现', '我的'];
 
@@ -36,10 +37,7 @@ final pages = [
       child: Center(
     child: const Text('发现'),
   )),
-  Container(
-      child: Center(
-    child: const Text('我的'),
-  )),
+  ProfilePage(),
 ];
 
 class HomePage extends StatelessWidget {

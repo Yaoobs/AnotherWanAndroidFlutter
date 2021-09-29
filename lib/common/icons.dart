@@ -43,4 +43,32 @@ abstract class AndotherFonts {
     fontFamily: 'AndotherFonts',
     matchTextDirection: true,
   );
-}
+
+  // 喜欢的文章
+  static const IconData article_liked = const IconData(
+    0xe906,
+    fontFamily: 'AndotherFonts',
+    matchTextDirection: true,
+  );
+
+  // 关于我们
+  static const IconData about = const IconData(
+    0xe90a,
+    fontFamily: 'AndotherFonts',
+    matchTextDirection: true,
+  );
+  
+  // next
+  static const IconData next = const IconData(
+    0xe6a2,
+    fontFamily: 'AndotherFonts',
+    matchTextDirection: true,
+  );
+  
+  // back
+  static const IconData back = const IconData(
+    0xe6db,
+    fontFamily: 'AndotherFonts',
+    matchTextDirection: true,
+  );
+  }
