@@ -13,4 +13,13 @@ class AWAArticleNetManager {
     );
     return list;
   }
+
+  // 首页文章列表
+  static Future<Map> articleList({int page}) async {
+
+    Map map = await AWANetManager.get<Map>(
+      "/article/list/" + "${page ?? 0}" + "/json",
+    );
+    return map;
+  }
 }

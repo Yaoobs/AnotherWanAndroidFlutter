@@ -8,5 +8,6 @@ abstract class ArticleEvent extends Equatable {
 }
 
 class ArticleEventLoadData extends ArticleEvent {
-  const ArticleEventLoadData();
+  const ArticleEventLoadData({this.params});
+  final Map params;
 }

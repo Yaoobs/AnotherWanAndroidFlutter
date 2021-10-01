@@ -1,3 +1,4 @@
+import 'package:anotherwanandroidflutter/business/article/bloc/article_bloc.dart';
 import 'package:anotherwanandroidflutter/business/article/view/article_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,10 @@ final List<BottomNavigationBarItem> bottomNavItems = [
 ];
 
 final pages = [
-  ArticlePage(),
+  ArticlePage(
+    articleBloc: ArticleBloc(),
+    params: {'page': 0},
+  ),
   Container(
       child: Center(
     child: const Text('发现'),

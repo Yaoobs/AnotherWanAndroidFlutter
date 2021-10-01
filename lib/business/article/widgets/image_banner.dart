@@ -1,4 +1,4 @@
-import 'package:anotherwanandroidflutter/business/article/models/bannerdata.dart';
+import 'package:anotherwanandroidflutter/business/article/models/banner_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -12,7 +12,7 @@ class ImageBanner extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       width: screenWidth,
-      height: screenWidth / 1920 * 700,
+      height: screenWidth / 1920 * 1000,
       child: Swiper(
         itemCount: banners.length,
         itemBuilder: (BuildContext context, int index) {
@@ -25,9 +25,7 @@ class ImageBanner extends StatelessWidget {
                 ),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(
-                    banner.imagePath??''
-                  ),
+                  image: NetworkImage(banner.imagePath ?? ''),
                 )),
           );
         },

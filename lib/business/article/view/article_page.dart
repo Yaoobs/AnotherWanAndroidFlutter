@@ -1,21 +1,33 @@
 import 'package:anotherwanandroidflutter/business/article/bloc/article_bloc.dart';
+import 'package:anotherwanandroidflutter/business/article/widgets/article_list.dart';
 import 'package:anotherwanandroidflutter/business/article/widgets/image_banner.dart';
+import 'package:anotherwanandroidflutter/business/article/widgets/sep_divider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
-final ArticleBloc articleBloc = ArticleBloc();
+class ArticlePage extends StatefulWidget {
+  const ArticlePage({Key key, this.params, @required this.articleBloc})
+      : super(key: key);
+  final Map params;
+  final ArticleBloc articleBloc;
 
-class ArticlePage extends StatelessWidget {
-  const ArticlePage({Key key}) : super(key: key);
+  @override
+  _ArticlePageState createState() => _ArticlePageState();
+}
+
+class _ArticlePageState extends State<ArticlePage> {
+  @override
+  void initState() {
+    _loadData(widget.params);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    articleBloc.add(ArticleEventLoadData());
-
     return BlocProvider(
-      create: (context) => articleBloc,
+      create: (context) => widget.articleBloc,
       child: BlocBuilder<ArticleBloc, ArticleState>(
         builder: (BuildContext context, ArticleState state) {
           List<Widget> slivers = [];
@@ -25,17 +37,21 @@ class ArticlePage extends StatelessWidget {
             footer: null,
             slivers: slivers,
             onRefresh: () async {
-              await _loadData();
+              widget.params['page'] = 0;
+              await _loadData(widget.params);
             },
-            onLoad: null,
+            onLoad: () async {
+              widget.params['page'] = (widget.params['page'] ?? 0) + 1;
+              await _loadData(widget.params);
+            },
           );
         },
       ),
     );
   }
 
-  Future<void> _loadData() async {
-    articleBloc.add(ArticleEventLoadData());
+  Future<void> _loadData(Map params) async {
+    widget.articleBloc.add(ArticleEventLoadData(params: params));
 
     await Future.delayed(Duration(seconds: 2));
   }
@@ -50,6 +66,20 @@ class ArticlePage extends StatelessWidget {
       ),
     ));
 
+    slivers.add(ArticleList(
+      articles: state.articles,
+    ));
+    slivers.add(SliverToBoxAdapter(
+      child: state.noMore
+          ? SepDivider(
+              text: Text('人家也是有底线的',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF999999),
+                  )),
+            )
+          : Container(),
+    ));
     return slivers;
   }
 }
