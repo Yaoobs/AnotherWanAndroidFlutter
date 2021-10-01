@@ -25,7 +25,7 @@ class AuthenticationRepository {
     assert(username != null);
     assert(password != null);
 
-    Map res = await CNWLoginNetManager.login(username, password);
+    Map res = await AWALoginNetManager.login(username, password);
     print(res);
     _userData = res is Map ? res : {};
 

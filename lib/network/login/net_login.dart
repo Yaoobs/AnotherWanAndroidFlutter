@@ -4,7 +4,7 @@ import 'package:anotherwanandroidflutter/network/common/net_manager.dart';
 import 'package:anotherwanandroidflutter/network/login/net_login_path.dart';
 import 'package:dio/dio.dart';
 
-class CNWLoginNetManager {
+class AWALoginNetManager {
   static Future<Map> login(String account, String password) async {
     if (account == null || password == null) {
       Response response = Response(statusCode: 404, data: {
@@ -21,7 +21,7 @@ class CNWLoginNetManager {
       'username': 'yaoobs',
       'password': 'wawanandroid1990517',
     };
-    Map resData = await CNWNetManager.post<Map>(
+    Map resData = await AWANetManager.post<Map>(
       net_login_path_login,
       queryParameters: queryParameters,
     );

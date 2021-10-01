@@ -5,8 +5,8 @@ import 'router/routes.dart';
 import 'app.dart';
 import 'business/authentication/authentication.dart';
 import 'business/user/user.dart';
-void main() {
 
+void main() {
   // 初始化
   initialize();
 

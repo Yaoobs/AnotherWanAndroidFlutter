@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 
 final Dio dio = Dio(NetConfig.options);
 
-class CNWNetManager {
+class AWANetManager {
   static Future<T> get<T>(
     String path, {
     Map<String, dynamic> queryParameters,
@@ -37,7 +37,7 @@ class CNWNetManager {
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress);
-    
+
     int code = response.data['errorCode'];
     T resData = response.data['data'];
     return resData;

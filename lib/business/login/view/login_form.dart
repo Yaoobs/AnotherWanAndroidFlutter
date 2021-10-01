@@ -88,7 +88,7 @@ class _LoginButton extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 20),
                 child: ButtonTheme(
                   minWidth: double.infinity,
-                                  child: RaisedButton(
+                  child: RaisedButton(
                     key: const Key('loginForm_continue_raisedButton'),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
@@ -101,7 +101,9 @@ class _LoginButton extends StatelessWidget {
                         )),
                     onPressed: state.status.isValidated
                         ? () {
-                            context.read<LoginBloc>().add(const LoginSubmitted());
+                            context
+                                .read<LoginBloc>()
+                                .add(const LoginSubmitted());
                           }
                         : null,
                   ),

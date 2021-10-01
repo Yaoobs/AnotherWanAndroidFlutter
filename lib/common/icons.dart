@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 
 abstract class AndotherFonts {
@@ -57,18 +56,18 @@ abstract class AndotherFonts {
     fontFamily: 'AndotherFonts',
     matchTextDirection: true,
   );
-  
+
   // next
   static const IconData next = const IconData(
     0xe6a2,
     fontFamily: 'AndotherFonts',
     matchTextDirection: true,
   );
-  
+
   // back
   static const IconData back = const IconData(
     0xe6db,
     fontFamily: 'AndotherFonts',
     matchTextDirection: true,
   );
-  }
+}

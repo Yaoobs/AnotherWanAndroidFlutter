@@ -1,3 +1,4 @@
+import 'package:anotherwanandroidflutter/business/article/view/article_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,10 +30,7 @@ final List<BottomNavigationBarItem> bottomNavItems = [
 ];
 
 final pages = [
-  Container(
-      child: Center(
-    child: const Text('首页'),
-  )),
+  ArticlePage(),
   Container(
       child: Center(
     child: const Text('发现'),
@@ -51,10 +49,11 @@ class HomePage extends StatelessWidget {
       create: (_) => TabCubit(),
       child: Scaffold(
         appBar: AppBar(
-          title: BlocBuilder<TabCubit, int>(builder: (context, state) { return Text(
-            appBarTitles[state],
-            style: TextStyle(color: Colors.white),
-          );
+          title: BlocBuilder<TabCubit, int>(builder: (context, state) {
+            return Text(
+              appBarTitles[state],
+              style: TextStyle(color: Colors.white),
+            );
           }),
           actions: <Widget>[
             IconButton(
