@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'article_tags_data.dart';
+
 class ArticleData extends Equatable {
   final String apkLink;
   final int audit;

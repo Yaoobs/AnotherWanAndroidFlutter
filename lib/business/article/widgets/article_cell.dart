@@ -1,4 +1,5 @@
 import 'package:anotherwanandroidflutter/business/article/models/article_data.dart';
+import 'package:anotherwanandroidflutter/business/article/models/article_tags_data.dart';
 import 'package:anotherwanandroidflutter/common/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -23,52 +24,83 @@ class ArticleCell extends StatelessWidget {
       author = article.author;
     }
 
-    Row row = Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Expanded(
-            child: Text("$authorTitle$author",
-                style:
-                    TextStyle(color: AppColors.colorTextAuthor, fontSize: 13))),
-        Text(
-          article.niceDate,
-          style: TextStyle(color: AppColors.colorTextAuthor, fontSize: 13),
-        )
-      ],
-    );
+    Container row = Container(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+                child: Row(children: [
+              article.type == 1
+                  ? Container(
+                      margin: EdgeInsets.only(right: 15),
+                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.red, width: 1),
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                      // margin: EdgeInsets.all(4),
+                      child: Text("置顶",
+                          style: TextStyle(color: Colors.red, fontSize: 13)),
+                    )
+                  : Container(),
+              Text("$authorTitle$author",
+                  style:
+                      TextStyle(color: AppColors.colorTextAuthor, fontSize: 13))
+            ])),
+            Text(
+              article.niceDate,
+              style: TextStyle(color: AppColors.colorTextAuthor, fontSize: 13),
+            )
+          ],
+        ));
 
-    Row title = Row(
-      children: <Widget>[
-        Expanded(
-          child: Text.rich(
-            // widget.isSearch
-            //     ? StringUtils.getTextSpan(article.title, widget.id)
-            // : TextSpan(text: article.title),
-            TextSpan(text: article.title),
-            softWrap: true,
-            style: TextStyle(fontSize: 16.0, color: AppColors.colorTextTitle),
-            textAlign: TextAlign.left,
-          ),
-        )
-      ],
-    );
+    Container title = Container(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text.rich(
+                // widget.isSearch
+                //     ? StringUtils.getTextSpan(article.title, widget.id)
+                // : TextSpan(text: article.title),
+                TextSpan(text: article.title),
+                softWrap: true,
+                style:
+                    TextStyle(fontSize: 16.0, color: AppColors.colorTextTitle),
+                textAlign: TextAlign.left,
+              ),
+            )
+          ],
+        ));
 
     Row chapterName = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(left: 4, right: 4, top: 1, bottom: 2),
-          decoration: BoxDecoration(
-              color: AppColors.colorCBCBD4,
-              borderRadius: BorderRadius.circular(2)),
-          child: Text(
+            // padding: EdgeInsets.only(left: 4, right: 4, top: 1, bottom: 2),
+            child: Row(children: [
+          Text(
             // widget.isSearch ? '' : article.chapterName,
-            article.chapterName,
+            "${article.superChapterName}" + "-" + "${article.chapterName}",
             softWrap: true,
             style: TextStyle(color: AppColors.colorTextAuthor, fontSize: 12),
             textAlign: TextAlign.left,
           ),
-        ),
+          article.tags.length > 0
+              ? Container(
+                  margin: EdgeInsets.only(left: 15),
+                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blueAccent, width: 1),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  // margin: EdgeInsets.all(4),
+                  child: Text(getTags(article),
+                      style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                )
+              : Container(),
+        ])),
         GestureDetector(
           child: Icon(
             isCollect ? Icons.favorite : Icons.favorite_border,
@@ -87,22 +119,27 @@ class ArticleCell extends StatelessWidget {
 
     Column column = Column(
       children: <Widget>[
-        title,
-        SizedBox(height: 5),
         row,
-        SizedBox(height: 5),
+        title,
         chapterName,
       ],
     );
 
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(4),
+        // borderRadius: BorderRadius.circular(4),
       ),
-      margin: EdgeInsets.all(4),
+      margin: EdgeInsets.all(2),
       child: column,
     );
+  }
+
+  String getTags(ArticleData data) {
+    List<ArticleTagsData> tags = List<dynamic>.from(data.tags)
+        .map((dynamic e) => ArticleTagsData.fromJson(e))
+        .toList();
+    return tags[0].name;
   }
 }

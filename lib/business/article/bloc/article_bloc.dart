@@ -29,18 +29,30 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     List list = await AWAArticleNetManager.bannerList();
     List<BannerData> banners =
         List<Map>.from(list).map((e) => BannerData.fromJson(e)).toList();
-    // 获取 首页文章列表
-    Map params = (event as ArticleEventLoadData).params;
-    Map data = await AWAArticleNetManager.articleList(
-      page: params['page'],
-    );
-    List<ArticleData> articles = List<Map>.from(data['datas'])
-        .map((dynamic e) => ArticleData.fromJson(e))
+    // 获取 置顶文章列表
+    List topArticleList = await AWAArticleNetManager.topArticleList();
+    List<ArticleData> topArticles = List<Map>.from(topArticleList)
+        .map((e) => ArticleData.fromJson(e))
         .toList();
 
+    // 获取 首页文章列表
+    Map params = (event as ArticleEventLoadData).params;
+    Map articleList = await AWAArticleNetManager.articleList(
+      page: params['page'],
+    );
+    List<ArticleData> articles = List<Map>.from(articleList['datas'])
+        .map((dynamic e) => ArticleData.fromJson(e))
+        .toList();
+    if (params['page'] == 0) {
+      articles.insertAll(0, topArticles);
+    }
     if (params['page'] != null && params['page'] > 0) {
       articles.insertAll(0, state.articles);
     }
-    yield state.copyWith(banners: banners, articles: articles, noMore: (data['curPage']??1) >= (data['pageCount']??1),);
+    yield state.copyWith(
+      banners: banners,
+      articles: articles,
+      noMore: (articleList['curPage'] ?? 1) >= (articleList['pageCount'] ?? 1),
+    );
   }
 }
