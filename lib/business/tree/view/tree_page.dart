@@ -1,3 +1,5 @@
+import 'package:anotherwanandroidflutter/business/navi/bloc/navi_bloc.dart';
+import 'package:anotherwanandroidflutter/business/navi/navi_page.dart';
 import 'package:anotherwanandroidflutter/business/tree/bloc/tree_bloc.dart';
 import 'package:anotherwanandroidflutter/business/tree/bloc/treelist_bloc.dart';
 import 'package:anotherwanandroidflutter/business/tree/view/tree_list_page.dart';
@@ -13,7 +15,9 @@ class TreePage extends StatefulWidget {
     TreeListPage(
       treeListBloc: TreeListBloc(),
     ),
-    Container(),
+    NaviPage(
+      naviBloc: NaviBloc()
+      ),
   ];
 
   @override
