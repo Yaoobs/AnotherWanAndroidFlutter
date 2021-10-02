@@ -32,19 +32,41 @@ class _ArticlePageState extends State<ArticlePage> {
         builder: (BuildContext context, ArticleState state) {
           List<Widget> slivers = [];
           slivers.addAll(_sliversFromState(state));
-          return EasyRefresh.custom(
-            header: BallPulseHeader(),
-            footer: null,
-            slivers: slivers,
-            onRefresh: () async {
-              widget.params['page'] = 0;
-              await _loadData(widget.params);
-            },
-            onLoad: () async {
-              widget.params['page'] = (widget.params['page'] ?? 0) + 1;
-              await _loadData(widget.params);
-            },
-          );
+          return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  '首页',
+                  style: TextStyle(color: Colors.white),
+                ),
+                actions: <Widget>[
+                  IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () {
+//                为什么不直接Navigator.push(context,
+//                   MaterialPageRoute(
+//                      builder: (context) =>  SearchPage()))
+//                  https://stackoverflow.com/questions/50124355/flutter-navigator-not-working
+
+                        // navigatorKey.currentState
+                        //     .push(MaterialPageRoute(builder: (context) {
+                        //   return SearchPage(null);
+                        // }));
+                      })
+                ],
+              ),
+              body: EasyRefresh.custom(
+                header: BallPulseHeader(),
+                footer: null,
+                slivers: slivers,
+                onRefresh: () async {
+                  widget.params['page'] = 0;
+                  await _loadData(widget.params);
+                },
+                onLoad: () async {
+                  widget.params['page'] = (widget.params['page'] ?? 0) + 1;
+                  await _loadData(widget.params);
+                },
+              ));
         },
       ),
     );

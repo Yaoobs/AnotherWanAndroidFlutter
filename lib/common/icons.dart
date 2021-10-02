@@ -15,14 +15,14 @@ abstract class AndotherFonts {
     matchTextDirection: true,
   );
 
-  // 发现
+  // 体系
   static const IconData find = const IconData(
     0xe8be,
     fontFamily: 'AndotherFonts',
     matchTextDirection: true,
   );
 
-  // 发现 选中
+  // 体系 选中
   static const IconData find_selected = const IconData(
     0xe90c,
     fontFamily: 'AndotherFonts',

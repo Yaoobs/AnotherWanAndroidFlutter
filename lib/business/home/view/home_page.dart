@@ -1,5 +1,7 @@
 import 'package:anotherwanandroidflutter/business/article/bloc/article_bloc.dart';
 import 'package:anotherwanandroidflutter/business/article/view/article_page.dart';
+import 'package:anotherwanandroidflutter/business/tree/bloc/tree_bloc.dart';
+import 'package:anotherwanandroidflutter/business/tree/view/tree_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +9,7 @@ import 'package:anotherwanandroidflutter/common/icons.dart';
 import 'package:anotherwanandroidflutter/business/home/cubit/tab_cubit.dart';
 import 'package:anotherwanandroidflutter/business/profile/profile.dart';
 
-List<String> appBarTitles = ['首页', '发现', '我的'];
+List<String> appBarTitles = ['首页', '体系', '我的'];
 
 final List<BottomNavigationBarItem> bottomNavItems = [
   BottomNavigationBarItem(
@@ -35,10 +37,9 @@ final pages = [
     articleBloc: ArticleBloc(),
     params: {'page': 0},
   ),
-  Container(
-      child: Center(
-    child: const Text('发现'),
-  )),
+  TreePage(
+    treeBloc: TreeBloc(),
+  ),
   ProfilePage(),
 ];
 
@@ -52,29 +53,6 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (_) => TabCubit(),
       child: Scaffold(
-        appBar: AppBar(
-          title: BlocBuilder<TabCubit, int>(builder: (context, state) {
-            return Text(
-              appBarTitles[state],
-              style: TextStyle(color: Colors.white),
-            );
-          }),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-//                为什么不直接Navigator.push(context,
-//                   MaterialPageRoute(
-//                      builder: (context) =>  SearchPage()))
-//                  https://stackoverflow.com/questions/50124355/flutter-navigator-not-working
-
-                  // navigatorKey.currentState
-                  //     .push(MaterialPageRoute(builder: (context) {
-                  //   return SearchPage(null);
-                  // }));
-                })
-          ],
-        ),
         bottomNavigationBar:
             BlocBuilder<TabCubit, int>(builder: (context, state) {
           return CupertinoTabBar(
