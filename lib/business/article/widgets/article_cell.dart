@@ -80,16 +80,9 @@ class ArticleCell extends StatelessWidget {
         Container(
             // padding: EdgeInsets.only(left: 4, right: 4, top: 1, bottom: 2),
             child: Row(children: [
-          Text(
-            // widget.isSearch ? '' : article.chapterName,
-            "${article.superChapterName}" + "-" + "${article.chapterName}",
-            softWrap: true,
-            style: TextStyle(color: AppColors.colorTextAuthor, fontSize: 12),
-            textAlign: TextAlign.left,
-          ),
           article.tags.length > 0
               ? Container(
-                  margin: EdgeInsets.only(left: 15),
+                  margin: EdgeInsets.only(right: 15),
                   padding: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.blueAccent, width: 1),
@@ -100,6 +93,13 @@ class ArticleCell extends StatelessWidget {
                       style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
                 )
               : Container(),
+          Text(
+            // widget.isSearch ? '' : article.chapterName,
+            "${article.superChapterName}" + "-" + "${article.chapterName}",
+            softWrap: true,
+            style: TextStyle(color: AppColors.colorTextAuthor, fontSize: 12),
+            textAlign: TextAlign.left,
+          ),
         ])),
         GestureDetector(
           child: Icon(

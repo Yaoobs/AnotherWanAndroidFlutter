@@ -17,17 +17,43 @@ class ImageBanner extends StatelessWidget {
         itemCount: banners.length,
         itemBuilder: (BuildContext context, int index) {
           BannerData banner = banners[index];
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 13),
-            decoration: ShapeDecoration(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7),
+          return new Stack(alignment: new Alignment(0, 1), children: <Widget>[
+            Container(
+              decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(banner.imagePath ?? ''),
+                  )),
+            ),
+            new Opacity(
+              opacity: 0.5, //不透明度
+              child: new Container(
+                width: 999,
+                height: 40.0,
+                color: Colors.grey,
+              ),
+            ),
+            new Opacity(
+              opacity: 1, //不透明度
+              child: new Container(
+                width: 999,
+                height: 40.0,
+                color: Colors.transparent,
+                padding: const EdgeInsets.only(left: 10, top: 5,right:30),
+                child: Text(
+                  "${banner.title}",
+                  style:
+                      TextStyle(color: Colors.white, fontSize: 18),
+                  textAlign: TextAlign.left,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(banner.imagePath ?? ''),
-                )),
-          );
+              ),
+            ),
+          ]);
         },
         autoplay: true,
         pagination: SwiperPagination(
