@@ -42,11 +42,10 @@ class ImageBanner extends StatelessWidget {
                 width: 999,
                 height: 40.0,
                 color: Colors.transparent,
-                padding: const EdgeInsets.only(left: 10, top: 5,right:30),
+                padding: const EdgeInsets.only(left: 10, top: 5, right: 30),
                 child: Text(
                   "${banner.title}",
-                  style:
-                      TextStyle(color: Colors.white, fontSize: 18),
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                   textAlign: TextAlign.left,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

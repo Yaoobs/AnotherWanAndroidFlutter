@@ -1,14 +1,18 @@
 import 'package:anotherwanandroidflutter/business/tree/bloc/tree_bloc.dart';
+import 'package:anotherwanandroidflutter/business/tree/bloc/treelist_bloc.dart';
+import 'package:anotherwanandroidflutter/business/tree/view/tree_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TreePage extends StatefulWidget {
-  TreePage({Key key,@required this.treeBloc}) : super(key: key);
+  TreePage({Key key, @required this.treeBloc}) : super(key: key);
 
   final TreeBloc treeBloc;
 
   final tabViews = <Widget>[
-    Container(),
+    TreeListPage(
+      treeListBloc: TreeListBloc(),
+    ),
     Container(),
   ];
 
@@ -16,9 +20,10 @@ class TreePage extends StatefulWidget {
   _TreePageState createState() => _TreePageState();
 }
 
-class _TreePageState extends State<TreePage> with SingleTickerProviderStateMixin{
+class _TreePageState extends State<TreePage>
+    with SingleTickerProviderStateMixin {
   // TabController tabController;
-@override
+  @override
   void initState() {
     super.initState();
     // tabController = TabController(vsync: this, length: widget.tabViews.length)
