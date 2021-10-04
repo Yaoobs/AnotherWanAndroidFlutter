@@ -1,4 +1,6 @@
 import 'package:anotherwanandroidflutter/business/tree/bloc/treelist_bloc.dart';
+import 'package:anotherwanandroidflutter/business/tree/models/tree_node_data.dart';
+import 'package:anotherwanandroidflutter/business/tree/view/tree_items_page.dart';
 import 'package:anotherwanandroidflutter/business/tree/widgets/treelist_cell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,9 +30,19 @@ class _TreeListPageState extends State<TreeListPage> {
             itemCount: state.nodeDatas.length,
             itemBuilder: (BuildContext context, int index) {
               return TreeListCell(
-                index: index,
-                nodeDatas: state.nodeDatas,
-              );
+                  index: index,
+                  nodeDatas: state.nodeDatas,
+                  onPressed: (key) {
+                    List<String> tabs = [];
+                    List<TreeNodeData> nodes =
+                        List<Map>.from(state.nodeDatas[index].children)
+                            .map((dynamic e) => TreeNodeData.fromJson(e))
+                            .toList();
+                    for (TreeNodeData node in nodes) {
+                      tabs.add(node.name);
+                    }
+                    Navigator.of(context).push(TreeItemsPage.route(tabs));
+                  });
             },
           );
         },

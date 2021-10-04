@@ -1,11 +1,13 @@
 import 'package:anotherwanandroidflutter/business/tree/models/tree_node_data.dart';
+import 'package:anotherwanandroidflutter/business/tree/view/tree_items_page.dart';
 import 'package:flutter/material.dart';
 
 class TreeListCell extends StatelessWidget {
-  const TreeListCell({Key key, @required this.index, @required this.nodeDatas})
+  const TreeListCell({Key key, @required this.index, @required this.nodeDatas, @required this.onPressed})
       : super(key: key);
   final List<TreeNodeData> nodeDatas;
   final int index;
+  final Function onPressed;
   @override
   Widget build(BuildContext context) {
     List<Widget> treeNodes = [];
@@ -15,12 +17,7 @@ class TreeListCell extends StatelessWidget {
     for (TreeNodeData node in nodes) {
       Widget actionChip = HotKeyCell(
         text: node.name,
-        onPressed: () {
-          // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          //   return ArticleDetailPage(
-          //       title: friendModel.name, url: friendModel.link);
-          // }));
-        },
+        onPressed: () => onPressed(node.name)
       );
 
       treeNodes.add(actionChip);

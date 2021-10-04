@@ -1,4 +1,5 @@
 import 'package:anotherwanandroidflutter/network/common/net_manager.dart';
+import 'package:flutter/material.dart';
 
 import 'net_tree_path.dart';
 
@@ -12,5 +13,19 @@ class AWATreeNetManager {
       queryParameters: queryParameters,
     );
     return list;
+  }
+
+  // 体系下文章
+  static Future<Map> treeItems({int page, @required int cid}) async {
+    Map<String, dynamic> queryParameters = {
+      'page_size': 20,
+      'cid': cid,
+    };
+
+    Map map = await AWANetManager.get<Map>(
+      "/article/list/" + "${page ?? 0}" + "/json",
+      queryParameters: queryParameters,
+    );
+    return map;
   }
 }

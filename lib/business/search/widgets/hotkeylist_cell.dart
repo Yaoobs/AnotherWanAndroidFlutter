@@ -3,7 +3,7 @@ import 'package:anotherwanandroidflutter/business/tree/widgets/treelist_cell.dar
 import 'package:flutter/material.dart';
 
 class HotKeyListCell extends StatelessWidget {
-  const HotKeyListCell({Key key, @required this.hotKeys, this.onPressed})
+  const HotKeyListCell({Key key, @required this.hotKeys, @required this.onPressed})
       : super(key: key);
   final List<HotKeyData> hotKeys;
   final Function onPressed;

@@ -14,11 +14,11 @@ class TreeBloc extends Bloc<TreeEvent, TreeState> {
     TreeEvent event,
   ) async* {
     if (event is TreeEventSelectedIndexChanged) {
-      yield _mapSelectedTreeChangedToState(event, state);
+      yield _mapSelectedIndexChangedToState(event, state);
     }
   }
 
-  TreeState _mapSelectedTreeChangedToState(
+  TreeState _mapSelectedIndexChangedToState(
     TreeEvent event,
     TreeState state,
   ) {
