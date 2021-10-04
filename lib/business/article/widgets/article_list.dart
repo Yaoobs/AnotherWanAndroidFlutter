@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'article_cell.dart';
 
 class ArticleList extends StatelessWidget {
-  const ArticleList({Key key, @required this.articles}) : super(key: key);
+  const ArticleList({Key key, @required this.articles, this.searchKey}) : super(key: key);
 
   final List<ArticleData> articles;
+  final String searchKey;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,7 @@ class ArticleList extends StatelessWidget {
           (BuildContext context, int index) {
             return ArticleCell(
               article: articles[index],
+              searchKey: searchKey
             );
           },
           childCount: articles.length,

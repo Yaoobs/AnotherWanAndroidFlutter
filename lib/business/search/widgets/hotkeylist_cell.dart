@@ -3,20 +3,17 @@ import 'package:anotherwanandroidflutter/business/tree/widgets/treelist_cell.dar
 import 'package:flutter/material.dart';
 
 class HotKeyListCell extends StatelessWidget {
-  const HotKeyListCell({Key key, @required this.hotKeys}) : super(key: key);
+  const HotKeyListCell({Key key, @required this.hotKeys, this.onPressed})
+      : super(key: key);
   final List<HotKeyData> hotKeys;
+  final Function onPressed;
   @override
   Widget build(BuildContext context) {
     List<Widget> keyNodes = [];
     for (HotKeyData node in hotKeys) {
       Widget actionChip = HotKeyCell(
         text: node.name,
-        onPressed: () {
-          // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          //   return ArticleDetailPage(
-          //       title: friendModel.name, url: friendModel.link);
-          // }));
-        },
+        onPressed: () => onPressed(node.name)
       );
 
       keyNodes.add(actionChip);

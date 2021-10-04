@@ -1,11 +1,12 @@
 import 'package:anotherwanandroidflutter/business/article/models/article_data.dart';
 import 'package:anotherwanandroidflutter/business/article/models/article_tags_data.dart';
 import 'package:anotherwanandroidflutter/common/app_colors.dart';
+import 'package:anotherwanandroidflutter/common/utils_string.dart';
 import 'package:flutter/material.dart';
 
 class ArticleCell extends StatelessWidget {
-  const ArticleCell({Key key, @required this.article}) : super(key: key);
-
+  const ArticleCell({Key key, @required this.article, this.searchKey}) : super(key: key);
+  final String searchKey;
   final ArticleData article;
 
   @override
@@ -61,14 +62,15 @@ class ArticleCell extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Text.rich(
-                // widget.isSearch
-                //     ? StringUtils.getTextSpan(article.title, widget.id)
-                // : TextSpan(text: article.title),
+                this.searchKey != null
+                    ? UtilsString.getTextSpan(article.title, this.searchKey):
                 TextSpan(text: article.title),
                 softWrap: true,
                 style:
                     TextStyle(fontSize: 16.0, color: AppColors.colorTextTitle),
                 textAlign: TextAlign.left,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             )
           ],

@@ -1,14 +1,19 @@
+import 'package:anotherwanandroidflutter/business/article/widgets/article_list.dart';
 import 'package:anotherwanandroidflutter/business/search/bloc/search_bloc.dart';
 import 'package:anotherwanandroidflutter/business/search/widgets/hotkeylist_cell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key key, @required this.searchBloc}) : super(key: key);
+  const SearchPage({Key key, @required this.searchBloc, this.params})
+      : super(key: key);
   final SearchBloc searchBloc;
+  final Map params;
   static Route route() {
     return MaterialPageRoute<void>(
-        builder: (_) => SearchPage(searchBloc: SearchBloc()));
+        builder: (_) =>
+            SearchPage(searchBloc: SearchBloc(), params: {'page': 0}));
   }
 
   @override
@@ -19,7 +24,7 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController _searchController = TextEditingController();
   @override
   void initState() {
-    _loadData();
+    _loadHotKeys();
     super.initState();
   }
 
@@ -29,7 +34,8 @@ class _SearchPageState extends State<SearchPage> {
       autofocus: true,
       textInputAction: TextInputAction.search,
       onSubmitted: (string) {
-        // changeContent();
+        widget.params['page'] = 0;
+        _changeContent(widget.params);
       },
       style: TextStyle(color: Colors.white),
       cursorColor: Colors.white,
@@ -47,14 +53,15 @@ class _SearchPageState extends State<SearchPage> {
             IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {
-                  // changeContent();
+                  widget.params['page'] = 0;
+                  _changeContent(widget.params);
                 }),
             IconButton(
                 icon: Icon(Icons.close),
                 onPressed: () {
-                  // setState(() {
-                  //   _searchController.clear();
-                  // });
+                  _searchController.clear();
+                  widget.params['page'] = 0;
+                  _changeContent(widget.params);
                 }),
           ],
         ),
@@ -62,22 +69,59 @@ class _SearchPageState extends State<SearchPage> {
           create: (context) => widget.searchBloc,
           child: BlocBuilder<SearchBloc, SearchState>(
             builder: (BuildContext context, SearchState state) {
-              return 
-              ListView.builder(
-                itemCount: 1,
-                itemBuilder: (BuildContext context, int index) {
-                  return HotKeyListCell(
-                    hotKeys: state.hotKeys,
-                  );
-                },
-              );
+              List<Widget> slivers = [];
+              slivers.add(ArticleList(
+                articles: state.articles,
+                searchKey: _searchController.text,
+              ));
+              return (_searchController.text == null ||
+                      _searchController.text.isEmpty)
+                  ? ListView.builder(
+                      itemCount: 1,
+                      itemBuilder: (BuildContext context, int index) {
+                        return HotKeyListCell(
+                          hotKeys: state.hotKeys,
+                          onPressed: (key) {
+                            _searchController.text = key;
+                            _searchController.selection =
+                                TextSelection.fromPosition(TextPosition(
+                                    affinity: TextAffinity.downstream,
+                                    offset: _searchController.text.length));
+                            widget.params['page'] = 0;
+                            _changeContent(widget.params);
+                          },
+                        );
+                      },
+                    )
+                  : EasyRefresh.custom(
+                      header: BallPulseHeader(),
+                      footer: null,
+                      slivers: slivers,
+                      onRefresh: () async {
+                        widget.params['page'] = 0;
+                        await _changeContent(widget.params);
+                      },
+                      onLoad: () async {
+                        widget.params['page'] =
+                            (widget.params['page'] ?? 0) + 1;
+                        await _changeContent(widget.params);
+                      },
+                    );
             },
           ),
         ));
   }
 
-  Future<void> _loadData() async {
-    widget.searchBloc.add(SearchEventLoadData());
+  Future<void> _loadHotKeys() async {
+    widget.searchBloc.add(SearchEventLoadHotKeys());
+
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+  Future<void> _changeContent(Map params) async {
+    params['key'] = _searchController.text;
+
+    widget.searchBloc.add(SearchEventSearchAction(params: params));
 
     await Future.delayed(Duration(seconds: 2));
   }

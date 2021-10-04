@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:anotherwanandroidflutter/business/article/models/article_data.dart';
 import 'package:anotherwanandroidflutter/business/search/models/hotkey_data.dart';
 import 'package:anotherwanandroidflutter/network/search/net_search.dart';
 import 'package:bloc/bloc.dart';
@@ -15,8 +16,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> mapEventToState(
     SearchEvent event,
   ) async* {
-    if (event is SearchEventLoadData) {
+    if (event is SearchEventLoadHotKeys) {
       yield* _mapLoadDataToState(event, state);
+    } else if (event is SearchEventSearchAction) {
+      yield* _mapSearchActionToState(event, state);
     }
   }
 
@@ -30,6 +33,27 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         .toList();
     yield state.copyWith(
       hotKeys: hotKeys,
+    );
+  }
+
+  Stream<SearchState> _mapSearchActionToState(
+    SearchEvent event,
+    SearchState state,
+  ) async* {
+    // 获取 首页文章列表
+    Map params = (event as SearchEventSearchAction).params;
+    Map articleList = await AWASearchNetManager.searchArticle(
+      page: params['page'],
+      key: params['key'],
+    );
+    List<ArticleData> articles = List<Map>.from(articleList['datas'])
+        .map((dynamic e) => ArticleData.fromJson(e))
+        .toList();
+    if (params['page'] != null && params['page'] > 0) {
+      articles.insertAll(0, state.articles);
+    }
+    yield state.copyWith(
+      articles: articles,
     );
   }
 }
