@@ -24,17 +24,18 @@ class TreePage extends StatefulWidget {
 
 class _TreePageState extends State<TreePage>
     with SingleTickerProviderStateMixin {
-  // TabController tabController;
+  TabController _tabController;
+  PageController _pageController = PageController();
   @override
   void initState() {
     super.initState();
-    // tabController = TabController(vsync: this, length: widget.tabViews.length)
-    // ..addListener(() {
-    //     // switch (tabController.index) {
-    //         context.read<TreeBloc>()
-    //                         .add(TreeEventSelectedIndexChanged(tabController.index));
-    //       // }
-    // });
+    _tabController = TabController(vsync: this, length: widget.tabViews.length);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
   }
 
   @override
@@ -52,31 +53,19 @@ class _TreePageState extends State<TreePage>
                   style: TextStyle(color: Colors.white),
                 ),
                 actions: <Widget>[
-                  IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () {
-//                为什么不直接Navigator.push(context,
-//                   MaterialPageRoute(
-//                      builder: (context) =>  SearchPage()))
-//                  https://stackoverflow.com/questions/50124355/flutter-navigator-not-working
-
-                        // navigatorKey.currentState
-                        //     .push(MaterialPageRoute(builder: (context) {
-                        //   return SearchPage(null);
-                        // }));
-                      })
+                  IconButton(icon: Icon(Icons.search), onPressed: () {})
                 ],
-                // title: _searchBar(),
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(40),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: TabBar(
-                      // controller: tabController,
+                      controller: _tabController,
                       onTap: (int index) {
                         context
                             .read<TreeBloc>()
                             .add(TreeEventSelectedIndexChanged(index));
+                        _pageController.jumpToPage(index);
                       },
                       isScrollable: true,
                       unselectedLabelColor: Colors.white60,
@@ -104,10 +93,16 @@ class _TreePageState extends State<TreePage>
               ),
               body: Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
-                  // controller: tabController,
+                child: PageView(
+                  // physics: NeverScrollableScrollPhysics(),
+                  controller: _pageController,
                   children: widget.tabViews,
+                  onPageChanged: (index) {
+                    context
+                        .read<TreeBloc>()
+                        .add(TreeEventSelectedIndexChanged(index));
+                    _tabController.animateTo(index);
+                  },
                 ),
               ),
             ),
