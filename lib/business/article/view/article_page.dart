@@ -2,6 +2,8 @@ import 'package:anotherwanandroidflutter/business/article/bloc/article_bloc.dart
 import 'package:anotherwanandroidflutter/business/article/widgets/article_list.dart';
 import 'package:anotherwanandroidflutter/business/article/widgets/image_banner.dart';
 import 'package:anotherwanandroidflutter/business/article/widgets/sep_divider.dart';
+import 'package:anotherwanandroidflutter/business/search/bloc/search_bloc.dart';
+import 'package:anotherwanandroidflutter/business/search/view/search_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,15 +44,7 @@ class _ArticlePageState extends State<ArticlePage> {
                   IconButton(
                       icon: Icon(Icons.search),
                       onPressed: () {
-//                为什么不直接Navigator.push(context,
-//                   MaterialPageRoute(
-//                      builder: (context) =>  SearchPage()))
-//                  https://stackoverflow.com/questions/50124355/flutter-navigator-not-working
-
-                        // navigatorKey.currentState
-                        //     .push(MaterialPageRoute(builder: (context) {
-                        //   return SearchPage(null);
-                        // }));
+                        Navigator.of(context).push(SearchPage.route());
                       })
                 ],
               ),

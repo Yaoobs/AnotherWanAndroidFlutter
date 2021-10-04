@@ -3,7 +3,6 @@ import 'package:anotherwanandroidflutter/network/common/net_manager.dart';
 import 'net_tree_path.dart';
 
 class AWATreeNetManager {
-
   // 体系数据列表
   static Future<List> treeList() async {
     Map<String, dynamic> queryParameters = {};

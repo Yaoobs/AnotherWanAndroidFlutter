@@ -15,9 +15,7 @@ class TreePage extends StatefulWidget {
     TreeListPage(
       treeListBloc: TreeListBloc(),
     ),
-    NaviPage(
-      naviBloc: NaviBloc()
-      ),
+    NaviPage(naviBloc: NaviBloc()),
   ];
 
   @override

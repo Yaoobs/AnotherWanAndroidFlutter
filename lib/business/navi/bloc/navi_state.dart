@@ -5,7 +5,7 @@ class NaviState extends Equatable {
   const NaviState({
     this.naviDatas = const [],
   }) : super();
-  
+
   NaviState copyWith({
     List<dynamic> naviDatas,
   }) {
@@ -13,6 +13,7 @@ class NaviState extends Equatable {
       naviDatas: naviDatas ?? this.naviDatas,
     );
   }
+
   @override
   List<Object> get props => [naviDatas];
 }

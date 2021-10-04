@@ -26,7 +26,7 @@ class NaviBloc extends Bloc<NaviEvent, NaviState> {
   ) async* {
     // 获取 导航列表
     List naviDatas = await AWANaviNetManager.naviList();
-  
+
     yield state.copyWith(
       naviDatas: naviDatas,
     );
