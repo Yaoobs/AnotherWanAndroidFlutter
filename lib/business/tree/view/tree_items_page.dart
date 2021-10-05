@@ -1,17 +1,21 @@
 import 'package:anotherwanandroidflutter/business/tree/bloc/treeitems_bloc.dart';
+import 'package:anotherwanandroidflutter/business/tree/models/tree_node_data.dart';
+import 'package:anotherwanandroidflutter/business/tree/view/tree_items_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TreeItemsPage extends StatefulWidget {
-  TreeItemsPage({Key key, @required this.treeItemsBloc, @required this.tabs})
+  TreeItemsPage(
+      {Key key, @required this.treeItemsBloc, @required this.tabs, this.index})
       : super(key: key);
 
   final TreeItemsBloc treeItemsBloc;
-  final List<String> tabs;
-  static Route route(tabs) {
+  final List<TreeNodeData> tabs;
+  final int index;
+  static Route route(tabs, index) {
     return MaterialPageRoute<void>(
-        builder: (_) =>
-            TreeItemsPage(treeItemsBloc: TreeItemsBloc(), tabs: tabs));
+        builder: (_) => TreeItemsPage(
+            treeItemsBloc: TreeItemsBloc(), tabs: tabs, index: index));
   }
 
   @override
@@ -21,15 +25,19 @@ class TreeItemsPage extends StatefulWidget {
 class _TreeItemPageState extends State<TreeItemsPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-  PageController _pageController = PageController();
+  PageController _pageController;
   List<Widget> tabViews = [];
   @override
   void initState() {
     super.initState();
-    for(String tab in widget.tabs) {
-      tabViews.add(Container());
+    for (TreeNodeData tab in widget.tabs) {
+      tabViews.add(TreeItemsListPage(
+          treeItemsBloc: TreeItemsBloc(), params: {'page': 0, 'cid': tab.id}));
     }
-    _tabController = TabController(vsync: this, length: tabViews.length);
+    _tabController = TabController(
+        vsync: this, length: tabViews.length, initialIndex: widget.index);
+    _pageController = PageController(initialPage: widget.index);
+    widget.treeItemsBloc.add(TreeItemsEventSelectedIndexChanged(widget.index));
   }
 
   @override
@@ -49,7 +57,7 @@ class _TreeItemPageState extends State<TreeItemsPage>
             child: Scaffold(
               appBar: AppBar(
                 title: Text(
-                  widget.tabs[state.selectedIndex],
+                  widget.tabs[state.selectedIndex].name,
                   style: TextStyle(color: Colors.white),
                 ),
                 actions: <Widget>[
@@ -75,9 +83,9 @@ class _TreeItemPageState extends State<TreeItemsPage>
                       indicatorSize: TabBarIndicatorSize.label,
                       tabs: widget.tabs
                           .asMap()
-                          .map((int index, String title) => MapEntry(
+                          .map((int index, TreeNodeData node) => MapEntry(
                               index,
-                              Text(title,
+                              Text(node.name,
                                   style: TextStyle(
                                     color: state.selectedIndex == index
                                         ? Colors.white

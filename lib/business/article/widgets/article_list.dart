@@ -22,7 +22,7 @@ class ArticleList extends StatelessWidget {
           },
           childCount: articles.length,
         ),
-        itemExtent: 130,
+        itemExtent: 140,
       ),
     );
   }

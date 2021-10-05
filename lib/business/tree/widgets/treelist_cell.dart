@@ -14,10 +14,10 @@ class TreeListCell extends StatelessWidget {
     List<TreeNodeData> nodes = List<Map>.from(nodeDatas[index].children)
         .map((dynamic e) => TreeNodeData.fromJson(e))
         .toList();
-    for (TreeNodeData node in nodes) {
+    for (int i=0; i<nodes.length;i++) {
       Widget actionChip = HotKeyCell(
-        text: node.name,
-        onPressed: () => onPressed(node.name)
+        text: nodes[i].name,
+        onPressed: () => onPressed(i)
       );
 
       treeNodes.add(actionChip);

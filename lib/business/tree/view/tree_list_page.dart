@@ -32,16 +32,12 @@ class _TreeListPageState extends State<TreeListPage> {
               return TreeListCell(
                   index: index,
                   nodeDatas: state.nodeDatas,
-                  onPressed: (key) {
-                    List<String> tabs = [];
+                  onPressed: (i) {
                     List<TreeNodeData> nodes =
                         List<Map>.from(state.nodeDatas[index].children)
                             .map((dynamic e) => TreeNodeData.fromJson(e))
                             .toList();
-                    for (TreeNodeData node in nodes) {
-                      tabs.add(node.name);
-                    }
-                    Navigator.of(context).push(TreeItemsPage.route(tabs));
+                    Navigator.of(context).push(TreeItemsPage.route(nodes, i));
                   });
             },
           );

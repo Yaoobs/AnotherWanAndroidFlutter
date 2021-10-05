@@ -35,7 +35,7 @@ class ArticleCell extends StatelessWidget {
               article.type == 1
                   ? Container(
                       margin: EdgeInsets.only(right: 15),
-                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.red, width: 1),
                         borderRadius: BorderRadius.circular(3),
