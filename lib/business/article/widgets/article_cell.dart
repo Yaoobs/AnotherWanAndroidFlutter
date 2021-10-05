@@ -1,5 +1,6 @@
 import 'package:anotherwanandroidflutter/business/article/models/article_data.dart';
 import 'package:anotherwanandroidflutter/business/article/models/article_tags_data.dart';
+import 'package:anotherwanandroidflutter/business/article/view/article_detail_page.dart';
 import 'package:anotherwanandroidflutter/common/app_colors.dart';
 import 'package:anotherwanandroidflutter/common/utils_string.dart';
 import 'package:flutter/material.dart';
@@ -138,15 +139,19 @@ class ArticleCell extends StatelessWidget {
       ],
     );
 
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        // borderRadius: BorderRadius.circular(4),
-      ),
-      margin: EdgeInsets.all(2),
-      child: column,
-    );
+    return GestureDetector(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            // borderRadius: BorderRadius.circular(4),
+          ),
+          margin: EdgeInsets.all(2),
+          child: column,
+        ),
+        onTap: () {
+          Navigator.of(context).push(ArticleDetailPage.route(article));
+        });
   }
 
   String getTags(ArticleData data) {
