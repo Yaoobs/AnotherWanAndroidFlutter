@@ -5,7 +5,8 @@ import 'package:anotherwanandroidflutter/common/utils_string.dart';
 import 'package:flutter/material.dart';
 
 class ArticleCell extends StatelessWidget {
-  const ArticleCell({Key key, @required this.article, this.searchKey}) : super(key: key);
+  const ArticleCell({Key key, @required this.article, this.searchKey})
+      : super(key: key);
   final String searchKey;
   final ArticleData article;
 
@@ -60,11 +61,21 @@ class ArticleCell extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           children: <Widget>[
+            article.envelopePic != null && article.envelopePic.isNotEmpty
+                ? Padding(
+                    padding: EdgeInsets.only(right: 15),
+                    child: Image(
+                      fit: BoxFit.cover,
+                      height: 60,
+                      width: 120,
+                      image: NetworkImage(article.envelopePic),
+                    ))
+                : Container(),
             Expanded(
               child: Text.rich(
                 this.searchKey != null
-                    ? UtilsString.getTextSpan(article.title, this.searchKey):
-                TextSpan(text: article.title),
+                    ? UtilsString.getTextSpan(article.title, this.searchKey)
+                    : TextSpan(text: article.title),
                 softWrap: true,
                 style:
                     TextStyle(fontSize: 16.0, color: AppColors.colorTextTitle),
