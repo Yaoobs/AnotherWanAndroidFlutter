@@ -29,6 +29,20 @@ abstract class AndotherFonts {
     matchTextDirection: true,
   );
 
+  // 公众号
+  static const IconData wx = const IconData(
+    0xe8f0,
+    fontFamily: 'AndotherFonts',
+    matchTextDirection: true,
+  );
+
+  // 公众号 选中
+  static const IconData wx_selected = const IconData(
+    0xe8f0,
+    fontFamily: 'AndotherFonts',
+    matchTextDirection: true,
+  );
+
   // 我的
   static const IconData my = const IconData(
     0xe8ef,

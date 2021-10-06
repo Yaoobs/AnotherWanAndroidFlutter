@@ -9,7 +9,7 @@ class TreeItemsState extends Equatable {
   });
 
   TreeItemsState copyWith(
-      {List<String> tabs, int selectedIndex, List<ArticleData> articles}) {
+      {int selectedIndex, List<ArticleData> articles}) {
     return TreeItemsState(
       selectedIndex: selectedIndex ?? this.selectedIndex,
       articles: articles ?? this.articles,
