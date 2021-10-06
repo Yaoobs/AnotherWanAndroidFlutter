@@ -1,4 +1,5 @@
 import 'package:anotherwanandroidflutter/business/article/models/banner_data.dart';
+import 'package:anotherwanandroidflutter/business/article/view/article_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -18,16 +19,20 @@ class ImageBanner extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           BannerData banner = banners[index];
           return new Stack(alignment: new Alignment(0, 1), children: <Widget>[
-            Container(
-              decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(banner.imagePath ?? ''),
-                  )),
-            ),
+            GestureDetector(
+                child: Container(
+                  decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7),
+                      ),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(banner.imagePath ?? ''),
+                      )),
+                ),
+                onTap: () {
+                  Navigator.of(context).push(ArticleDetailPage.route(banner:banner));
+                }),
             new Opacity(
               opacity: 0.5, //不透明度
               child: new Container(

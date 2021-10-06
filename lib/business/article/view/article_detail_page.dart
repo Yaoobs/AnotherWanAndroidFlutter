@@ -1,13 +1,16 @@
 import 'package:anotherwanandroidflutter/business/article/models/article_data.dart';
+import 'package:anotherwanandroidflutter/business/article/models/banner_data.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ArticleDetailPage extends StatefulWidget {
-  const ArticleDetailPage({Key key, @required this.article}) : super(key: key);
+  const ArticleDetailPage({Key key, this.article, this.banner})
+      : super(key: key);
   final ArticleData article;
-  static Route route(article) {
+  final BannerData banner;
+  static Route route({article, banner}) {
     return MaterialPageRoute<void>(
-        builder: (_) => ArticleDetailPage(article: article));
+        builder: (_) => ArticleDetailPage(article: article, banner: banner));
   }
 
   @override
@@ -15,7 +18,6 @@ class ArticleDetailPage extends StatefulWidget {
 }
 
 class _ArticleDetailPageState extends State<ArticleDetailPage> {
-
   @override
   void initState() {
     super.initState();
@@ -26,7 +28,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.article.title,
+            widget.article != null ? widget.article.title : widget.banner.title,
             style: TextStyle(color: Colors.white),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -36,10 +38,9 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
           ],
         ),
         body: WebView(
-          initialUrl: widget.article.link ?? 'https://flutter.dev',
+          initialUrl: widget.article != null ? widget.article.link : widget.banner.url,
           javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController webViewController) {
-          },
+          onWebViewCreated: (WebViewController webViewController) {},
           onProgress: (int progress) {
             print("WebView is loading (progress : $progress%)");
           },

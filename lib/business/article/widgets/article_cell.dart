@@ -150,7 +150,7 @@ class ArticleCell extends StatelessWidget {
           child: column,
         ),
         onTap: () {
-          Navigator.of(context).push(ArticleDetailPage.route(article));
+          Navigator.of(context).push(ArticleDetailPage.route(article:article));
         });
   }
 

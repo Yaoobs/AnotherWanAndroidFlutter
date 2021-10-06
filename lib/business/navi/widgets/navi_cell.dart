@@ -1,4 +1,5 @@
 import 'package:anotherwanandroidflutter/business/article/models/article_data.dart';
+import 'package:anotherwanandroidflutter/business/article/view/article_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class NaviCell extends StatelessWidget {
@@ -16,10 +17,7 @@ class NaviCell extends StatelessWidget {
       Widget actionChip = HotKeyCell(
         text: navi.title,
         onPressed: () {
-          // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          //   return ArticleDetailPage(
-          //       title: friendModel.name, url: friendModel.link);
-          // }));
+          Navigator.of(context).push(ArticleDetailPage.route(article: navi));
         },
       );
 
