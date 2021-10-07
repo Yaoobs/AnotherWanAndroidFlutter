@@ -1,5 +1,7 @@
 import 'package:anotherwanandroidflutter/business/article/bloc/article_bloc.dart';
 import 'package:anotherwanandroidflutter/business/article/view/article_page.dart';
+import 'package:anotherwanandroidflutter/business/project/bloc/project_bloc.dart';
+import 'package:anotherwanandroidflutter/business/project/view/project_page.dart';
 import 'package:anotherwanandroidflutter/business/tree/bloc/tree_bloc.dart';
 import 'package:anotherwanandroidflutter/business/tree/view/tree_page.dart';
 import 'package:anotherwanandroidflutter/business/wxarticle/bloc/wxarticle_bloc.dart';
@@ -11,7 +13,7 @@ import 'package:anotherwanandroidflutter/common/icons.dart';
 import 'package:anotherwanandroidflutter/business/home/cubit/tab_cubit.dart';
 import 'package:anotherwanandroidflutter/business/profile/profile.dart';
 
-List<String> appBarTitles = ['首页', '体系', '公众号', '我的'];
+List<String> appBarTitles = ['首页', '体系', '公众号', '项目', '我的'];
 
 final List<BottomNavigationBarItem> bottomNavItems = [
   BottomNavigationBarItem(
@@ -34,9 +36,15 @@ final List<BottomNavigationBarItem> bottomNavItems = [
   ),
   BottomNavigationBarItem(
     backgroundColor: Colors.white,
+    icon: const Icon(AndotherFonts.project),
+    activeIcon: const Icon(AndotherFonts.project_selected),
+    label: appBarTitles[3],
+  ),
+  BottomNavigationBarItem(
+    backgroundColor: Colors.white,
     icon: const Icon(AndotherFonts.my),
     activeIcon: const Icon(AndotherFonts.my_selected),
-    label: appBarTitles[3],
+    label: appBarTitles[4],
   ),
 ];
 
@@ -49,6 +57,7 @@ final pages = [
     treeBloc: TreeBloc(),
   ),
   WxArticlePage(wxArticleBloc: WxArticleBloc()),
+  ProjectPage(projectBloc: ProjectBloc()),
   ProfilePage(),
 ];
 

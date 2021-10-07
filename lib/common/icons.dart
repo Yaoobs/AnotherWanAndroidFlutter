@@ -43,6 +43,20 @@ abstract class AndotherFonts {
     matchTextDirection: true,
   );
 
+  // 项目
+  static const IconData project = const IconData(
+    0xe8e2,
+    fontFamily: 'AndotherFonts',
+    matchTextDirection: true,
+  );
+
+  // 项目 选中
+  static const IconData project_selected = const IconData(
+    0xe8e2,
+    fontFamily: 'AndotherFonts',
+    matchTextDirection: true,
+  );
+
   // 我的
   static const IconData my = const IconData(
     0xe8ef,
