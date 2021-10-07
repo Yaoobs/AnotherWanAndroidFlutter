@@ -37,14 +37,14 @@ class ArticleCell extends StatelessWidget {
               article.type == 1
                   ? Container(
                       margin: EdgeInsets.only(right: 15),
-                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                      padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.red, width: 1),
                         borderRadius: BorderRadius.circular(3),
                       ),
                       // margin: EdgeInsets.all(4),
                       child: Text("置顶",
-                          style: TextStyle(color: Colors.red, fontSize: 13)),
+                          style: TextStyle(color: Colors.red, fontSize: 12)),
                     )
                   : Container(),
               Text("$authorTitle$author",
@@ -60,7 +60,9 @@ class ArticleCell extends StatelessWidget {
 
     Container title = Container(
         padding: const EdgeInsets.symmetric(vertical: 5),
+        height: 65,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             article.envelopePic != null && article.envelopePic.isNotEmpty
                 ? Padding(
@@ -97,14 +99,14 @@ class ArticleCell extends StatelessWidget {
           article.tags.length > 0
               ? Container(
                   margin: EdgeInsets.only(right: 15),
-                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+                  padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.blueAccent, width: 1),
                     borderRadius: BorderRadius.circular(3),
                   ),
                   // margin: EdgeInsets.all(4),
                   child: Text(getTags(article),
-                      style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                      style: TextStyle(color: Colors.blueAccent, fontSize: 12)),
                 )
               : Container(),
           Text(

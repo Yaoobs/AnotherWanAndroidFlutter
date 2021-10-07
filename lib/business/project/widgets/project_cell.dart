@@ -59,7 +59,7 @@ class ProjectCell extends StatelessWidget {
         ));
 
     Container title = Container(
-        padding: const EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 15),
         child: Row(
           children: <Widget>[
             Expanded(
@@ -80,7 +80,7 @@ class ProjectCell extends StatelessWidget {
 
     Container content = Container(
         padding: const EdgeInsets.only(top: 5),
-        height: 65,
+        height: 64,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
