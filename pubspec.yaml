@@ -37,6 +37,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   flutter_easyrefresh: ^2.2.1
   webview_flutter: ^2.1.1
+  shared_preferences: ^2.0.8
   
 dev_dependencies:
   flutter_test:

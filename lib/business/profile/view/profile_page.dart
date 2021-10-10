@@ -1,3 +1,5 @@
+import 'package:anotherwanandroidflutter/business/collect/bloc/collect_bloc.dart';
+import 'package:anotherwanandroidflutter/business/collect/view/collect_list_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +35,7 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
     );
-    slivers.add(_list());
+    slivers.add(_list(context));
     slivers.add(_logoutBtn(context));
     return SafeArea(
       child: Scaffold(
@@ -82,7 +84,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _list() {
+  Widget _list(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (content, index) {
@@ -94,7 +96,7 @@ class ProfilePage extends StatelessWidget {
             );
           } else {
             Map map = _listItems[index ~/ 2];
-            return _listCell(map['icon'], map['title']);
+            return _listCell(context, map['icon'], map['title']);
           }
         },
         childCount: _listItems.length * 2 - 1,
@@ -102,31 +104,37 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _listCell(IconData font, String title) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(
-              font,
-              size: 25,
-            ),
-            Expanded(
-                child: Padding(
-                    padding: const EdgeInsets.only(left: 13),
-                    child: Text(title,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Color(0xff303133),
-                        )))),
-            Icon(
-              AndotherFonts.next,
-              size: 20,
-            ),
-          ]),
-    );
+  Widget _listCell(BuildContext context, IconData font, String title) {
+    return GestureDetector(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  font,
+                  size: 25,
+                ),
+                Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.only(left: 13),
+                        child: Text(title,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xff303133),
+                            )))),
+                Icon(
+                  AndotherFonts.next,
+                  size: 20,
+                ),
+              ]),
+        ),
+        onTap: () {
+          if(font == AndotherFonts.article_liked) {
+              Navigator.of(context).push(CollectListPage.route());
+          }
+        });
   }
 
   Widget _logoutBtn(BuildContext context) {

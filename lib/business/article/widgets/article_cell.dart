@@ -13,15 +13,19 @@ class ArticleCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // bool isCollect = widget.isFromCollect || article.collect;
-    bool isCollect = false;
+    bool isCollect = article.collect!=null?article.collect:true;
 
     String authorTitle;
     String author;
 
     if (article.author == null || article.author.isEmpty) {
-      authorTitle = "分享人: ";
-      author = article.shareUser;
+      if (article.shareUser != null) {
+        authorTitle = "分享人: ";
+        author = article.shareUser;
+      } else {
+        authorTitle = "";
+        author = "匿名";
+      }
     } else {
       authorTitle = "作者: ";
       author = article.author;
@@ -96,7 +100,7 @@ class ArticleCell extends StatelessWidget {
         Container(
             // padding: EdgeInsets.only(left: 4, right: 4, top: 1, bottom: 2),
             child: Row(children: [
-          article.tags.length > 0
+          article.tags != null && article.tags.length > 0
               ? Container(
                   margin: EdgeInsets.only(right: 15),
                   padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
@@ -111,7 +115,9 @@ class ArticleCell extends StatelessWidget {
               : Container(),
           Text(
             // widget.isSearch ? '' : article.chapterName,
-            "${article.superChapterName}" + "-" + "${article.chapterName}",
+            article.superChapterName != null
+                ? "${article.superChapterName}" + "-" + "${article.chapterName}"
+                : "${article.chapterName}",
             softWrap: true,
             style: TextStyle(color: AppColors.colorTextAuthor, fontSize: 12),
             textAlign: TextAlign.left,
@@ -152,7 +158,7 @@ class ArticleCell extends StatelessWidget {
           child: column,
         ),
         onTap: () {
-          Navigator.of(context).push(ArticleDetailPage.route(article:article));
+          Navigator.of(context).push(ArticleDetailPage.route(article: article));
         });
   }
 

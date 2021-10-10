@@ -22,6 +22,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   TextEditingController _searchController = TextEditingController();
+  FocusNode _contentFocusNode = FocusNode();
   @override
   void initState() {
     _loadHotKeys();
@@ -32,8 +33,10 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     TextField searchField = TextField(
       autofocus: true,
+      focusNode: _contentFocusNode,
       textInputAction: TextInputAction.search,
       onSubmitted: (string) {
+        _contentFocusNode.unfocus();
         widget.params['page'] = 0;
         _changeContent(widget.params);
       },
@@ -45,7 +48,7 @@ class _SearchPageState extends State<SearchPage> {
           hintStyle: TextStyle(color: Colors.white)),
       controller: _searchController,
     );
-
+    
     return Scaffold(
         appBar: AppBar(
           title: searchField,
@@ -53,6 +56,7 @@ class _SearchPageState extends State<SearchPage> {
             IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {
+                  _contentFocusNode.unfocus();
                   widget.params['page'] = 0;
                   _changeContent(widget.params);
                 }),
@@ -82,6 +86,7 @@ class _SearchPageState extends State<SearchPage> {
                         return HotKeyListCell(
                           hotKeys: state.hotKeys,
                           onPressed: (key) {
+                            _contentFocusNode.unfocus();
                             _searchController.text = key;
                             _searchController.selection =
                                 TextSelection.fromPosition(TextPosition(
