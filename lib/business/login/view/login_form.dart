@@ -9,7 +9,7 @@ class LoginForm extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status.isSubmissionFailure) {
-          Scaffold.of(context)
+          ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
               const SnackBar(content: Text('Authentication Failure')),
@@ -88,12 +88,14 @@ class _LoginButton extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 20),
                 child: ButtonTheme(
                   minWidth: double.infinity,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     key: const Key('loginForm_continue_raisedButton'),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      backgroundColor: Color(0xfffc9900),
                     ),
-                    color: Color(0xfffc9900),
                     child: const Text('登  录',
                         style: TextStyle(
                           color: Colors.white,

@@ -15,6 +15,7 @@ class ImageBanner extends StatelessWidget {
       width: screenWidth,
       height: screenWidth / 1920 * 1000,
       child: Swiper(
+        key: UniqueKey(),
         itemCount: banners.length,
         itemBuilder: (BuildContext context, int index) {
           BannerData banner = banners[index];
@@ -31,7 +32,8 @@ class ImageBanner extends StatelessWidget {
                       )),
                 ),
                 onTap: () {
-                  Navigator.of(context).push(ArticleDetailPage.route(banner:banner));
+                  Navigator.of(context)
+                      .push(ArticleDetailPage.route(banner: banner));
                 }),
             new Opacity(
               opacity: 0.5, //不透明度

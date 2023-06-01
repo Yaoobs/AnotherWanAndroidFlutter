@@ -131,8 +131,8 @@ class ProfilePage extends StatelessWidget {
               ]),
         ),
         onTap: () {
-          if(font == AndotherFonts.article_liked) {
-              Navigator.of(context).push(CollectListPage.route());
+          if (font == AndotherFonts.article_liked) {
+            Navigator.of(context).push(CollectListPage.route());
           }
         });
   }
@@ -145,7 +145,7 @@ class ProfilePage extends StatelessWidget {
             ? Container()
             : Padding(
                 padding: const EdgeInsets.only(left: 13, top: 50, right: 13),
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () {
                     // 退出登陆
                     context
@@ -157,9 +157,11 @@ class ProfilePage extends StatelessWidget {
                         fontSize: 15,
                         color: Color(0xff303133),
                       )),
-                  color: Color(0x33999999),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color(0x33999999),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                  ),
                 ),
               );
       },
