@@ -57,7 +57,7 @@ class LoginBloc extends Bloc<UserLoginEvent, LoginState> {
       try {
         User usr =
             await LoginApi.login(state.username.value, state.password.value);
-        _authenticationBloc.add(LoginEvent(Global.loginCookie!, usr));
+        _authenticationBloc.add(LoginEvent(Global.loginCookie ?? "", usr));
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } on Exception catch (_) {
         emit(state.copyWith(status: FormzStatus.submissionFailure));

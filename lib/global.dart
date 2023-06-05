@@ -59,11 +59,11 @@ class Global {
     }
 
     // 读取离线用户信息
-    var cookie = authenticationRepository.getCookie();
-    if (cookie != "") {
-      loginCookie = cookie;
-      isOfflineLogin = true;
-    }
+    // var cookie = authenticationRepository.getCookie();
+    // if (cookie != "") {
+    //   loginCookie = cookie;
+    //   isOfflineLogin = true;
+    // }
 
     // 包信息
     Global.packageInfo = await PackageInfo.fromPlatform();

@@ -9,7 +9,7 @@ class BaseResponseInterceptor extends Interceptor {
     Map<String, dynamic> headerParams = {};
 
     // 添加cookie
-    if (Global.loginCookie != null && options.method == 'POST') {
+    if (Global.loginCookie != null) {
       options.headers.addAll({"Cookie": Global.loginCookie});
     }
 
@@ -25,6 +25,7 @@ class BaseResponseInterceptor extends Interceptor {
           requestOptions: response.requestOptions, response: response));
     } else {
       // dynamic? dataStr = data["data"];
+      Global.loginCookie = response.headers['set-cookie']?.toString();
       response.data = BaseResponse(
           errorCode: data["errorCode"],
           errorMsg: data["errorMsg"],

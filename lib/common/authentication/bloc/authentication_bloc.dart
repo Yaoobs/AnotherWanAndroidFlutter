@@ -22,11 +22,11 @@ class AuthenticationBloc
   }
 
   _onAppStart(Emitter<AuthenticationState> emit) {
-    User? user = _authenticationRepository.getUser();
-    if (user != null)
-      emit(AuthenticationState.authenticated(user));
-    else
-      emit(const AuthenticationState.uninitialized());
+    // User? user = _authenticationRepository.getUser();
+    // if (user != null)
+    //   emit(AuthenticationState.authenticated(user));
+    // else
+    emit(const AuthenticationState.uninitialized());
   }
 
   _onLogin(LoginEvent event, Emitter<AuthenticationState> emit) {

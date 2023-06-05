@@ -36,11 +36,15 @@ class ProfilePage extends StatelessWidget {
       ),
     );
     slivers.add(_list(context));
-    slivers.add(_logoutBtn(context));
     return SafeArea(
-      child: Scaffold(
-          body: CustomScrollView(
-        slivers: slivers,
+      child:
+          Scaffold(body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, state) {
+          if (state.status == AuthenticationStatus.authenticated) {
+            slivers.add(_logoutBtn(context));
+          }
+          return CustomScrollView(slivers: slivers);
+        },
       )),
     );
   }

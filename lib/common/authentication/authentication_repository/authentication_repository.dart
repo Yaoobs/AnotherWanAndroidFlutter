@@ -10,21 +10,21 @@ enum AuthenticationStatus { uninitialized, authenticated, unauthenticated }
 class AuthenticationRepository {
   User? _user;
 
-  User? getUser() {
-    if (_user == null) {
-      String? json =
-          StorageUtil().getString(STORAGE_LOGIN_USER_KEY, encrypt: true);
-      if (json != null) {
-        Map map = jsonDecode(json);
-        _user = User.fromJson(map as Map<String, dynamic>);
-      }
-    }
-    return _user;
-  }
+  // User? getUser() {
+  //   if (_user == null) {
+  //     String? json =
+  //         StorageUtil().getString(STORAGE_LOGIN_USER_KEY, encrypt: true);
+  //     if (json != null) {
+  //       Map map = jsonDecode(json);
+  //       _user = User.fromJson(map as Map<String, dynamic>);
+  //     }
+  //   }
+  //   return _user;
+  // }
 
-  String? getCookie() {
-    return StorageUtil().getString(STORAGE_LOGIN_COOKIE_KEY, encrypt: true);
-  }
+  // String? getCookie() {
+  //   return StorageUtil().getString(STORAGE_LOGIN_COOKIE_KEY, encrypt: true);
+  // }
 
   /// 缓存登录信息（cookie 和 user）
   void saveAuthenticationInfo(User user, String cookie) {
