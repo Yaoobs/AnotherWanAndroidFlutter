@@ -1,1 +1,0 @@
-// const String net_collect_path_list = '/banner/json';

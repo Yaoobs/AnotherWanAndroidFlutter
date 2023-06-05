@@ -1,23 +1,24 @@
+// @dart=2.9
+import 'dart:async';
+
+import 'package:anotherwanandroidflutter/global.dart';
 import 'package:flutter/material.dart';
 import 'app.dart';
-import 'common/application.dart';
-import 'router/routes.dart';
-import 'app.dart';
-import 'business/authentication/authentication.dart';
-import 'business/user/user.dart';
 
-void main() {
-  // 初始化
-  initialize();
+Future<Null> main() async {
+  //一、这里配置上报APP未捕获到的异常，业务可以自由决定上报的信息
+  FlutterError.onError = (FlutterErrorDetails details) async {
+    Zone.current.handleUncaughtError(details.exception, details.stack);
+  };
 
-  runApp(App(
-    authenticationRepository: AuthenticationRepository(),
-    userRepository: UserRepository(),
-  ));
-}
-
-/// 初始化
-void initialize() {
-  // 初始化 路由
-  Routes.configRoutes(Application.router);
+  runZonedGuarded<Future<Null>>(() async {
+    Global.init().then((value) => {
+          runApp(App(authenticationRepository: Global.authenticationRepository))
+        });
+  }, (error, stackTrace) async {
+    // String type = "flutter uncaught error";
+    // Bugly.initAndroidCrashReport(appId: "8ff1c1e8d8", isDebug: true);
+    // await Bugly.postException(
+    //     type: type, error: error.toString(), stackTrace: stackTrace.toString());
+  });
 }

@@ -1,1 +1,0 @@
-const String net_project_path_tree = '/project/tree/json';

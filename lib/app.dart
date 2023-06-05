@@ -1,30 +1,29 @@
+import 'package:anotherwanandroidflutter/common/authentication/authentication.dart';
+import 'package:anotherwanandroidflutter/pages/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'business/home/view/home_page.dart';
-import 'business/authentication/authentication.dart';
-import 'business/user/user.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class App extends StatelessWidget {
   const App({
-    Key key,
-    @required this.authenticationRepository,
-    @required this.userRepository,
-  })  : assert(authenticationRepository != null),
-        assert(userRepository != null),
-        super(key: key);
+    required this.authenticationRepository,
+  });
 
   final AuthenticationRepository authenticationRepository;
-  final UserRepository userRepository;
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: authenticationRepository,
       child: BlocProvider(
-        create: (_) => AuthenticationBloc(
-          authenticationRepository: authenticationRepository,
-          userRepository: userRepository,
-        ),
+        lazy: false,
+        create: (_) {
+          AuthenticationBloc authBolc = AuthenticationBloc(
+              authenticationRepository: authenticationRepository);
+          authBolc.add(AppStartEvent());
+          return authBolc;
+        },
         child: AppView(),
       ),
     );
@@ -39,8 +38,15 @@ class AppView extends StatefulWidget {
 class _AppViewState extends State<AppView> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
+    return ScreenUtilInit(
+      designSize: Size(1080, 1920),
+      builder: () => MaterialApp(
+        home: HomePage(),
+        builder: EasyLoading.init(),
+      ),
     );
+    // return MaterialApp(
+    //   home: HomePage(),
+    // );
   }
 }

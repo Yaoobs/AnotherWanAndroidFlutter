@@ -98,4 +98,11 @@ abstract class AndotherFonts {
     fontFamily: 'AndotherFonts',
     matchTextDirection: true,
   );
+
+  /// 安全
+  static const IconData security = const IconData(
+    0xe8ad,
+    fontFamily: 'AndotherFonts',
+    matchTextDirection: true,
+  );
 }
