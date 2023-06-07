@@ -1,4 +1,4 @@
-import 'package:anotherwanandroidflutter/common/app_colors.dart';
+import 'package:anotherwanandroidflutter/common/values/colors.dart';
 import 'package:anotherwanandroidflutter/models/article_data.dart';
 import 'package:anotherwanandroidflutter/models/article_tags_data.dart';
 import 'package:anotherwanandroidflutter/pages/article/view/article_detail_page.dart';
@@ -6,14 +6,18 @@ import 'package:anotherwanandroidflutter/utils/utils_string.dart';
 import 'package:flutter/material.dart';
 
 class ArticleCell extends StatelessWidget {
-  const ArticleCell({Key? key, required this.article, this.searchKey})
+  const ArticleCell(
+      {Key? key, required this.article, this.searchKey, this.onClickCollect})
       : super(key: key);
   final String? searchKey;
   final ArticleData article;
+  final Function? onClickCollect;
 
   @override
   Widget build(BuildContext context) {
-    bool isCollect = article.collect != null ? article.collect! : true;
+    bool isCollect = article.collect == null && article.originId != null
+        ? true
+        : article.collect ?? false;
 
     String authorTitle;
     String? author;
@@ -129,13 +133,9 @@ class ArticleCell extends StatelessWidget {
             isCollect ? Icons.favorite : Icons.favorite_border,
             color: isCollect ? Colors.red : null,
           ),
-          onTap: () {
-            // if (widget.onClickCollect != null) {
-            //   widget.onClickCollect.call();
-            //   return;
-            // }
-            // _handleOnItemCollect(article);
-          },
+          onTap: () => this.onClickCollect != null
+              ? this.onClickCollect!(article.id, article.originId)
+              : null,
         )
       ],
     );

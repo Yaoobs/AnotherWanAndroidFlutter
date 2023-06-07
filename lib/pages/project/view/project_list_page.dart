@@ -5,17 +5,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class ProjectListPage extends StatefulWidget {
-  const ProjectListPage(
-      {Key? key, required this.params, required this.projectBloc})
-      : super(key: key);
-  final ProjectBloc projectBloc;
+  ProjectListPage({Key? key, required this.params}) : super(key: key);
+  final ProjectBloc projectBloc = ProjectBloc();
   final Map params;
 
   @override
   _ProjectListPageState createState() => _ProjectListPageState();
 }
 
-class _ProjectListPageState extends State<ProjectListPage> {
+class _ProjectListPageState extends State<ProjectListPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
     _loadData(widget.params);
@@ -24,6 +26,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider(
       create: (context) => widget.projectBloc,
       child: BlocBuilder<ProjectBloc, ProjectState>(
@@ -51,7 +54,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
   }
 
   Future<void> _loadData(Map params) async {
-    widget.projectBloc.add(ProjectEventLoadData(params: params));
+    widget.projectBloc.add(GetListData(params: params));
 
     await Future.delayed(Duration(seconds: 2));
   }

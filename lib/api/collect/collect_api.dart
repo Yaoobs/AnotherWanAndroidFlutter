@@ -27,15 +27,24 @@ class CollectApi {
   }
 
   // 取消收藏文章(文章列表)
-  static Future<Null> uncollectArticle(
-      {int? id, bool ownCollect = false}) async {
+  static Future<Null> uncollectArticleList({int? id}) async {
     Map<String, dynamic> queryParameters = {};
 
     return HttpManager.post(
-      "/lg" +
-          "${ownCollect ? '/uncollect/' : '/uncollect_originId/'}" +
-          "${id ?? 0}" +
-          "/json",
+      "/lg/uncollect_originId/" + "${id ?? 0}" + "/json",
+      params: queryParameters,
+    ).then((json) => null);
+  }
+
+  // 取消收藏文章(我的收藏)
+  static Future<Null> uncollectArticleMyOwn(
+      {int? id, int originId = -1}) async {
+    Map<String, dynamic> queryParameters = {
+      'originId': originId,
+    };
+
+    return HttpManager.post(
+      "/lg/uncollect/" + "${id ?? 0}" + "/json",
       params: queryParameters,
     ).then((json) => null);
   }

@@ -1,32 +1,40 @@
+import 'package:anotherwanandroidflutter/common/application.dart';
 import 'package:anotherwanandroidflutter/pages/article/bloc/article_bloc.dart';
 import 'package:anotherwanandroidflutter/pages/article/widgets/article_list.dart';
 import 'package:anotherwanandroidflutter/pages/article/widgets/image_banner.dart';
 import 'package:anotherwanandroidflutter/pages/article/widgets/sep_divider.dart';
-import 'package:anotherwanandroidflutter/pages/search/view/search_page.dart';
+import 'package:anotherwanandroidflutter/router/routes.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class ArticlePage extends StatefulWidget {
-  const ArticlePage({Key? key, required this.params, required this.articleBloc})
-      : super(key: key);
-  final Map params;
-  final ArticleBloc articleBloc;
+  ArticlePage({Key? key}) : super(key: key);
+  final Map params = {'page': 0};
+  final ArticleBloc articleBloc = ArticleBloc();
 
   @override
   _ArticlePageState createState() => _ArticlePageState();
 }
 
-class _ArticlePageState extends State<ArticlePage> {
+class _ArticlePageState extends State<ArticlePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
+    // 加载Banner
+    widget.articleBloc.add(GetBannerData());
+    // 加载文章
     _loadData(widget.params);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider(
       create: (context) => widget.articleBloc,
       child: BlocBuilder<ArticleBloc, ArticleState>(
@@ -43,7 +51,7 @@ class _ArticlePageState extends State<ArticlePage> {
                   IconButton(
                       icon: Icon(Icons.search),
                       onPressed: () {
-                        Navigator.of(context).push(SearchPage.route());
+                        Application.router.navigateTo(context, Routes.search);
                       })
                 ],
               ),
@@ -66,7 +74,7 @@ class _ArticlePageState extends State<ArticlePage> {
   }
 
   Future<void> _loadData(Map params) async {
-    widget.articleBloc.add(ArticleEventLoadData(params: params));
+    widget.articleBloc.add(GetArticleData(params: params));
 
     await Future.delayed(Duration(seconds: 2));
   }
@@ -83,6 +91,9 @@ class _ArticlePageState extends State<ArticlePage> {
 
     slivers.add(ArticleList(
       articles: state.articles,
+      onClickCollect: (id) {
+        // widget.articleBloc.collect(id);
+      },
     ));
     slivers.add(SliverToBoxAdapter(
       child: state.noMore

@@ -5,16 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class CollectListPage extends StatefulWidget {
-  const CollectListPage({Key? key, this.params, required this.collectBloc})
-      : super(key: key);
-  final CollectBloc collectBloc;
-  final Map? params;
-
-  static Route route() {
-    return MaterialPageRoute<void>(
-        builder: (_) =>
-            CollectListPage(collectBloc: CollectBloc(), params: {'page': 0}));
-  }
+  final CollectBloc collectBloc = CollectBloc();
+  final Map? params = {'page': 0};
 
   @override
   _CollectListPageState createState() => _CollectListPageState();
@@ -62,7 +54,7 @@ class _CollectListPageState extends State<CollectListPage> {
   }
 
   Future<void> _loadData(Map params) async {
-    widget.collectBloc.add(CollectEventLoadData(params: params));
+    widget.collectBloc.add(GetCollectData(params: params));
 
     await Future.delayed(Duration(seconds: 2));
   }

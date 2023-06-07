@@ -7,8 +7,8 @@ abstract class TreeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class TreeEventSelectedIndexChanged extends TreeEvent {
-  const TreeEventSelectedIndexChanged(this.selectedIndex);
+class SelectedIndexChanged extends TreeEvent {
+  const SelectedIndexChanged(this.selectedIndex);
 
   final int selectedIndex;
 }

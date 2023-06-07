@@ -1,13 +1,17 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:path_provider/path_provider.dart';
 import 'base_interceptor.dart';
 import 'base_response.dart';
 import 'cache.dart';
 import 'connectivity_request_retrier.dart';
 import 'exceptions.dart';
 import 'retry_interceptor.dart';
+import 'package:cookie_jar/cookie_jar.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
 class Http {
   static const String baseUrl = "https://www.wanandroid.com";
@@ -15,6 +19,8 @@ class Http {
   ///超时时间
   static const int CONNECT_TIMEOUT = 5000;
   static const int RECEIVE_TIMEOUT = 3000;
+
+  static const bool deugFlag = !bool.fromEnvironment('dart.vm.product');
 
   static Http _instance = Http._internal();
 
@@ -34,7 +40,7 @@ class Http {
       );
 
       dio = new Dio(options);
-
+      prepareJar();
       // // 添加拦截器
       dio!.interceptors.add(BaseResponseInterceptor());
 
@@ -50,9 +56,8 @@ class Http {
         ),
       );
 
-      dio!.interceptors.add(LogInterceptor(
-          requestBody: !bool.fromEnvironment('dart.vm.product'),
-          responseBody: !bool.fromEnvironment('dart.vm.product')));
+      dio!.interceptors
+          .add(LogInterceptor(requestBody: deugFlag, responseBody: deugFlag));
 
       // 在调试模式下需要抓包调试，所以我们使用代理，并禁用HTTPS证书校验
       // if (PROXY_ENABLE) {
@@ -67,6 +72,16 @@ class Http {
       //   };
       // }
     }
+  }
+
+  Future<void> prepareJar() async {
+    final Directory appDocDir = await getApplicationDocumentsDirectory();
+    final String appDocPath = appDocDir.path;
+    final jar = PersistCookieJar(
+      ignoreExpires: true,
+      storage: FileStorage(appDocPath + "/.cookies/"),
+    );
+    dio!.interceptors.add(CookieManager(jar));
   }
 
   ///初始化公共属性

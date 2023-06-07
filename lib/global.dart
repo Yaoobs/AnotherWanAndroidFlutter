@@ -29,15 +29,6 @@ class Global {
   /// 是否第一次打开
   static bool isFirstOpen = false;
 
-  /// 是否离线登录
-  static bool isOfflineLogin = false;
-
-  /// 用户登录后的Cookie
-  static String? loginCookie;
-
-  /// 应用状态,
-  // static AppState appState = AppState();
-
   /// 是否 release
   static bool get isRelease => bool.fromEnvironment("dart.vm.product");
 
@@ -57,13 +48,6 @@ class Global {
     if (isFirstOpen) {
       StorageUtil().setBool(STORAGE_DEVICE_ALREADY_OPEN_KEY, true);
     }
-
-    // 读取离线用户信息
-    // var cookie = authenticationRepository.getCookie();
-    // if (cookie != "") {
-    //   loginCookie = cookie;
-    //   isOfflineLogin = true;
-    // }
 
     // 包信息
     Global.packageInfo = await PackageInfo.fromPlatform();

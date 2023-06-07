@@ -15,6 +15,9 @@ PODS:
     - Flutter
   - package_info (0.0.1):
     - Flutter
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - Reachability (3.2)
   - shared_preferences_foundation (0.0.1):
     - Flutter
@@ -28,6 +31,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - multi_image_picker (from `.symlinks/plugins/multi_image_picker/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
@@ -49,6 +53,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/multi_image_picker/ios"
   package_info:
     :path: ".symlinks/plugins/package_info/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/ios"
   webview_flutter_wkwebview:
@@ -63,6 +69,7 @@ SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   multi_image_picker: 443e776a762d7901641854043b60abf88a85d5ef
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
+  path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences_foundation: e2dae3258e06f44cc55f49d42024fd8dd03c590c
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f

@@ -9,13 +9,11 @@ part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(SearchState()) {
-    on<SearchEventLoadHotKeys>(
-        (event, emit) => _mapLoadDataToState(event, emit));
-    on<SearchEventSearchAction>(
-        (event, emit) => _mapSearchActionToState(event, emit));
+    on<GetHotKeys>((event, emit) => _getHotKeys(event, emit));
+    on<GetSearchResult>((event, emit) => _getSearchResults(event, emit));
   }
 
-  _mapLoadDataToState(
+  _getHotKeys(
     SearchEvent event,
     Emitter<SearchState> emit,
   ) async {
@@ -25,12 +23,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     ));
   }
 
-  _mapSearchActionToState(
+  _getSearchResults(
     SearchEvent event,
     Emitter<SearchState> emit,
   ) async {
     // 获取 首页文章列表
-    Map params = (event as SearchEventSearchAction).params;
+    Map params = (event as GetSearchResult).params;
     List<ArticleData> articles = await SearchApi.searchArticle(
       page: params['page'],
       key: params['key'],

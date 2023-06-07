@@ -8,27 +8,25 @@ part 'treeitems_state.dart';
 
 class TreeItemsBloc extends Bloc<TreeItemsEvent, TreeItemsState> {
   TreeItemsBloc() : super(TreeItemsState()) {
-    on<TreeItemsEventSelectedIndexChanged>(
-        (event, emit) => _mapSelectedIndexChangedToState(event, emit));
-    on<TreeItemsEventLoadData>(
-        (event, emit) => _mapLoadDataToState(event, emit));
+    on<SelectedIndexChanged>(
+        (event, emit) => _onSelectedIndexChanged(event, emit));
+    on<GetItemData>((event, emit) => _onGetItemData(event, emit));
   }
 
-  _mapSelectedIndexChangedToState(
+  _onSelectedIndexChanged(
     TreeItemsEvent event,
     Emitter<TreeItemsState> emit,
   ) {
     emit(state.copyWith(
-        selectedIndex:
-            (event as TreeItemsEventSelectedIndexChanged).selectedIndex));
+        selectedIndex: (event as SelectedIndexChanged).selectedIndex));
   }
 
-  _mapLoadDataToState(
+  _onGetItemData(
     TreeItemsEvent event,
     Emitter<TreeItemsState> emit,
   ) async {
     // 获取 体系下文章
-    Map params = (event as TreeItemsEventLoadData).params;
+    Map params = (event as GetItemData).params;
     List<ArticleData> articles = await TreeApi.treeItems(
       page: params['page'],
       cid: params['cid'],

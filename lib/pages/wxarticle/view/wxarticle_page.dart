@@ -5,19 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WxArticlePage extends StatefulWidget {
-  WxArticlePage({Key? key, required this.wxArticleBloc}) : super(key: key);
-
-  final WxArticleBloc wxArticleBloc;
+  final WxArticleBloc wxArticleBloc = WxArticleBloc();
 
   @override
   _WxArticlePageState createState() => _WxArticlePageState();
 }
 
 class _WxArticlePageState extends State<WxArticlePage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late TabController _tabController;
   late PageController _pageController;
   List<Widget> tabViews = [];
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
     _loadData();
@@ -27,7 +28,7 @@ class _WxArticlePageState extends State<WxArticlePage>
   }
 
   Future<void> _loadData() async {
-    widget.wxArticleBloc.add(WxArticleEventLoadItems());
+    widget.wxArticleBloc.add(GetArticleChapters());
 
     await Future.delayed(Duration(seconds: 2));
   }
@@ -40,14 +41,13 @@ class _WxArticlePageState extends State<WxArticlePage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider(
       create: (context) => widget.wxArticleBloc,
       child: BlocBuilder<WxArticleBloc, WxArticleState>(
         builder: (context, state) {
           for (TreeNodeData tab in state.tabs) {
-            tabViews.add(WxArticleListPage(
-                wxArticleBloc: WxArticleBloc(),
-                params: {'page': 0, 'id': tab.id}));
+            tabViews.add(WxArticleListPage(params: {'page': 0, 'id': tab.id}));
           }
           return state.tabs.length > 0
               ? DefaultTabController(
@@ -68,8 +68,9 @@ class _WxArticlePageState extends State<WxArticlePage>
                           child: TabBar(
                             controller: _tabController,
                             onTap: (int index) {
-                              context.read<WxArticleBloc>().add(
-                                  WxArticleEventSelectedIndexChanged(index));
+                              context
+                                  .read<WxArticleBloc>()
+                                  .add(SelectedIndexChanged(index));
                               _pageController.jumpToPage(index);
                             },
                             isScrollable: true,
@@ -105,7 +106,7 @@ class _WxArticlePageState extends State<WxArticlePage>
                         onPageChanged: (index) {
                           context
                               .read<WxArticleBloc>()
-                              .add(WxArticleEventSelectedIndexChanged(index));
+                              .add(SelectedIndexChanged(index));
                           _tabController.animateTo(index);
                         },
                       ),

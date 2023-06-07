@@ -1,12 +1,8 @@
-import 'package:anotherwanandroidflutter/pages/article/bloc/article_bloc.dart';
 import 'package:anotherwanandroidflutter/pages/article/view/article_page.dart';
 import 'package:anotherwanandroidflutter/pages/home/cubit/tab_cubit.dart';
 import 'package:anotherwanandroidflutter/pages/profile/view/profile_page.dart';
-import 'package:anotherwanandroidflutter/pages/project/bloc/project_bloc.dart';
 import 'package:anotherwanandroidflutter/pages/project/view/project_page.dart';
-import 'package:anotherwanandroidflutter/pages/tree/bloc/tree_bloc.dart';
 import 'package:anotherwanandroidflutter/pages/tree/view/tree_page.dart';
-import 'package:anotherwanandroidflutter/pages/wxarticle/bloc/wxarticle_bloc.dart';
 import 'package:anotherwanandroidflutter/pages/wxarticle/view/wxarticle_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,25 +45,16 @@ final List<BottomNavigationBarItem> bottomNavItems = [
 ];
 
 final pages = [
-  ArticlePage(
-    articleBloc: ArticleBloc(),
-    params: {'page': 0},
-  ),
-  TreePage(
-    treeBloc: TreeBloc(),
-  ),
-  WxArticlePage(wxArticleBloc: WxArticleBloc()),
-  ProjectPage(projectBloc: ProjectBloc()),
+  ArticlePage(),
+  TreePage(),
+  WxArticlePage(),
+  ProjectPage(),
   ProfilePage(),
 ];
 
 PageController _pageController = PageController();
 
 class HomePage extends StatelessWidget {
-  static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => HomePage());
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

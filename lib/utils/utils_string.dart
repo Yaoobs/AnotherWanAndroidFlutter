@@ -1,4 +1,4 @@
-import 'package:anotherwanandroidflutter/common/app_colors.dart';
+import 'package:anotherwanandroidflutter/common/values/colors.dart';
 import 'package:flutter/material.dart';
 
 class UtilsString {

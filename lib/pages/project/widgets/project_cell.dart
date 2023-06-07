@@ -1,4 +1,4 @@
-import 'package:anotherwanandroidflutter/common/app_colors.dart';
+import 'package:anotherwanandroidflutter/common/values/colors.dart';
 import 'package:anotherwanandroidflutter/models/article_data.dart';
 import 'package:anotherwanandroidflutter/models/article_tags_data.dart';
 import 'package:anotherwanandroidflutter/pages/article/view/article_detail_page.dart';

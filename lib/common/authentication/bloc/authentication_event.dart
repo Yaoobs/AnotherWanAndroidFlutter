@@ -12,16 +12,15 @@ class AppStartEvent extends AuthenticationEvent {}
 
 ///登录事件
 class LoginEvent extends AuthenticationEvent {
-  final String cookie;
   final User user;
 
-  LoginEvent(this.cookie, this.user);
+  LoginEvent(this.user);
 
   @override
-  List<Object?> get props => [cookie, user];
+  List<Object?> get props => [user];
 
   @override
-  String toString() => "LoggedIn { token: $cookie }";
+  String toString() => "LoggedIn { user: $user }";
 }
 
 ///退出登录事件

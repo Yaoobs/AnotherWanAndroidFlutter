@@ -6,15 +6,15 @@ part 'tree_state.dart';
 
 class TreeBloc extends Bloc<TreeEvent, TreeState> {
   TreeBloc() : super(TreeState()) {
-    on<TreeEventSelectedIndexChanged>(
-        (event, emit) => _mapSelectedIndexChangedToState(event, emit));
+    on<SelectedIndexChanged>(
+        (event, emit) => _onSelectedIndexChanged(event, emit));
   }
 
-  _mapSelectedIndexChangedToState(
+  _onSelectedIndexChanged(
     TreeEvent event,
     Emitter<TreeState> emit,
   ) {
     emit(state.copyWith(
-        selectedIndex: (event as TreeEventSelectedIndexChanged).selectedIndex));
+        selectedIndex: (event as SelectedIndexChanged).selectedIndex));
   }
 }

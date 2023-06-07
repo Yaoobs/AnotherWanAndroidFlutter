@@ -5,19 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProjectPage extends StatefulWidget {
-  ProjectPage({Key? key, required this.projectBloc}) : super(key: key);
-
-  final ProjectBloc projectBloc;
+  final ProjectBloc projectBloc = ProjectBloc();
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
 }
 
 class _ProjectPageState extends State<ProjectPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late TabController _tabController;
   late PageController _pageController;
   List<Widget> tabViews = [];
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
     _loadData();
@@ -27,7 +28,7 @@ class _ProjectPageState extends State<ProjectPage>
   }
 
   Future<void> _loadData() async {
-    widget.projectBloc.add(ProjectEventLoadItems());
+    widget.projectBloc.add(GetTreeData());
 
     await Future.delayed(Duration(seconds: 2));
   }
@@ -40,14 +41,13 @@ class _ProjectPageState extends State<ProjectPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider(
       create: (context) => widget.projectBloc,
       child: BlocBuilder<ProjectBloc, ProjectState>(
         builder: (context, state) {
           for (TreeNodeData tab in state.tabs) {
-            tabViews.add(ProjectListPage(
-                projectBloc: ProjectBloc(),
-                params: {'page': 0, 'cid': tab.id}));
+            tabViews.add(ProjectListPage(params: {'page': 0, 'cid': tab.id}));
           }
           return state.tabs.length > 0
               ? DefaultTabController(
@@ -70,7 +70,7 @@ class _ProjectPageState extends State<ProjectPage>
                             onTap: (int index) {
                               context
                                   .read<ProjectBloc>()
-                                  .add(ProjectEventSelectedIndexChanged(index));
+                                  .add(SelectedIndexChanged(index));
                               _pageController.jumpToPage(index);
                             },
                             isScrollable: true,
@@ -106,7 +106,7 @@ class _ProjectPageState extends State<ProjectPage>
                         onPageChanged: (index) {
                           context
                               .read<ProjectBloc>()
-                              .add(ProjectEventSelectedIndexChanged(index));
+                              .add(SelectedIndexChanged(index));
                           _tabController.animateTo(index);
                         },
                       ),

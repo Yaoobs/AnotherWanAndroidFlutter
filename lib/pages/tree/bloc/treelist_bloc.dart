@@ -8,11 +8,10 @@ part 'treelist_state.dart';
 
 class TreeListBloc extends Bloc<TreeListEvent, TreeListState> {
   TreeListBloc() : super(TreeListState()) {
-    on<TreeListEventLoadData>(
-        (event, emit) => _mapLoadDataToState(event, emit));
+    on<GetTreeList>((event, emit) => _onGetTreeList(event, emit));
   }
 
-  _mapLoadDataToState(
+  _onGetTreeList(
     TreeListEvent event,
     Emitter<TreeListState> emit,
   ) async {

@@ -7,6 +7,6 @@ abstract class NaviEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class NaviEventLoadData extends NaviEvent {
-  const NaviEventLoadData();
+class GetNaviData extends NaviEvent {
+  const GetNaviData();
 }

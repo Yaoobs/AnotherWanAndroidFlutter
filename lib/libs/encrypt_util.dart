@@ -14,11 +14,6 @@ class EncryptUtils {
     return String.fromCharCodes(base64Decode(data));
   }
 
-  // // md5 加密 32位小写
-  // static String encodeMd5(String plainText) {
-  //   return EncryptUtil.encodeMd5(plainText);
-  // }
-
   /// AES加密
   static aesEncrypt(plainText, String key) {
     String iv = key.substring(0, 16);

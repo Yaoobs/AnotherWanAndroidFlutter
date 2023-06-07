@@ -7,12 +7,12 @@ abstract class TreeItemsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class TreeItemsEventSelectedIndexChanged extends TreeItemsEvent {
-  const TreeItemsEventSelectedIndexChanged(this.selectedIndex);
+class SelectedIndexChanged extends TreeItemsEvent {
+  const SelectedIndexChanged(this.selectedIndex);
   final int selectedIndex;
 }
 
-class TreeItemsEventLoadData extends TreeItemsEvent {
-  const TreeItemsEventLoadData({required this.params});
+class GetItemData extends TreeItemsEvent {
+  const GetItemData({required this.params});
   final Map params;
 }

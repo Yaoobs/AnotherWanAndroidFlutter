@@ -5,10 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class WxArticleListPage extends StatefulWidget {
-  const WxArticleListPage(
-      {Key? key, required this.params, required this.wxArticleBloc})
-      : super(key: key);
-  final WxArticleBloc wxArticleBloc;
+  WxArticleListPage({Key? key, required this.params}) : super(key: key);
+  final WxArticleBloc wxArticleBloc = WxArticleBloc();
   final Map params;
 
   @override
@@ -51,7 +49,7 @@ class _WxArticleListPageState extends State<WxArticleListPage> {
   }
 
   Future<void> _loadData(Map params) async {
-    widget.wxArticleBloc.add(WxArticleEventLoadData(params: params));
+    widget.wxArticleBloc.add(GetArticleList(params: params));
 
     await Future.delayed(Duration(seconds: 2));
   }

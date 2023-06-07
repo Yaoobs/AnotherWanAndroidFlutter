@@ -7,11 +7,11 @@ abstract class SearchEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SearchEventLoadHotKeys extends SearchEvent {
-  const SearchEventLoadHotKeys();
+class GetHotKeys extends SearchEvent {
+  const GetHotKeys();
 }
 
-class SearchEventSearchAction extends SearchEvent {
-  const SearchEventSearchAction({required this.params});
+class GetSearchResult extends SearchEvent {
+  const GetSearchResult({required this.params});
   final Map params;
 }

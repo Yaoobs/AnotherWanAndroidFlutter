@@ -7,7 +7,7 @@ abstract class CollectEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CollectEventLoadData extends CollectEvent {
-  const CollectEventLoadData({required this.params});
+class GetCollectData extends CollectEvent {
+  const GetCollectData({required this.params});
   final Map params;
 }

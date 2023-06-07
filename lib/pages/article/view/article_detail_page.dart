@@ -3,7 +3,7 @@ import 'package:anotherwanandroidflutter/models/banner_data.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class ArticleDetailPage extends StatefulWidget {
+class ArticleDetailPage extends StatelessWidget {
   const ArticleDetailPage({Key? key, this.article, this.banner})
       : super(key: key);
   final ArticleData? article;
@@ -14,23 +14,11 @@ class ArticleDetailPage extends StatefulWidget {
   }
 
   @override
-  _ArticleDetailPageState createState() => _ArticleDetailPageState();
-}
-
-class _ArticleDetailPageState extends State<ArticleDetailPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.article != null
-                ? widget.article!.title!
-                : widget.banner!.title!,
+            article != null ? article!.title! : banner!.title!,
             style: TextStyle(color: Colors.white),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -40,9 +28,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
           ],
         ),
         body: WebView(
-          initialUrl: widget.article != null
-              ? widget.article!.link
-              : widget.banner!.url,
+          initialUrl: article != null ? article!.link : banner!.url,
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {},
           onProgress: (int progress) {

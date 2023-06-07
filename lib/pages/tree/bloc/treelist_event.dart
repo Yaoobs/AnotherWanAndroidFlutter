@@ -7,6 +7,6 @@ abstract class TreeListEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class TreeListEventLoadData extends TreeListEvent {
-  const TreeListEventLoadData();
+class GetTreeList extends TreeListEvent {
+  const GetTreeList();
 }

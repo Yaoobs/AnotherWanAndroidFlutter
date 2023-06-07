@@ -9,23 +9,21 @@ part 'project_state.dart';
 
 class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   ProjectBloc() : super(ProjectState()) {
-    on<ProjectEventSelectedIndexChanged>(
-        (event, emit) => _mapSelectedIndexChangedToState(event, emit));
-    on<ProjectEventLoadItems>(
-        (event, emit) => _mapLoadItemsToState(event, emit));
-    on<ProjectEventLoadData>((event, emit) => _mapLoadDataToState(event, emit));
+    on<SelectedIndexChanged>(
+        (event, emit) => _onSelectedIndexChanged(event, emit));
+    on<GetTreeData>((event, emit) => _onGetTreeData(event, emit));
+    on<GetListData>((event, emit) => _onGetListData(event, emit));
   }
 
-  _mapSelectedIndexChangedToState(
+  _onSelectedIndexChanged(
     ProjectEvent event,
     Emitter<ProjectState> emit,
   ) {
     emit(state.copyWith(
-        selectedIndex:
-            (event as ProjectEventSelectedIndexChanged).selectedIndex));
+        selectedIndex: (event as SelectedIndexChanged).selectedIndex));
   }
 
-  _mapLoadItemsToState(
+  _onGetTreeData(
     ProjectEvent event,
     Emitter<ProjectState> emit,
   ) async {
@@ -36,12 +34,12 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     ));
   }
 
-  _mapLoadDataToState(
+  _onGetListData(
     ProjectEvent event,
     Emitter<ProjectState> emit,
   ) async {
     // 获取 体系下文章
-    Map params = (event as ProjectEventLoadData).params;
+    Map params = (event as GetListData).params;
     List<ArticleData> articles = await ProjectApi.projectList(
       page: params['page'],
       cid: params['cid'],

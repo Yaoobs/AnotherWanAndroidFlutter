@@ -1,12 +1,13 @@
+import 'package:anotherwanandroidflutter/common/application.dart';
+import 'package:anotherwanandroidflutter/common/values/colors.dart';
 import 'package:anotherwanandroidflutter/common/authentication/authentication.dart';
-import 'package:anotherwanandroidflutter/pages/collect/view/collect_list_page.dart';
 import 'package:anotherwanandroidflutter/pages/login/view/login_page.dart';
+import 'package:anotherwanandroidflutter/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:anotherwanandroidflutter/common/icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vant_kit/main.dart';
-import 'package:anotherwanandroidflutter/common/values/colors.dart';
 
 final List _listItems = [
   {
@@ -42,6 +43,8 @@ class ProfilePage extends StatelessWidget {
         builder: (context, state) {
           if (state.status == AuthenticationStatus.authenticated) {
             slivers.add(_logoutBtn(context));
+          } else {
+            slivers.removeAt(slivers.length - 1);
           }
           return CustomScrollView(slivers: slivers);
         },
@@ -56,7 +59,7 @@ class ProfilePage extends StatelessWidget {
             child: GestureDetector(
           onTap: state.status != AuthenticationStatus.authenticated
               ? () {
-                  Navigator.of(context).push(LoginPage.route());
+                  Application.router.navigateTo(context, Routes.login);
                 }
               : null,
           child: Container(
@@ -136,7 +139,7 @@ class ProfilePage extends StatelessWidget {
         ),
         onTap: () {
           if (font == AndotherFonts.article_liked) {
-            Navigator.of(context).push(CollectListPage.route());
+            Application.router.navigateTo(context, Routes.collect);
           }
         });
   }

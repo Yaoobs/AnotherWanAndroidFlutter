@@ -1,18 +1,9 @@
-import 'dart:convert';
-import 'package:anotherwanandroidflutter/global.dart';
 import 'package:dio/dio.dart';
 import 'base_response.dart';
 
 class BaseResponseInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    Map<String, dynamic> headerParams = {};
-
-    // 添加cookie
-    if (Global.loginCookie != null) {
-      options.headers.addAll({"Cookie": Global.loginCookie});
-    }
-
     super.onRequest(options, handler);
   }
 
@@ -24,8 +15,6 @@ class BaseResponseInterceptor extends Interceptor {
       handler.reject(DioError(
           requestOptions: response.requestOptions, response: response));
     } else {
-      // dynamic? dataStr = data["data"];
-      Global.loginCookie = response.headers['set-cookie']?.toString();
       response.data = BaseResponse(
           errorCode: data["errorCode"],
           errorMsg: data["errorMsg"],

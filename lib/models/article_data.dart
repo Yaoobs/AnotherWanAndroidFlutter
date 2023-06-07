@@ -19,6 +19,7 @@ class ArticleData extends Equatable {
   final String? niceDate;
   final String? niceShareDate;
   final String? origin;
+  final int? originId;
   final String? prefix;
   final String? projectLink;
   final int? publishTime;
@@ -54,6 +55,7 @@ class ArticleData extends Equatable {
     this.niceDate,
     this.niceShareDate,
     this.origin,
+    this.originId,
     this.prefix,
     this.projectLink,
     this.publishTime,
@@ -90,6 +92,7 @@ class ArticleData extends Equatable {
         niceDate: json['niceDate'] as String,
         niceShareDate: json['niceShareDate'] as String,
         origin: json['origin'] as String,
+        originId: json['originId'] as int,
         prefix: json['prefix'] as String,
         projectLink: json['projectLink'] as String,
         publishTime: json['publishTime'] as int,
@@ -126,6 +129,7 @@ class ArticleData extends Equatable {
         'niceDate': niceDate,
         'niceShareDate': niceShareDate,
         'origin': origin,
+        'originId': originId,
         'prefix': prefix,
         'projectLink': projectLink,
         'publishTime': publishTime,
@@ -162,6 +166,7 @@ class ArticleData extends Equatable {
     String? niceDate,
     String? niceShareDate,
     String? origin,
+    int? originId,
     String? prefix,
     String? projectLink,
     int? publishTime,
@@ -197,6 +202,7 @@ class ArticleData extends Equatable {
       niceDate: niceDate ?? this.niceDate,
       niceShareDate: niceShareDate ?? this.niceShareDate,
       origin: origin ?? this.origin,
+      originId: originId ?? this.originId,
       prefix: prefix ?? this.prefix,
       projectLink: projectLink ?? this.projectLink,
       publishTime: publishTime ?? this.publishTime,
@@ -236,6 +242,7 @@ class ArticleData extends Equatable {
       niceDate ?? "",
       niceShareDate ?? "",
       origin ?? "",
+      originId ?? "",
       prefix ?? "",
       projectLink ?? "",
       publishTime ?? "",

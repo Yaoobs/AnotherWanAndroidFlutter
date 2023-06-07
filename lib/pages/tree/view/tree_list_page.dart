@@ -6,14 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TreeListPage extends StatefulWidget {
-  const TreeListPage({Key? key, required this.treeListBloc}) : super(key: key);
-  final TreeListBloc treeListBloc;
+  final TreeListBloc treeListBloc = TreeListBloc();
 
   @override
   _TreeListPageState createState() => _TreeListPageState();
 }
 
-class _TreeListPageState extends State<TreeListPage> {
+class _TreeListPageState extends State<TreeListPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
     _loadData();
@@ -22,6 +25,7 @@ class _TreeListPageState extends State<TreeListPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider(
       create: (context) => widget.treeListBloc,
       child: BlocBuilder<TreeListBloc, TreeListState>(
@@ -47,7 +51,7 @@ class _TreeListPageState extends State<TreeListPage> {
   }
 
   Future<void> _loadData() async {
-    widget.treeListBloc.add(TreeListEventLoadData());
+    widget.treeListBloc.add(GetTreeList());
 
     await Future.delayed(Duration(seconds: 2));
   }

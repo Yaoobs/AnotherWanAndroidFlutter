@@ -7,7 +7,11 @@ abstract class ArticleEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ArticleEventLoadData extends ArticleEvent {
-  const ArticleEventLoadData({required this.params});
+class GetBannerData extends ArticleEvent {
+  const GetBannerData();
+}
+
+class GetArticleData extends ArticleEvent {
+  const GetArticleData({required this.params});
   final Map params;
 }

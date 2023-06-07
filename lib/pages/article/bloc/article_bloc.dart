@@ -9,17 +9,22 @@ part 'article_state.dart';
 
 class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   ArticleBloc() : super(ArticleState()) {
-    on<ArticleEventLoadData>((event, emit) => _mapLoadDataToState(event, emit));
+    on<GetBannerData>((event, emit) => _getBanners(emit));
+    on<GetArticleData>((event, emit) => _getArticleList(event, emit));
   }
 
-  _mapLoadDataToState(ArticleEvent event, Emitter<ArticleState> emit) async {
+  _getBanners(Emitter<ArticleState> emit) async {
     // 获取 banner 数据
     List<BannerData> banners = await ArticleApi.bannerList();
+    emit(state.copyWith(banners: banners));
+  }
+
+  _getArticleList(ArticleEvent event, Emitter<ArticleState> emit) async {
     // 获取 置顶文章列表
     List<ArticleData> topArticles = await ArticleApi.topArticleList();
 
     // 获取 首页文章列表
-    Map params = (event as ArticleEventLoadData).params;
+    Map params = (event as GetArticleData).params;
     Map articleList = await ArticleApi.articleList(
       page: params['page'],
     );
@@ -33,7 +38,6 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       articles.insertAll(0, state.articles);
     }
     emit(state.copyWith(
-      banners: banners,
       articles: articles,
       noMore: (articleList['curPage'] ?? 1) >= (articleList['pageCount'] ?? 1),
     ));

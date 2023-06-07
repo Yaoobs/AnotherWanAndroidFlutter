@@ -5,10 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class TreeItemsListPage extends StatefulWidget {
-  const TreeItemsListPage(
-      {Key? key, required this.params, required this.treeItemsBloc})
-      : super(key: key);
-  final TreeItemsBloc treeItemsBloc;
+  TreeItemsListPage({Key? key, required this.params}) : super(key: key);
+  final TreeItemsBloc treeItemsBloc = TreeItemsBloc();
   final Map params;
 
   @override
@@ -51,7 +49,7 @@ class _TreeItemsListPageState extends State<TreeItemsListPage> {
   }
 
   Future<void> _loadData(Map params) async {
-    widget.treeItemsBloc.add(TreeItemsEventLoadData(params: params));
+    widget.treeItemsBloc.add(GetItemData(params: params));
 
     await Future.delayed(Duration(seconds: 2));
   }

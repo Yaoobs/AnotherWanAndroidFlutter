@@ -34,13 +34,12 @@ class _TreeItemPageState extends State<TreeItemsPage>
   void initState() {
     super.initState();
     for (TreeNodeData tab in widget.tabs) {
-      tabViews.add(TreeItemsListPage(
-          treeItemsBloc: TreeItemsBloc(), params: {'page': 0, 'cid': tab.id}));
+      tabViews.add(TreeItemsListPage(params: {'page': 0, 'cid': tab.id}));
     }
     _tabController = TabController(
         vsync: this, length: tabViews.length, initialIndex: widget.index);
     _pageController = PageController(initialPage: widget.index);
-    widget.treeItemsBloc.add(TreeItemsEventSelectedIndexChanged(widget.index));
+    widget.treeItemsBloc.add(SelectedIndexChanged(widget.index));
   }
 
   @override
@@ -75,7 +74,7 @@ class _TreeItemPageState extends State<TreeItemsPage>
                       onTap: (int index) {
                         context
                             .read<TreeItemsBloc>()
-                            .add(TreeItemsEventSelectedIndexChanged(index));
+                            .add(SelectedIndexChanged(index));
                         _pageController.jumpToPage(index);
                       },
                       isScrollable: true,
@@ -111,7 +110,7 @@ class _TreeItemPageState extends State<TreeItemsPage>
                   onPageChanged: (index) {
                     context
                         .read<TreeItemsBloc>()
-                        .add(TreeItemsEventSelectedIndexChanged(index));
+                        .add(SelectedIndexChanged(index));
                     _tabController.animateTo(index);
                   },
                 ),

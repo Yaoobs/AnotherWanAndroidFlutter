@@ -5,14 +5,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/navi_bloc.dart';
 
 class NaviPage extends StatefulWidget {
-  const NaviPage({Key? key, required this.naviBloc}) : super(key: key);
-  final NaviBloc naviBloc;
+  final NaviBloc naviBloc = NaviBloc();
 
   @override
   _NaviPageState createState() => _NaviPageState();
 }
 
-class _NaviPageState extends State<NaviPage> {
+class _NaviPageState extends State<NaviPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
     _loadData();
@@ -21,6 +24,7 @@ class _NaviPageState extends State<NaviPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider(
       create: (context) => widget.naviBloc,
       child: BlocBuilder<NaviBloc, NaviState>(
@@ -40,7 +44,7 @@ class _NaviPageState extends State<NaviPage> {
   }
 
   Future<void> _loadData() async {
-    widget.naviBloc.add(NaviEventLoadData());
+    widget.naviBloc.add(GetNaviData());
 
     await Future.delayed(Duration(seconds: 2));
   }

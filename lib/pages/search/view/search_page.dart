@@ -6,15 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key, required this.searchBloc, required this.params})
-      : super(key: key);
-  final SearchBloc searchBloc;
-  final Map params;
-  static Route route() {
-    return MaterialPageRoute<void>(
-        builder: (_) =>
-            SearchPage(searchBloc: SearchBloc(), params: {'page': 0}));
-  }
+  final SearchBloc searchBloc = SearchBloc();
+  final Map params = {'page': 0};
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -118,7 +111,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Future<void> _loadHotKeys() async {
-    widget.searchBloc.add(SearchEventLoadHotKeys());
+    widget.searchBloc.add(GetHotKeys());
 
     await Future.delayed(Duration(seconds: 2));
   }
@@ -126,7 +119,7 @@ class _SearchPageState extends State<SearchPage> {
   Future<void> _changeContent(Map params) async {
     params['key'] = _searchController.text;
 
-    widget.searchBloc.add(SearchEventSearchAction(params: params));
+    widget.searchBloc.add(GetSearchResult(params: params));
 
     await Future.delayed(Duration(seconds: 2));
   }

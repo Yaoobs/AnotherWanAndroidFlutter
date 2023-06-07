@@ -7,16 +7,16 @@ abstract class ProjectEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ProjectEventSelectedIndexChanged extends ProjectEvent {
-  const ProjectEventSelectedIndexChanged(this.selectedIndex);
+class SelectedIndexChanged extends ProjectEvent {
+  const SelectedIndexChanged(this.selectedIndex);
   final int selectedIndex;
 }
 
-class ProjectEventLoadItems extends ProjectEvent {
-  const ProjectEventLoadItems();
+class GetTreeData extends ProjectEvent {
+  const GetTreeData();
 }
 
-class ProjectEventLoadData extends ProjectEvent {
-  const ProjectEventLoadData({required this.params});
+class GetListData extends ProjectEvent {
+  const GetListData({required this.params});
   final Map params;
 }

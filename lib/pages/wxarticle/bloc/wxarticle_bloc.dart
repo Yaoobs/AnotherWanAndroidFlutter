@@ -9,24 +9,21 @@ part 'wxarticle_state.dart';
 
 class WxArticleBloc extends Bloc<WxArticleEvent, WxArticleState> {
   WxArticleBloc() : super(WxArticleState()) {
-    on<WxArticleEventSelectedIndexChanged>(
-        (event, emit) => _mapSelectedIndexChangedToState(event, emit));
-    on<WxArticleEventLoadItems>(
-        (event, emit) => _mapLoadItemsToState(event, emit));
-    on<WxArticleEventLoadData>(
-        (event, emit) => _mapLoadDataToState(event, emit));
+    on<SelectedIndexChanged>(
+        (event, emit) => _onSelectedIndexChanged(event, emit));
+    on<GetArticleChapters>((event, emit) => _onGetArticleChapters(event, emit));
+    on<GetArticleList>((event, emit) => _onGetArticleList(event, emit));
   }
 
-  _mapSelectedIndexChangedToState(
+  _onSelectedIndexChanged(
     WxArticleEvent event,
     Emitter<WxArticleState> emit,
   ) {
     emit(state.copyWith(
-        selectedIndex:
-            (event as WxArticleEventSelectedIndexChanged).selectedIndex));
+        selectedIndex: (event as SelectedIndexChanged).selectedIndex));
   }
 
-  _mapLoadItemsToState(
+  _onGetArticleChapters(
     WxArticleEvent event,
     Emitter<WxArticleState> emit,
   ) async {
@@ -37,12 +34,12 @@ class WxArticleBloc extends Bloc<WxArticleEvent, WxArticleState> {
     ));
   }
 
-  _mapLoadDataToState(
+  _onGetArticleList(
     WxArticleEvent event,
     Emitter<WxArticleState> emit,
   ) async {
     // 获取 体系下文章
-    Map params = (event as WxArticleEventLoadData).params;
+    Map params = (event as GetArticleList).params;
     List<ArticleData> articles = await WxArticleApi.wxArticleList(
       page: params['page'],
       id: params['id'],

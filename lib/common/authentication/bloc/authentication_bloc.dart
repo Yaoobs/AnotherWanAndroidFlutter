@@ -22,17 +22,15 @@ class AuthenticationBloc
   }
 
   _onAppStart(Emitter<AuthenticationState> emit) {
-    // User? user = _authenticationRepository.getUser();
-    // if (user != null)
-    //   emit(AuthenticationState.authenticated(user));
-    // else
-    emit(const AuthenticationState.uninitialized());
+    User? user = _authenticationRepository.getUser();
+    if (user != null)
+      emit(AuthenticationState.authenticated(user));
+    else
+      emit(const AuthenticationState.uninitialized());
   }
 
   _onLogin(LoginEvent event, Emitter<AuthenticationState> emit) {
-    this
-        ._authenticationRepository
-        .saveAuthenticationInfo(event.user, event.cookie);
+    this._authenticationRepository.saveAuthenticationInfo(event.user);
 
     emit(AuthenticationState.authenticated(event.user));
   }

@@ -1,21 +1,15 @@
-import 'package:anotherwanandroidflutter/pages/navi/bloc/navi_bloc.dart';
 import 'package:anotherwanandroidflutter/pages/navi/navi_page.dart';
 import 'package:anotherwanandroidflutter/pages/tree/bloc/tree_bloc.dart';
-import 'package:anotherwanandroidflutter/pages/tree/bloc/treelist_bloc.dart';
 import 'package:anotherwanandroidflutter/pages/tree/view/tree_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TreePage extends StatefulWidget {
-  TreePage({Key? key, required this.treeBloc}) : super(key: key);
-
-  final TreeBloc treeBloc;
+  final TreeBloc treeBloc = TreeBloc();
 
   final tabViews = <Widget>[
-    TreeListPage(
-      treeListBloc: TreeListBloc(),
-    ),
-    NaviPage(naviBloc: NaviBloc()),
+    TreeListPage(),
+    NaviPage(),
   ];
 
   @override
@@ -23,9 +17,12 @@ class TreePage extends StatefulWidget {
 }
 
 class _TreePageState extends State<TreePage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late TabController _tabController;
   late PageController _pageController = PageController();
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +37,7 @@ class _TreePageState extends State<TreePage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider(
       create: (context) => widget.treeBloc,
       child: BlocBuilder<TreeBloc, TreeState>(
@@ -64,7 +62,7 @@ class _TreePageState extends State<TreePage>
                       onTap: (int index) {
                         context
                             .read<TreeBloc>()
-                            .add(TreeEventSelectedIndexChanged(index));
+                            .add(SelectedIndexChanged(index));
                         _pageController.jumpToPage(index);
                       },
                       isScrollable: true,
@@ -98,9 +96,7 @@ class _TreePageState extends State<TreePage>
                   controller: _pageController,
                   children: widget.tabViews,
                   onPageChanged: (index) {
-                    context
-                        .read<TreeBloc>()
-                        .add(TreeEventSelectedIndexChanged(index));
+                    context.read<TreeBloc>().add(SelectedIndexChanged(index));
                     _tabController.animateTo(index);
                   },
                 ),

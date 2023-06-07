@@ -8,12 +8,12 @@ part 'collect_state.dart';
 
 class CollectBloc extends Bloc<CollectEvent, CollectState> {
   CollectBloc() : super(CollectState()) {
-    on<CollectEventLoadData>((event, emit) => _mapLoadDataToState(event, emit));
+    on<GetCollectData>((event, emit) => _getCollectArticle(event, emit));
   }
 
-  _mapLoadDataToState(CollectEvent event, Emitter<CollectState> emit) async {
-    // 获取 体系下文章
-    Map params = (event as CollectEventLoadData).params;
+  _getCollectArticle(CollectEvent event, Emitter<CollectState> emit) async {
+    // 获取 收藏文章
+    Map params = (event as GetCollectData).params;
     List<ArticleData> articles =
         await CollectApi.collectList(page: params['page']);
     if (params['page'] != null && params['page'] > 0) {

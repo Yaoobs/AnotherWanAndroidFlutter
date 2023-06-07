@@ -7,10 +7,10 @@ part 'navi_state.dart';
 
 class NaviBloc extends Bloc<NaviEvent, NaviState> {
   NaviBloc() : super(NaviState()) {
-    on<NaviEventLoadData>((event, emit) => _mapLoadDataToState(event, emit));
+    on<GetNaviData>((event, emit) => _getNaviList(event, emit));
   }
 
-  _mapLoadDataToState(
+  _getNaviList(
     NaviEvent event,
     Emitter<NaviState> emit,
   ) async {

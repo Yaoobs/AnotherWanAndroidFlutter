@@ -7,16 +7,16 @@ abstract class WxArticleEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class WxArticleEventSelectedIndexChanged extends WxArticleEvent {
-  const WxArticleEventSelectedIndexChanged(this.selectedIndex);
+class SelectedIndexChanged extends WxArticleEvent {
+  const SelectedIndexChanged(this.selectedIndex);
   final int selectedIndex;
 }
 
-class WxArticleEventLoadItems extends WxArticleEvent {
-  const WxArticleEventLoadItems();
+class GetArticleChapters extends WxArticleEvent {
+  const GetArticleChapters();
 }
 
-class WxArticleEventLoadData extends WxArticleEvent {
-  const WxArticleEventLoadData({required this.params});
+class GetArticleList extends WxArticleEvent {
+  const GetArticleList({required this.params});
   final Map params;
 }
