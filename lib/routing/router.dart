@@ -1,4 +1,4 @@
-import 'package:anotherwanandroidflutter/main.dart';
+import 'package:anotherwanandroidflutter/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'routes.dart';
@@ -66,7 +66,7 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: Routes.home,
-      pageBuilder: (context, state) => state.slidePage(const MyHomePage()),
+      pageBuilder: (context, state) => state.slidePage(const HomeScreen()),
     ),
   ],
 );
