@@ -30,9 +30,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Apache-2.0
+  flutter_screenutil: '5.0.0' #自适应屏幕和字体大小
   # BSD-3-Clause  
   go_router: ^16.2.4 #声明式路由
   json_annotation: ^4.9.0 #配合json_serializable为freezed生成fromJson/toJson
+  encrypt: ^5.0.1
+  shared_preferences: ^2.5.3
   # MIT
   flutter_riverpod: ^2.6.1 #状态管理
   freezed_annotation: ^3.0.0 #通过注解生成freezed代码
