@@ -16,11 +16,11 @@ class TreeApi {
   }
 
   // 体系下文章
-  static Future<Map> treeItems({int? page, required int cid}) async {
+  static Future<Map> treeItems({int page = 0, required int cid}) async {
     Map<String, dynamic> queryParameters = {'page_size': 20, 'cid': cid};
 
     return HttpManager.get(
-      "/article/list/${page ?? 0}/json",
+      "/article/list/$page/json",
       params: queryParameters,
     ).then((json) => json);
   }

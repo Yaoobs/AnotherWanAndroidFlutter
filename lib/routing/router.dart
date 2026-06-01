@@ -1,6 +1,8 @@
 import 'package:anotherwanandroidflutter/features/article/ui/article_detail_page.dart';
 import 'package:anotherwanandroidflutter/features/home/home_screen.dart';
 import 'package:anotherwanandroidflutter/features/search/ui/search_page.dart';
+import 'package:anotherwanandroidflutter/features/tree/ui/tree_items_list_page.dart';
+import 'package:anotherwanandroidflutter/features/tree/ui/tree_items_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'routes.dart';
@@ -74,6 +76,26 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.search,
       pageBuilder: (context, state) => state.slidePage(const SearchPage()),
+    ),
+    GoRoute(
+      path: Routes.treeItems,
+      pageBuilder: (context, state) {
+        final map = state.extra as Map?;
+        return state.slidePage(
+          TreeItemsPage(
+            tabs: map?['tabs'],
+            index: map?['index'],
+            title: map?['title'],
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: Routes.treeItemsList,
+      pageBuilder: (context, state) {
+        final map = state.extra as Map?;
+        return state.slidePage(TreeItemsListPage(params: map ?? {}));
+      },
     ),
   ],
 );

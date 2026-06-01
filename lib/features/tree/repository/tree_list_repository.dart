@@ -1,4 +1,6 @@
 import 'package:anotherwanandroidflutter/api/tree/tree_api.dart';
+import 'package:anotherwanandroidflutter/features/common/model/article_data.dart';
+import 'package:anotherwanandroidflutter/features/common/model/article_list_data.dart';
 import 'package:anotherwanandroidflutter/features/tree/model/tree_node_data.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -13,6 +15,7 @@ Future<TreeListRepository> treeListRepository(Ref ref) async {
 class TreeListRepository {
   TreeListRepository();
   final List<TreeNodeData> _treeList = [];
+  final List<ArticleData> _articles = [];
 
   Future<List<TreeNodeData>> getTreeList() async {
     try {
@@ -24,5 +27,26 @@ class TreeListRepository {
       throw Exception('Failed to fetch hotKeys: $e');
     }
     return _treeList;
+  }
+
+  Future<ArticleListData> getItemData({int page = 0, int cid = 0}) async {
+    if (page == 0) {
+      _articles.clear();
+    }
+    Map articleList = {};
+    try {
+      articleList = await TreeApi.treeItems(page: page, cid: cid);
+      List<ArticleData> articles = List<Map>.from(
+        articleList['datas'],
+      ).map((dynamic e) => ArticleData.fromJson(e)).toList();
+      _articles.addAll(articles);
+    } catch (e) {
+      throw Exception('Failed to fetch searchResults: $e');
+    }
+    return ArticleListData(
+      datas: _articles,
+      pageCount: articleList['pageCount'],
+      curPage: articleList['curPage'],
+    );
   }
 }

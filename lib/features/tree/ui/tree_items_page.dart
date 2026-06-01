@@ -1,33 +1,47 @@
 import 'package:anotherwanandroidflutter/common/colors.dart';
-import 'package:anotherwanandroidflutter/features/tree/ui/tree_list_page.dart';
+import 'package:anotherwanandroidflutter/features/tree/model/tree_node_data.dart';
+import 'package:anotherwanandroidflutter/features/tree/ui/tree_items_list_page.dart';
+import 'package:anotherwanandroidflutter/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 //创建Provider来管理当前选中的索引
 final selectedIndexProvider = StateProvider<int>((ref) => 0);
 
-class TreePage extends ConsumerStatefulWidget {
-  const TreePage({super.key});
+class TreeItemsPage extends ConsumerStatefulWidget {
+  const TreeItemsPage({
+    super.key,
+    required this.tabs,
+    required this.index,
+    this.title,
+  });
+
+  final List<TreeNodeData> tabs;
+  final int index;
+  final String? title;
 
   @override
-  ConsumerState createState() => TreePageState();
+  ConsumerState createState() => _TreeItemPageState();
 }
 
-class TreePageState extends ConsumerState<TreePage>
-    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+class _TreeItemPageState extends ConsumerState<TreeItemsPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late PageController _pageController;
   List<Widget> tabViews = [];
-  List<String> tabs = const ['体系', '导航'];
-  @override
-  bool get wantKeepAlive => true;
-
   @override
   void initState() {
     super.initState();
-    tabViews = <Widget>[TreeListPage(), Center(child: Text("2"))];
-    _tabController = TabController(vsync: this, length: tabViews.length);
-    _pageController = PageController();
+    for (TreeNodeData tab in widget.tabs) {
+      tabViews.add(TreeItemsListPage(params: {'page': 0, 'cid': tab.id}));
+    }
+    _tabController = TabController(
+      vsync: this,
+      length: tabViews.length,
+      initialIndex: widget.index,
+    );
+    _pageController = PageController(initialPage: widget.index);
   }
 
   @override
@@ -39,7 +53,6 @@ class TreePageState extends ConsumerState<TreePage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     // 监听选中的索引
     final selectedIndex = ref.watch(selectedIndexProvider);
     // 监听索引变化，同步PageView
@@ -50,13 +63,21 @@ class TreePageState extends ConsumerState<TreePage>
       }
     });
     return DefaultTabController(
-      length: tabs.length,
+      length: widget.tabs.length,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.colorPrimary,
-          title: Text('体系', style: TextStyle(color: Colors.white)),
+          title: Text(
+            widget.title ?? widget.tabs[selectedIndex].name ?? "",
+            style: TextStyle(color: Colors.white),
+          ),
           actions: <Widget>[
-            IconButton(icon: Icon(Icons.search), onPressed: () {}),
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                context.push(Routes.search);
+              },
+            ),
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(40),
@@ -71,13 +92,13 @@ class TreePageState extends ConsumerState<TreePage>
                 indicatorColor: Colors.white,
                 indicatorWeight: 3,
                 indicatorSize: TabBarIndicatorSize.label,
-                tabs: tabs
+                tabs: widget.tabs
                     .asMap()
                     .map(
-                      (int index, String title) => MapEntry(
+                      (int index, TreeNodeData node) => MapEntry(
                         index,
                         Text(
-                          title,
+                          node.name ?? "",
                           style: TextStyle(
                             color: selectedIndex == index
                                 ? Colors.white
