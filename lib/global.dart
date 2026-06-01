@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:anotherwanandroidflutter/http/http_manager.dart';
+import 'package:anotherwanandroidflutter/utils/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,7 +21,7 @@ class Global {
     WidgetsFlutterBinding.ensureInitialized();
 
     // 本地数据存储工具初始
-    // await StorageUtil().init();
+    await StorageUtil().init();
 
     // // 读取设备第一次打开
     // isFirstOpen = !StorageUtil().getBool(STORAGE_DEVICE_ALREADY_OPEN_KEY);
@@ -27,12 +29,8 @@ class Global {
     //   StorageUtil().setBool(STORAGE_DEVICE_ALREADY_OPEN_KEY, true);
     // }
 
-
-    // 初始化 路由
-    // Routes.configRoutes(Application.router);
-
     // 初始化网络请求
-    // HttpManager.init();
+    HttpManager.init();
 
     // Android 沉浸式状态栏
     if (Platform.isAndroid) {

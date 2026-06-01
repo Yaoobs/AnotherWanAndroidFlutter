@@ -1,5 +1,6 @@
 import 'package:anotherwanandroidflutter/routing/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'extensions/build_context_extension.dart';
@@ -20,6 +21,7 @@ class App extends ConsumerWidget {
         themeMode: themeMode.value,
         routerConfig: router,
         debugShowCheckedModeBanner: false,
+        builder: EasyLoading.init()
         // builder: (context, child) {
         //   return OfflineContainer(child: child);
         // },

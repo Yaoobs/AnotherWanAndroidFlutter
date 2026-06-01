@@ -14,11 +14,11 @@ import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
 class Http {
-  static const String baseUrl = "https://www.wanandroid.com";
+  static const String baseUrl = "https://wanandroid.com";
 
   ///超时时间
-  static const int CONNECT_TIMEOUT = 5000;
-  static const int RECEIVE_TIMEOUT = 3000;
+  static const int CONNECT_TIMEOUT = 50000;
+  static const int RECEIVE_TIMEOUT = 30000;
 
   static const bool deugFlag = !bool.fromEnvironment('dart.vm.product');
 

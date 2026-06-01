@@ -1,4 +1,5 @@
 import 'package:anotherwanandroidflutter/common/icons.dart';
+import 'package:anotherwanandroidflutter/features/article/ui/article_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,17 +10,17 @@ final selectedIndexProvider = StateProvider<int>((ref) => 0);
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
   @override
-  ConsumerState<HomeScreen> createState() => _HomePageState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   late final PageController _pageController;
   List<String> appBarTitles = ['首页', '体系', '公众号', '项目', '我的'];
 
   List<BottomNavigationBarItem> bottomNavItems = [];
 
   final pages = [
-    Container(child: Center(child: Text("1"))),
+    ArticleScreen(),
     Container(child: Center(child: Text("2"))),
     Container(child: Center(child: Text("3"))),
     Container(child: Center(child: Text("4"))),
