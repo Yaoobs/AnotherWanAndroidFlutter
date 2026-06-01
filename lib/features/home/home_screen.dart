@@ -1,5 +1,6 @@
 import 'package:anotherwanandroidflutter/common/icons.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/article_page.dart';
+import 'package:anotherwanandroidflutter/features/tree/ui/tree_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,7 +22,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   final pages = [
     ArticleScreen(),
-    Container(child: Center(child: Text("2"))),
+    TreePage(),
     Container(child: Center(child: Text("3"))),
     Container(child: Center(child: Text("4"))),
     Container(child: Center(child: Text("5"))),

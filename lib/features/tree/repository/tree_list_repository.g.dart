@@ -1,26 +1,30 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'search_view_model.dart';
+part of 'tree_list_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$searchViewModelHash() => r'04c4a159ecf6fcfa5e8d7e14757b8ff4c326c736';
+String _$treeListRepositoryHash() =>
+    r'd0feca98bcd1ab0f40f3cc499bddaba9cbc1f12c';
 
-/// See also [SearchViewModel].
-@ProviderFor(SearchViewModel)
-final searchViewModelProvider =
-    AsyncNotifierProvider<SearchViewModel, SearchState>.internal(
-      SearchViewModel.new,
-      name: r'searchViewModelProvider',
+/// See also [treeListRepository].
+@ProviderFor(treeListRepository)
+final treeListRepositoryProvider =
+    AutoDisposeFutureProvider<TreeListRepository>.internal(
+      treeListRepository,
+      name: r'treeListRepositoryProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$searchViewModelHash,
+          : _$treeListRepositoryHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$SearchViewModel = AsyncNotifier<SearchState>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef TreeListRepositoryRef =
+    AutoDisposeFutureProviderRef<TreeListRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
