@@ -5,9 +5,11 @@ import 'package:anotherwanandroidflutter/features/article/ui/view_model/article_
 import 'package:anotherwanandroidflutter/features/article/ui/widget/article_list.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/widget/image_banner.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/widget/sep_divider.dart';
+import 'package:anotherwanandroidflutter/features/common/ui/widgets/placeholders.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ArticleScreen extends ConsumerStatefulWidget {
   const ArticleScreen({super.key});
@@ -66,23 +68,53 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen>
           ),
         ],
       ),
-      body: EasyRefresh(
-        controller: _controller,
-        header: EasyRefreshConfig().header,
-        footer: EasyRefreshConfig().footer,
-        child: CustomScrollView(slivers: slivers),
-        onRefresh: () async {
-          ref.read(articleViewModelProvider.notifier).refreshArticles();
-          _controller.finishRefresh();
-        },
-        onLoad: () async {
-          ref.read(articleViewModelProvider.notifier).loadMoreArticles();
-          _controller.finishLoad(
-            (articleListState.value?.noMore ?? false)
-                ? IndicatorResult.noMore
-                : IndicatorResult.success,
+      body: articleListState.when(
+        data: (state) {
+          return EasyRefresh(
+            controller: _controller,
+            header: EasyRefreshConfig().header,
+            footer: EasyRefreshConfig().footer,
+            child: CustomScrollView(slivers: slivers),
+            onRefresh: () async {
+              ref.read(articleViewModelProvider.notifier).refreshArticles();
+              _controller.finishRefresh();
+            },
+            onLoad: () async {
+              ref.read(articleViewModelProvider.notifier).loadMoreArticles();
+              _controller.finishLoad(
+                (articleListState.value?.noMore ?? false)
+                    ? IndicatorResult.noMore
+                    : IndicatorResult.success,
+              );
+            },
           );
         },
+        loading: () => Shimmer.fromColors(
+          baseColor: Colors.grey.shade300,
+          highlightColor: Colors.grey.shade100,
+          child: const SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                BannerPlaceholder(),
+                TitlePlaceholder(width: double.infinity),
+                SizedBox(height: 16.0),
+                ContentPlaceholder(lineType: ContentLineType.threeLines),
+                SizedBox(height: 16.0),
+                TitlePlaceholder(width: 200.0),
+                SizedBox(height: 16.0),
+                ContentPlaceholder(lineType: ContentLineType.twoLines),
+                SizedBox(height: 16.0),
+                TitlePlaceholder(width: 200.0),
+                SizedBox(height: 16.0),
+                ContentPlaceholder(lineType: ContentLineType.twoLines),
+              ],
+            ),
+          ),
+        ),
+        error: (error, stack) => Center(child: Text(error.toString())),
       ),
     );
   }
@@ -96,7 +128,7 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen>
     slivers.add(
       ArticleList(
         articles: state.articles,
-        onClickCollect: (id,originId) {
+        onClickCollect: (id, originId) {
           debugPrint("");
           // widget.articleBloc.collect(id);
         },

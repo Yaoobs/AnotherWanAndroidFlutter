@@ -15,11 +15,18 @@ Future<ArticleRepository> articleRepository(Ref ref) async {
 class ArticleRepository {
   ArticleRepository();
   final List<ArticleData> _articlesTotal = [];
+  final List<BannerData> _banners = [];
 
   Future<List<BannerData>> getBanners() async {
-    // 获取 banner 数据
-    List<BannerData> banners = await ArticleApi.bannerList();
-    return banners;
+    try {
+      _banners.clear();
+      // 获取 banner 数据
+      List<BannerData> banners = await ArticleApi.bannerList();
+      _banners.insertAll(0, banners);
+    } catch (e) {
+      throw Exception('Failed to fetch banners: $e');
+    }
+    return _banners;
   }
 
   Future<ArticleListData> getArticleList({
