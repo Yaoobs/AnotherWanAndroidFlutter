@@ -6,9 +6,11 @@ import 'package:anotherwanandroidflutter/features/article/ui/widget/article_list
 import 'package:anotherwanandroidflutter/features/article/ui/widget/image_banner.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/widget/sep_divider.dart';
 import 'package:anotherwanandroidflutter/features/common/ui/widgets/placeholders.dart';
+import 'package:anotherwanandroidflutter/routing/routes.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ArticleScreen extends ConsumerStatefulWidget {
@@ -31,10 +33,6 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen>
       controlFinishLoad: true,
     );
     _scrollController = ScrollController();
-    // 加载Banner
-    // widget.articleBloc.add(GetBannerData());
-    // 加载文章
-    // _loadData();
     super.initState();
   }
 
@@ -45,16 +43,11 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen>
     super.dispose();
   }
 
-  // Future<void> _loadData() async {}
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
     final articleListState = ref.watch(articleViewModelProvider);
-    List<Widget> slivers = [];
-    if (articleListState.value != null) {
-      slivers.addAll(_sliversFromState(articleListState.value!));
-    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.colorPrimary,
@@ -63,13 +56,17 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen>
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              // Application.router.navigateTo(context, Routes.search);
+               context.push(Routes.search);
             },
           ),
         ],
       ),
       body: articleListState.when(
         data: (state) {
+          List<Widget> slivers = [];
+          if (articleListState.value != null) {
+            slivers.addAll(_sliversFromState(articleListState.value!));
+          }
           return EasyRefresh(
             controller: _controller,
             header: EasyRefreshConfig().header,

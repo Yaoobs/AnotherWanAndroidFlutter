@@ -1,4 +1,3 @@
-import 'package:anotherwanandroidflutter/features/common/model/article_data.dart';
 import 'package:anotherwanandroidflutter/features/search/model/hotkey_data.dart';
 import 'package:anotherwanandroidflutter/http/http_manager.dart';
 
@@ -12,23 +11,19 @@ class SearchApi {
     return HttpManager.get(
       net_search_path_hotkey,
       params: queryParameters,
-    ).then((json) => List<Map>.from(json)
-        .map((dynamic e) => HotKeyData.fromJson(e))
-        .toList());
+    ).then(
+      (json) => List<Map>.from(
+        json,
+      ).map((dynamic e) => HotKeyData.fromJson(e)).toList(),
+    );
   }
 
-  // 首页文章列表
-  static Future<List<ArticleData>> searchArticle(
-      {required String key, int? page}) async {
-    Map<String, dynamic> queryParameters = {
-      'page_size': 20,
-      'k': key,
-    };
+  // 搜索文章列表
+  static Future<Map> searchArticle({required String key, int page = 0}) async {
+    Map<String, dynamic> queryParameters = {'page_size': 20, 'k': key};
     return HttpManager.post(
-      "/article/query/${page ?? 0}/json",
+      "/article/query/$page/json",
       params: queryParameters,
-    ).then((json) => List<Map>.from(json['datas'])
-        .map((dynamic e) => ArticleData.fromJson(e))
-        .toList());
+    ).then((json) => json);
   }
 }

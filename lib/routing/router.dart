@@ -1,5 +1,6 @@
 import 'package:anotherwanandroidflutter/features/article/ui/article_detail_page.dart';
 import 'package:anotherwanandroidflutter/features/home/home_screen.dart';
+import 'package:anotherwanandroidflutter/features/search/ui/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'routes.dart';
@@ -69,6 +70,10 @@ final GoRouter router = GoRouter(
           ArticleDetailPage(article: map?['article'], banner: map?['banner']),
         );
       },
+    ),
+    GoRoute(
+      path: Routes.search,
+      pageBuilder: (context, state) => state.slidePage(const SearchPage()),
     ),
   ],
 );
