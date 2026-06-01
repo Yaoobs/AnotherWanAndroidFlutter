@@ -1,6 +1,8 @@
 import 'package:anotherwanandroidflutter/features/article/model/banner_data.dart';
+import 'package:anotherwanandroidflutter/routing/routes.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ImageBanner extends StatelessWidget {
   const ImageBanner({super.key, required this.banners});
@@ -37,8 +39,7 @@ class ImageBanner extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  // Navigator.of(context)
-                  //     .push(ArticleDetailPage.route(banner: banner));
+                  context.push(Routes.articleDetail, extra: {'banner': banner});
                 },
               ),
               Opacity(

@@ -1,14 +1,10 @@
+import 'package:anotherwanandroidflutter/features/article/ui/article_detail_page.dart';
 import 'package:anotherwanandroidflutter/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'routes.dart';
 
-enum SlideDirection {
-  right,
-  left,
-  up,
-  down,
-}
+enum SlideDirection { right, left, up, down }
 
 extension GoRouterStateExtension on GoRouterState {
   SlideRouteTransition slidePage(
@@ -29,36 +25,33 @@ class SlideRouteTransition extends CustomTransitionPage<void> {
     required super.child,
     SlideDirection direction = SlideDirection.left,
   }) : super(
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curve = CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeInOut,
-            );
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curve = CurvedAnimation(
+             parent: animation,
+             curve: Curves.easeInOut,
+           );
 
-            Offset begin;
-            switch (direction) {
-              case SlideDirection.right:
-                begin = const Offset(-1.0, 0.0);
-                break;
-              case SlideDirection.left:
-                begin = const Offset(1.0, 0.0);
-                break;
-              case SlideDirection.up:
-                begin = const Offset(0.0, 1.0);
-                break;
-              case SlideDirection.down:
-                begin = const Offset(0.0, -1.0);
-                break;
-            }
-            final tween = Tween(begin: begin, end: Offset.zero);
-            final offsetAnimation = tween.animate(curve);
+           Offset begin;
+           switch (direction) {
+             case SlideDirection.right:
+               begin = const Offset(-1.0, 0.0);
+               break;
+             case SlideDirection.left:
+               begin = const Offset(1.0, 0.0);
+               break;
+             case SlideDirection.up:
+               begin = const Offset(0.0, 1.0);
+               break;
+             case SlideDirection.down:
+               begin = const Offset(0.0, -1.0);
+               break;
+           }
+           final tween = Tween(begin: begin, end: Offset.zero);
+           final offsetAnimation = tween.animate(curve);
 
-            return SlideTransition(
-              position: offsetAnimation,
-              child: child,
-            );
-          },
-        );
+           return SlideTransition(position: offsetAnimation, child: child);
+         },
+       );
 }
 
 final GoRouter router = GoRouter(
@@ -67,6 +60,15 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.home,
       pageBuilder: (context, state) => state.slidePage(const HomeScreen()),
+    ),
+    GoRoute(
+      path: Routes.articleDetail,
+      pageBuilder: (context, state) {
+        final map = state.extra as Map?;
+        return state.slidePage(
+          ArticleDetailPage(article: map?['article'], banner: map?['banner']),
+        );
+      },
     ),
   ],
 );

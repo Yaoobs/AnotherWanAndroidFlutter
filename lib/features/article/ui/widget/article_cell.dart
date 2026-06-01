@@ -1,8 +1,10 @@
 import 'package:anotherwanandroidflutter/common/colors.dart';
 import 'package:anotherwanandroidflutter/features/common/model/article_data.dart';
 import 'package:anotherwanandroidflutter/features/common/model/article_tags_data.dart';
+import 'package:anotherwanandroidflutter/routing/routes.dart';
 import 'package:anotherwanandroidflutter/utils/utils_string.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ArticleCell extends StatelessWidget {
   const ArticleCell({
@@ -169,7 +171,7 @@ class ArticleCell extends StatelessWidget {
         child: column,
       ),
       onTap: () {
-        // Navigator.of(context).push(ArticleDetailPage.route(article: article));
+        context.push(Routes.articleDetail, extra: {'article': article});
       },
     );
   }

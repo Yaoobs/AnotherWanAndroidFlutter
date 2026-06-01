@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.5.3
   connectivity_plus: ^7.0.0
   path_provider: ^2.0.15
+  webview_flutter: ^4.13.1
   # MIT
   flutter_riverpod: ^2.6.1 #状态管理
   freezed_annotation: ^3.0.0 #通过注解生成freezed代码
