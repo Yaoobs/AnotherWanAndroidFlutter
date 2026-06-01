@@ -3,6 +3,7 @@ import 'package:anotherwanandroidflutter/common/easy_refresh/easy_refresh_config
 import 'package:anotherwanandroidflutter/features/article/ui/state/article_state.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/view_model/article_view_model.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/widget/article_list.dart';
+import 'package:anotherwanandroidflutter/features/article/ui/widget/image_banner.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/widget/sep_divider.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
@@ -90,12 +91,13 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen>
     List<Widget> slivers = [];
 
     // 添加 banner
-    // slivers.add(SliverToBoxAdapter(child: ImageBanner(banners: state.banners)));
+    slivers.add(SliverToBoxAdapter(child: ImageBanner(banners: state.banners)));
 
     slivers.add(
       ArticleList(
         articles: state.articles,
-        onClickCollect: (id) {
+        onClickCollect: (id,originId) {
+          debugPrint("");
           // widget.articleBloc.collect(id);
         },
       ),

@@ -1,3 +1,4 @@
+import 'package:anotherwanandroidflutter/features/article/model/banner_data.dart';
 import 'package:anotherwanandroidflutter/features/article/repository/article_repository.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/state/article_state.dart';
 import 'package:anotherwanandroidflutter/features/common/model/article_list_data.dart';
@@ -12,13 +13,17 @@ class ArticleViewModel extends _$ArticleViewModel {
   FutureOr<ArticleState> build() async {
     _repository = await ref.watch(articleRepositoryProvider.future);
     ArticleListData articleDatas = await _repository.getArticleList();
-    return ArticleState(articles: articleDatas.datas ?? []);
+    List<BannerData> banners = await _repository.getBanners();
+    return ArticleState(articles: articleDatas.datas ?? [], banners: banners);
   }
 
   Future<void> refreshArticles() async {
     try {
       ArticleListData articleDatas = await _repository.getArticleList();
-      state = AsyncData(ArticleState(articles: articleDatas.datas ?? []));
+      List<BannerData> banners = await _repository.getBanners();
+      state = AsyncData(
+        ArticleState(articles: articleDatas.datas ?? [], banners: banners),
+      );
     } catch (error) {
       state = AsyncError(error, StackTrace.current);
     }
@@ -33,6 +38,7 @@ class ArticleViewModel extends _$ArticleViewModel {
       );
       state = AsyncData(
         ArticleState(
+          banners: state.value?.banners ?? [],
           page: page,
           articles: articleDatas.datas ?? [],
           noMore: (articleDatas.curPage ?? 1) >= (articleDatas.pageCount ?? 1),

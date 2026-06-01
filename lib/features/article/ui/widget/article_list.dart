@@ -5,8 +5,7 @@ import 'article_cell.dart';
 
 class ArticleList extends StatelessWidget {
   const ArticleList(
-      {Key? key, required this.articles, this.searchKey, this.onClickCollect})
-      : super(key: key);
+      {super.key, required this.articles, this.searchKey, this.onClickCollect});
 
   final List<ArticleData> articles;
   final String? searchKey;
@@ -14,19 +13,17 @@ class ArticleList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SliverFixedExtentList(
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            return ArticleCell(
-                article: articles[index],
-                searchKey: searchKey,
-                onClickCollect: onClickCollect);
-          },
-          childCount: articles.length,
-        ),
-        itemExtent: 134,
+    return SliverFixedExtentList(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          return ArticleCell(
+              article: articles[index],
+              searchKey: searchKey,
+              onClickCollect: onClickCollect);
+        },
+        childCount: articles.length,
       ),
+      itemExtent: 134,
     );
   }
 }

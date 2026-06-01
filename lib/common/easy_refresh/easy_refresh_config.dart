@@ -24,8 +24,9 @@ class EasyRefreshConfig {
     textStyle: TextStyle(color: AppColors.colorTextAuthor),
     messageStyle: TextStyle(color: AppColors.colorTextAuthor),
   );
-  Header get header => BezierCircleHeader(
-    foregroundColor: AppColors.colorPrimary,
-    backgroundColor: Colors.transparent,
-  );
+  Header get header => const MaterialHeader();
+  // BezierCircleHeader(
+  //   foregroundColor: AppColors.colorPrimary,
+  //   backgroundColor: Colors.transparent,
+  // );
 }

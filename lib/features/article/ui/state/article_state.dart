@@ -1,6 +1,6 @@
+import 'package:anotherwanandroidflutter/features/article/model/banner_data.dart';
 import 'package:anotherwanandroidflutter/features/common/model/article_data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 
 part 'article_state.freezed.dart';
 part 'article_state.g.dart';
@@ -8,6 +8,7 @@ part 'article_state.g.dart';
 @freezed
 abstract class ArticleState with _$ArticleState {
   const factory ArticleState({
+    @Default([]) List<BannerData> banners,
     @Default([]) List<ArticleData> articles,
     @Default(false) bool noMore,
     @Default(0) int page,

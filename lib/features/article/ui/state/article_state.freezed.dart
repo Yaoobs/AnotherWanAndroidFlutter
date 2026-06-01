@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ArticleState {
 
- List<ArticleData> get articles; bool get noMore; int get page; String? get errorMessage;
+ List<BannerData> get banners; List<ArticleData> get articles; bool get noMore; int get page; String? get errorMessage;
 /// Create a copy of ArticleState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ArticleStateCopyWith<ArticleState> get copyWith => _$ArticleStateCopyWithImpl<A
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ArticleState&&const DeepCollectionEquality().equals(other.articles, articles)&&(identical(other.noMore, noMore) || other.noMore == noMore)&&(identical(other.page, page) || other.page == page)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ArticleState&&const DeepCollectionEquality().equals(other.banners, banners)&&const DeepCollectionEquality().equals(other.articles, articles)&&(identical(other.noMore, noMore) || other.noMore == noMore)&&(identical(other.page, page) || other.page == page)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(articles),noMore,page,errorMessage);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(banners),const DeepCollectionEquality().hash(articles),noMore,page,errorMessage);
 
 @override
 String toString() {
-  return 'ArticleState(articles: $articles, noMore: $noMore, page: $page, errorMessage: $errorMessage)';
+  return 'ArticleState(banners: $banners, articles: $articles, noMore: $noMore, page: $page, errorMessage: $errorMessage)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ArticleStateCopyWith<$Res>  {
   factory $ArticleStateCopyWith(ArticleState value, $Res Function(ArticleState) _then) = _$ArticleStateCopyWithImpl;
 @useResult
 $Res call({
- List<ArticleData> articles, bool noMore, int page, String? errorMessage
+ List<BannerData> banners, List<ArticleData> articles, bool noMore, int page, String? errorMessage
 });
 
 
@@ -65,9 +65,10 @@ class _$ArticleStateCopyWithImpl<$Res>
 
 /// Create a copy of ArticleState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? articles = null,Object? noMore = null,Object? page = null,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? banners = null,Object? articles = null,Object? noMore = null,Object? page = null,Object? errorMessage = freezed,}) {
   return _then(_self.copyWith(
-articles: null == articles ? _self.articles : articles // ignore: cast_nullable_to_non_nullable
+banners: null == banners ? _self.banners : banners // ignore: cast_nullable_to_non_nullable
+as List<BannerData>,articles: null == articles ? _self.articles : articles // ignore: cast_nullable_to_non_nullable
 as List<ArticleData>,noMore: null == noMore ? _self.noMore : noMore // ignore: cast_nullable_to_non_nullable
 as bool,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<ArticleData> articles,  bool noMore,  int page,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<BannerData> banners,  List<ArticleData> articles,  bool noMore,  int page,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ArticleState() when $default != null:
-return $default(_that.articles,_that.noMore,_that.page,_that.errorMessage);case _:
+return $default(_that.banners,_that.articles,_that.noMore,_that.page,_that.errorMessage);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.articles,_that.noMore,_that.page,_that.errorMessage);case 
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<ArticleData> articles,  bool noMore,  int page,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<BannerData> banners,  List<ArticleData> articles,  bool noMore,  int page,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
 case _ArticleState():
-return $default(_that.articles,_that.noMore,_that.page,_that.errorMessage);case _:
+return $default(_that.banners,_that.articles,_that.noMore,_that.page,_that.errorMessage);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +198,10 @@ return $default(_that.articles,_that.noMore,_that.page,_that.errorMessage);case 
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<ArticleData> articles,  bool noMore,  int page,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<BannerData> banners,  List<ArticleData> articles,  bool noMore,  int page,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
 case _ArticleState() when $default != null:
-return $default(_that.articles,_that.noMore,_that.page,_that.errorMessage);case _:
+return $default(_that.banners,_that.articles,_that.noMore,_that.page,_that.errorMessage);case _:
   return null;
 
 }
@@ -212,8 +213,15 @@ return $default(_that.articles,_that.noMore,_that.page,_that.errorMessage);case 
 @JsonSerializable()
 
 class _ArticleState implements ArticleState {
-  const _ArticleState({final  List<ArticleData> articles = const [], this.noMore = false, this.page = 0, this.errorMessage}): _articles = articles;
+  const _ArticleState({final  List<BannerData> banners = const [], final  List<ArticleData> articles = const [], this.noMore = false, this.page = 0, this.errorMessage}): _banners = banners,_articles = articles;
   factory _ArticleState.fromJson(Map<String, dynamic> json) => _$ArticleStateFromJson(json);
+
+ final  List<BannerData> _banners;
+@override@JsonKey() List<BannerData> get banners {
+  if (_banners is EqualUnmodifiableListView) return _banners;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_banners);
+}
 
  final  List<ArticleData> _articles;
 @override@JsonKey() List<ArticleData> get articles {
@@ -239,16 +247,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ArticleState&&const DeepCollectionEquality().equals(other._articles, _articles)&&(identical(other.noMore, noMore) || other.noMore == noMore)&&(identical(other.page, page) || other.page == page)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ArticleState&&const DeepCollectionEquality().equals(other._banners, _banners)&&const DeepCollectionEquality().equals(other._articles, _articles)&&(identical(other.noMore, noMore) || other.noMore == noMore)&&(identical(other.page, page) || other.page == page)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_articles),noMore,page,errorMessage);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_banners),const DeepCollectionEquality().hash(_articles),noMore,page,errorMessage);
 
 @override
 String toString() {
-  return 'ArticleState(articles: $articles, noMore: $noMore, page: $page, errorMessage: $errorMessage)';
+  return 'ArticleState(banners: $banners, articles: $articles, noMore: $noMore, page: $page, errorMessage: $errorMessage)';
 }
 
 
@@ -259,7 +267,7 @@ abstract mixin class _$ArticleStateCopyWith<$Res> implements $ArticleStateCopyWi
   factory _$ArticleStateCopyWith(_ArticleState value, $Res Function(_ArticleState) _then) = __$ArticleStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<ArticleData> articles, bool noMore, int page, String? errorMessage
+ List<BannerData> banners, List<ArticleData> articles, bool noMore, int page, String? errorMessage
 });
 
 
@@ -276,9 +284,10 @@ class __$ArticleStateCopyWithImpl<$Res>
 
 /// Create a copy of ArticleState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? articles = null,Object? noMore = null,Object? page = null,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? banners = null,Object? articles = null,Object? noMore = null,Object? page = null,Object? errorMessage = freezed,}) {
   return _then(_ArticleState(
-articles: null == articles ? _self._articles : articles // ignore: cast_nullable_to_non_nullable
+banners: null == banners ? _self._banners : banners // ignore: cast_nullable_to_non_nullable
+as List<BannerData>,articles: null == articles ? _self._articles : articles // ignore: cast_nullable_to_non_nullable
 as List<ArticleData>,noMore: null == noMore ? _self.noMore : noMore // ignore: cast_nullable_to_non_nullable
 as bool,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable

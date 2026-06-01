@@ -1,4 +1,5 @@
 import 'package:anotherwanandroidflutter/api/article/article_api.dart';
+import 'package:anotherwanandroidflutter/features/article/model/banner_data.dart';
 import 'package:anotherwanandroidflutter/features/common/model/article_data.dart';
 import 'package:anotherwanandroidflutter/features/common/model/article_list_data.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,12 @@ Future<ArticleRepository> articleRepository(Ref ref) async {
 class ArticleRepository {
   ArticleRepository();
   final List<ArticleData> _articlesTotal = [];
+
+  Future<List<BannerData>> getBanners() async {
+    // 获取 banner 数据
+    List<BannerData> banners = await ArticleApi.bannerList();
+    return banners;
+  }
 
   Future<ArticleListData> getArticleList({
     int page = 0,
