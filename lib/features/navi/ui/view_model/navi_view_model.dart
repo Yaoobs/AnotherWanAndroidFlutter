@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'navi_view_model.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: false)
 class NaviViewModel extends _$NaviViewModel {
   late NaviRepository _repository;
   @override

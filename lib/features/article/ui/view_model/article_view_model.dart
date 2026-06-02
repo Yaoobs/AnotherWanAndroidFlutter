@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'article_view_model.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: false)
 class ArticleViewModel extends _$ArticleViewModel {
   late ArticleRepository _repository;
   @override

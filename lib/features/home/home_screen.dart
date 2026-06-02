@@ -22,7 +22,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   final pages = [
     ArticleScreen(),
-    TreePage(),
+    TreePage(title: "体系"),
     Container(child: Center(child: Text("3"))),
     Container(child: Center(child: Text("4"))),
     Container(child: Center(child: Text("5"))),
