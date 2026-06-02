@@ -1,6 +1,7 @@
 import 'package:anotherwanandroidflutter/common/colors.dart';
 import 'package:anotherwanandroidflutter/features/article/model/banner_data.dart';
 import 'package:anotherwanandroidflutter/features/common/model/article_data.dart';
+import 'package:anotherwanandroidflutter/utils/utils_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -39,8 +40,8 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
       _controller.loadRequest(
         Uri.parse(
           widget.article != null
-              ? widget.article!.link!
-              : widget.banner!.url!.replaceAll("www.", ""),
+              ? UtilsString.parseInvalidUrl(widget.article!.link!)
+              : UtilsString.parseInvalidUrl(widget.banner!.url!),
         ),
       );
     });
@@ -50,6 +51,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.colorPrimary,
         title: Text(
           widget.article != null
               ? widget.article?.title ?? ""

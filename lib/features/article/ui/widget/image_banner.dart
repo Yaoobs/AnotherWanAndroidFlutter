@@ -1,5 +1,6 @@
 import 'package:anotherwanandroidflutter/features/article/model/banner_data.dart';
 import 'package:anotherwanandroidflutter/routing/routes.dart';
+import 'package:anotherwanandroidflutter/utils/utils_string.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -33,7 +34,7 @@ class ImageBanner extends StatelessWidget {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                        banner.imagePath?.replaceAll("www.", "") ?? '',
+                        UtilsString.parseInvalidUrl(banner.imagePath ?? ''),
                       ),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:anotherwanandroidflutter/common/colors.dart';
+import 'package:anotherwanandroidflutter/features/navi/ui/navi_page.dart';
 import 'package:anotherwanandroidflutter/features/tree/ui/tree_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,7 +26,7 @@ class TreePageState extends ConsumerState<TreePage>
   @override
   void initState() {
     super.initState();
-    tabViews = <Widget>[TreeListPage(), Center(child: Text("2"))];
+    tabViews = <Widget>[TreeListPage(), NaviPage()];
     _tabController = TabController(vsync: this, length: tabViews.length);
     _pageController = PageController();
   }

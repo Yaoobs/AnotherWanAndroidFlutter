@@ -1,3 +1,4 @@
+import 'package:anotherwanandroidflutter/features/search/ui/widgets/hotkeylist_cell.dart';
 import 'package:anotherwanandroidflutter/features/tree/model/tree_node_data.dart';
 import 'package:flutter/material.dart';
 
@@ -40,24 +41,5 @@ class TreeListCell extends StatelessWidget {
             )),
       ],
     );
-  }
-}
-
-class HotKeyCell extends StatelessWidget {
-  final String? text;
-
-  final VoidCallback onPressed;
-
-  const HotKeyCell({super.key, this.text, required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return ActionChip(
-        backgroundColor: Theme.of(context).primaryColor,
-        label: Text(
-          text ?? "",
-          style: TextStyle(color: Colors.white, fontSize: 14),
-        ),
-        onPressed: onPressed);
   }
 }

@@ -2,6 +2,14 @@ import 'package:anotherwanandroidflutter/common/colors.dart';
 import 'package:flutter/material.dart';
 
 class UtilsString {
+  static String parseInvalidUrl(String url) {
+    if (url.contains("http://www.wanandroid.com") ||
+        url.contains("https://www.wanandroid.com")) {
+      return url.replaceAll("www.", "");
+    }
+    return url;
+  }
+
   static fixedHttpStart(String? url) {
     if (url != null && !url.startsWith('http')) return 'https:' + url;
     return url;
@@ -15,11 +23,14 @@ class UtilsString {
     String splitString1 = "<em class='highlight'>";
     String splitString2 = "</em>";
 
-    String textOrigin =
-        text.replaceAll(splitString1, '').replaceAll(splitString2, '');
+    String textOrigin = text
+        .replaceAll(splitString1, '')
+        .replaceAll(splitString2, '');
 
     TextSpan textSpan = new TextSpan(
-        text: key, style: new TextStyle(color: AppColors.colorPrimary));
+      text: key,
+      style: new TextStyle(color: AppColors.colorPrimary),
+    );
 
     List<String> split = textOrigin.split(key);
 
