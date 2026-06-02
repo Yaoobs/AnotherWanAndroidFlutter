@@ -1,26 +1,10 @@
 import 'package:anotherwanandroidflutter/common/colors.dart';
-import 'package:anotherwanandroidflutter/features/tree/model/tree_node_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-//创建Provider来管理当前选中的索引
-// 定义 family provider，接收初始索引参数
-final selectedIndexProvider = StateProvider.family<int, int>((
-  ref,
-  initialIndex,
-) {
-  return initialIndex;
-});
-
 abstract class BaseTabPage extends ConsumerStatefulWidget {
-  const BaseTabPage({
-    super.key,
-    this.tabs,
-    this.index = 0,
-    this.title,
-  });
+  const BaseTabPage({super.key, this.index = 0, this.title});
 
-  final List<TreeNodeData>? tabs;
   final int index;
   final String? title;
 
@@ -46,11 +30,24 @@ abstract class BaseTabPageState<T extends BaseTabPage> extends ConsumerState<T>
   @protected
   List<Widget> getTabViews();
 
+  StateProviderFamily<int, int> get stateProvider => getStateProvider();
+
+  @protected
+  StateProviderFamily<int, int> getStateProvider();
+
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: tabViews.length);
-    _pageController = PageController();
+    initTabController();
+  }
+
+  initTabController() {
+    _tabController = TabController(
+      vsync: this,
+      length: tabTitles.length,
+      initialIndex: widget.index,
+    );
+    _pageController = PageController(initialPage: widget.index);
   }
 
   @override
@@ -67,20 +64,23 @@ abstract class BaseTabPageState<T extends BaseTabPage> extends ConsumerState<T>
 
   Widget buildView() {
     // 监听选中的索引
-    final selectedIndex = ref.watch(selectedIndexProvider(widget.index));
+    final selectedIndex = ref.watch(stateProvider(widget.index));
     // 监听索引变化，同步PageView
-    ref.listen<int>(selectedIndexProvider(widget.index), (previous, next) {
+    ref.listen<int>(stateProvider(widget.index), (previous, next) {
       if (previous != next) {
         _pageController.jumpToPage(next);
         _tabController.animateTo(next);
       }
     });
     return DefaultTabController(
-      length: tabViews.length,
+      length: tabTitles.length,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.colorPrimary,
-          title: Text(widget.title??"", style: TextStyle(color: Colors.white)),
+          title: Text(
+            widget.title ?? "",
+            style: TextStyle(color: Colors.white),
+          ),
           actions: getActions(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(40),
@@ -138,6 +138,6 @@ abstract class BaseTabPageState<T extends BaseTabPage> extends ConsumerState<T>
 
   void _onTabChanged(int index) {
     // 更新Provider中的索引
-    ref.read(selectedIndexProvider(widget.index).notifier).state = index;
+    ref.read(stateProvider(widget.index).notifier).state = index;
   }
 }
