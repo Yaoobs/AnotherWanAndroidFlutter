@@ -7,7 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 //创建Provider来管理当前选中的索引
-final selectedIndexProvider = StateProvider<int>((ref) => 0);
+// 定义 family provider，接收初始索引参数
+final selectedIndexProvider = StateProvider.family<int, int>((ref, initialIndex) {
+  return initialIndex;
+});
 
 class TreeItemsPage extends ConsumerStatefulWidget {
   const TreeItemsPage({
@@ -53,10 +56,10 @@ class _TreeItemPageState extends ConsumerState<TreeItemsPage>
 
   @override
   Widget build(BuildContext context) {
-    // 监听选中的索引
-    final selectedIndex = ref.watch(selectedIndexProvider);
+     // 传入初始值
+    final selectedIndex = ref.watch(selectedIndexProvider(widget.index));
     // 监听索引变化，同步PageView
-    ref.listen<int>(selectedIndexProvider, (previous, next) {
+    ref.listen<int>(selectedIndexProvider((widget.index)), (previous, next) {
       if (previous != next) {
         _pageController.jumpToPage(next);
         _tabController.animateTo(next);
@@ -130,6 +133,6 @@ class _TreeItemPageState extends ConsumerState<TreeItemsPage>
 
   void _onTabChanged(int index) {
     // 更新Provider中的索引
-    ref.read(selectedIndexProvider.notifier).state = index;
+    ref.read(selectedIndexProvider(widget.index).notifier).state = index;
   }
 }

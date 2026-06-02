@@ -73,7 +73,8 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen>
             footer: EasyRefreshConfig().footer,
             child: CustomScrollView(slivers: slivers),
             onRefresh: () async {
-              ref.read(articleViewModelProvider.notifier).refreshArticles();
+              ref.invalidate(articleViewModelProvider);
+              // ref.read(articleViewModelProvider.notifier).refreshArticles();
               _controller.finishRefresh();
             },
             onLoad: () async {

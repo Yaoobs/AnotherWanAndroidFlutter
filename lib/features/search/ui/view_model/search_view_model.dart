@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'search_view_model.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: false)
 class SearchViewModel extends _$SearchViewModel {
   late SearchRepository _repository;
   @override
@@ -19,7 +19,7 @@ class SearchViewModel extends _$SearchViewModel {
   Future<void> getHotKeys() async {
     try {
       List<HotKeyData> hotKeys = await _repository.getHotKeys();
-      state = AsyncData(SearchState(hotKeys: hotKeys));
+      state = AsyncData(state.value!.copyWith(hotKeys: hotKeys));
     } catch (error) {
       state = AsyncError(error, StackTrace.current);
     }
@@ -27,7 +27,7 @@ class SearchViewModel extends _$SearchViewModel {
 
   void clearSearchResults() {
     state = AsyncData(
-      SearchState(hotKeys: state.value?.hotKeys ?? [], searchResults: []),
+      state.value!.copyWith(hotKeys: state.value?.hotKeys ?? [], searchResults: []),
     );
   }
 
@@ -46,8 +46,7 @@ class SearchViewModel extends _$SearchViewModel {
         key: key,
       );
       state = AsyncData(
-        SearchState(
-          hotKeys: state.value?.hotKeys ?? [],
+        state.value!.copyWith(
           page: page,
           searchResults: articleDatas.datas ?? [],
           noMore: (articleDatas.curPage ?? 1) >= (articleDatas.pageCount ?? 1),

@@ -15,9 +15,11 @@ class TreeItemsListPage extends ConsumerStatefulWidget {
   ConsumerState createState() => _TreeItemsListPageState();
 }
 
-class _TreeItemsListPageState extends ConsumerState<TreeItemsListPage> {
+class _TreeItemsListPageState extends ConsumerState<TreeItemsListPage>
+    with AutomaticKeepAliveClientMixin {
   late EasyRefreshController _controller;
-
+  @override
+  bool get wantKeepAlive => true;
   @override
   void initState() {
     _controller = EasyRefreshController(
@@ -35,7 +37,10 @@ class _TreeItemsListPageState extends ConsumerState<TreeItemsListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final articleListState = ref.watch(treeItemsViewModelProvider);
+    super.build(context);
+    final articleListState = ref.watch(
+      treeItemsViewModelProvider(widget.params['cid']),
+    );
     return articleListState.when(
       data: (state) {
         List<Widget> slivers = [];
@@ -47,14 +52,14 @@ class _TreeItemsListPageState extends ConsumerState<TreeItemsListPage> {
           child: CustomScrollView(slivers: slivers),
           onRefresh: () async {
             ref
-                .read(treeItemsViewModelProvider.notifier)
-                .getItemData(cid: widget.params['cid']);
+                .read(treeItemsViewModelProvider(widget.params['cid']).notifier)
+                .getItemData();
             _controller.finishRefresh();
           },
           onLoad: () async {
             ref
-                .read(treeItemsViewModelProvider.notifier)
-                .getItemData(cid: widget.params['cid'], loadMore: true);
+                .read(treeItemsViewModelProvider(widget.params['cid']).notifier)
+                .getItemData(loadMore: true);
             _controller.finishLoad(
               (articleListState.value?.noMore ?? false)
                   ? IndicatorResult.noMore

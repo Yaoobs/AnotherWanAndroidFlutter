@@ -12,8 +12,12 @@ class ArticleViewModel extends _$ArticleViewModel {
   @override
   FutureOr<ArticleState> build() async {
     _repository = await ref.watch(articleRepositoryProvider.future);
-    ArticleListData articleDatas = await _repository.getArticleList();
-    List<BannerData> banners = await _repository.getBanners();
+    ArticleListData articleDatas = ArticleListData();
+    List<BannerData> banners = [];
+    try {
+      articleDatas = await _repository.getArticleList();
+      banners = await _repository.getBanners();
+    } catch (error) {}
     return ArticleState(articles: articleDatas.datas ?? [], banners: banners);
   }
 
@@ -22,7 +26,10 @@ class ArticleViewModel extends _$ArticleViewModel {
       ArticleListData articleDatas = await _repository.getArticleList();
       List<BannerData> banners = await _repository.getBanners();
       state = AsyncData(
-        ArticleState(articles: articleDatas.datas ?? [], banners: banners),
+        state.value!.copyWith(
+          articles: articleDatas.datas ?? [],
+          banners: banners,
+        ),
       );
     } catch (error) {
       state = AsyncError(error, StackTrace.current);
@@ -37,8 +44,7 @@ class ArticleViewModel extends _$ArticleViewModel {
         page: page,
       );
       state = AsyncData(
-        ArticleState(
-          banners: state.value?.banners ?? [],
+        state.value!.copyWith(
           page: page,
           articles: articleDatas.datas ?? [],
           noMore: (articleDatas.curPage ?? 1) >= (articleDatas.pageCount ?? 1),
