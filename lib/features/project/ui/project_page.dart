@@ -54,11 +54,11 @@ class ProjectPageState extends BaseTabPageState<ProjectPage>
   List<Widget> getTabViews() {
     final wxArticleState = ref.read(projectViewModelProvider);
     return wxArticleState.value?.projectTree.map((node) {
-          return ProjectListPage(params: {'page': 0, 'id': node.id});
+          return ProjectListPage(params: {'page': 0, 'cid': node.id});
         }).toList() ??
         List.generate(
           28,
-          (index) => ProjectListPage(params: {'page': 0, 'id': 0}),
+          (index) => ProjectListPage(params: {'page': 0, 'cid': 0}),
         );
   }
 

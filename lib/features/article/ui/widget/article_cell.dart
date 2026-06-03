@@ -91,7 +91,9 @@ class ArticleCell extends StatelessWidget {
                     fit: BoxFit.cover,
                     height: 60,
                     width: 120,
-                    image: NetworkImage(article.envelopePic!),
+                    image: NetworkImage(
+                      UtilsString.parseInvalidUrl(article.envelopePic ?? ""),
+                    ),
                   ),
                 )
               : Container(),
