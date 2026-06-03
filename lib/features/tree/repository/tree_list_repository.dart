@@ -15,14 +15,13 @@ Future<TreeListRepository> treeListRepository(Ref ref) async {
 class TreeListRepository {
   TreeListRepository();
   final List<TreeNodeData> _treeList = [];
-  final List<ArticleData> _articles = [];
 
   Future<List<TreeNodeData>> getTreeList() async {
     try {
       _treeList.clear();
       // 获取 体系列表
-      List<TreeNodeData> treeList = await TreeApi.treeList();
-      _treeList.insertAll(0, treeList);
+      List<TreeNodeData> results = await TreeApi.treeList();
+      _treeList.insertAll(0, results);
     } catch (e) {
       throw Exception('Failed to fetch hotKeys: $e');
     }
@@ -30,21 +29,22 @@ class TreeListRepository {
   }
 
   Future<ArticleListData> getItemData({int page = 0, int cid = 0}) async {
+    final List<ArticleData> articles = [];
     if (page == 0) {
-      _articles.clear();
+      articles.clear();
     }
     Map articleList = {};
     try {
       articleList = await TreeApi.treeItems(page: page, cid: cid);
-      List<ArticleData> articles = List<Map>.from(
+      List<ArticleData> results = List<Map>.from(
         articleList['datas'],
       ).map((dynamic e) => ArticleData.fromJson(e)).toList();
-      _articles.addAll(articles);
+      articles.addAll(results);
     } catch (e) {
       throw Exception('Failed to fetch searchResults: $e');
     }
     return ArticleListData(
-      datas: _articles,
+      datas: articles,
       pageCount: articleList['pageCount'],
       curPage: articleList['curPage'],
     );

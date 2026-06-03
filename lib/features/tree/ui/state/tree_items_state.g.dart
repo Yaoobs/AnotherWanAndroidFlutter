@@ -15,6 +15,7 @@ _TreeItemsState _$TreeItemsStateFromJson(Map<String, dynamic> json) =>
           const [],
       noMore: json['noMore'] as bool? ?? false,
       page: (json['page'] as num?)?.toInt() ?? 0,
+      cid: (json['cid'] as num?)?.toInt() ?? 0,
       errorMessage: json['errorMessage'] as String?,
     );
 
@@ -23,5 +24,6 @@ Map<String, dynamic> _$TreeItemsStateToJson(_TreeItemsState instance) =>
       'articles': instance.articles,
       'noMore': instance.noMore,
       'page': instance.page,
+      'cid': instance.cid,
       'errorMessage': instance.errorMessage,
     };

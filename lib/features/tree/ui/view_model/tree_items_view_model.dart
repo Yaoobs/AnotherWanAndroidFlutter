@@ -8,13 +8,11 @@ part 'tree_items_view_model.g.dart';
 @Riverpod(keepAlive: false)
 class TreeItemsViewModel extends _$TreeItemsViewModel {
   late TreeListRepository _repository;
-  late int _cid;
   @override
   FutureOr<TreeItemsState> build(int cid) async {
-    _cid = cid;
     _repository = await ref.watch(treeListRepositoryProvider.future);
     ArticleListData articleDatas = await _repository.getItemData(cid: cid);
-    return TreeItemsState(articles: articleDatas.datas ?? []);
+    return TreeItemsState(articles: articleDatas.datas ?? [], cid: cid);
   }
 
   Future<void> getItemData({int? cid, bool loadMore = false}) async {
@@ -26,10 +24,10 @@ class TreeItemsViewModel extends _$TreeItemsViewModel {
       }
       ArticleListData articleDatas = await _repository.getItemData(
         page: page,
-        cid: cid ?? _cid,
+        cid: cid ?? state.value?.cid ?? 0,
       );
       state = AsyncData(
-        TreeItemsState(
+        state.value!.copyWith(
           page: page,
           articles: articleDatas.datas ?? [],
           noMore: (articleDatas.curPage ?? 1) >= (articleDatas.pageCount ?? 1),

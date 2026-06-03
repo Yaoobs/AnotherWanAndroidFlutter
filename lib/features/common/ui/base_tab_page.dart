@@ -19,6 +19,7 @@ abstract class BaseTabPageState<T extends BaseTabPage> extends ConsumerState<T>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late PageController _pageController;
+  int selectedIndex = 0;
 
   List<String> get tabTitles => getTabTitles();
 
@@ -39,6 +40,7 @@ abstract class BaseTabPageState<T extends BaseTabPage> extends ConsumerState<T>
   void initState() {
     super.initState();
     initTabController();
+    selectedIndex = widget.index;
   }
 
   initTabController() {
@@ -64,7 +66,7 @@ abstract class BaseTabPageState<T extends BaseTabPage> extends ConsumerState<T>
 
   Widget buildView() {
     // 监听选中的索引
-    final selectedIndex = ref.watch(stateProvider(widget.index));
+    selectedIndex = ref.watch(stateProvider(widget.index));
     // 监听索引变化，同步PageView
     ref.listen<int>(stateProvider(widget.index), (previous, next) {
       if (previous != next) {

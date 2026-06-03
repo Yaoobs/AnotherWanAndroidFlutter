@@ -10,6 +10,7 @@ abstract class TreeItemsState with _$TreeItemsState {
     @Default([]) List<ArticleData> articles,
     @Default(false) bool noMore,
     @Default(0) int page,
+    @Default(0) int cid,
     String? errorMessage,
   }) = _TreeItemsState;
 
