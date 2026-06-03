@@ -12,11 +12,11 @@ class WxArticleListViewModel extends _$WxArticleListViewModel {
   @override
   FutureOr<WxArticleListState> build(int id) async {
     _repository = await ref.watch(wxArticleRepositoryProvider.future);
-    ArticleListData articleDatas = await _repository.getArticleList(id: id);
+    ArticleListData articleDatas = await _repository.getWxArticleList(id: id);
     return WxArticleListState(articles: articleDatas.datas ?? [], id: id);
   }
 
-  Future<void> getArticleList({int? id, bool loadMore = false}) async {
+  Future<void> getWxArticleList({int? id, bool loadMore = false}) async {
     try {
       int page = 1;
       List<ArticleData> articlesTotal = [];
@@ -25,7 +25,7 @@ class WxArticleListViewModel extends _$WxArticleListViewModel {
         page = state.value?.page ?? 1;
         page++;
       }
-      ArticleListData articleDatas = await _repository.getArticleList(
+      ArticleListData articleDatas = await _repository.getWxArticleList(
         page: page,
         id: id ?? state.value?.id ?? 0,
       );

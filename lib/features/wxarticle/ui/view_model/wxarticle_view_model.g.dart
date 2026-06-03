@@ -7,7 +7,7 @@ part of 'wxarticle_view_model.dart';
 // **************************************************************************
 
 String _$wxArticleViewModelHash() =>
-    r'f2d7db1261a7e4f09b5b5c55c9bfc61d32bf64c8';
+    r'50e41da573d0ba6a5031d19a4a4784c23f6541bb';
 
 /// See also [WxArticleViewModel].
 @ProviderFor(WxArticleViewModel)

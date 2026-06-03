@@ -7,7 +7,7 @@ part of 'wxarticle_list_view_model.dart';
 // **************************************************************************
 
 String _$wxArticleListViewModelHash() =>
-    r'f524ea269bac12423ece0baefc28fdc56c4fb82a';
+    r'0f6645dd421cf053371dcec63f9cdc98a345d037';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -15,7 +15,7 @@ Future<WxArticleRepository> wxArticleRepository(Ref ref) async {
 class WxArticleRepository {
   WxArticleRepository();
 
-  Future<List<TreeNodeData>> getArticleChapters() async {
+  Future<List<TreeNodeData>> getWxArticleChapters() async {
     final List<TreeNodeData> articleChapters = [];
     try {
       // 获取 体系列表
@@ -27,7 +27,7 @@ class WxArticleRepository {
     return articleChapters;
   }
 
-  Future<ArticleListData> getArticleList({
+  Future<ArticleListData> getWxArticleList({
     int page = 1,
     int id = 0,
   }) async {

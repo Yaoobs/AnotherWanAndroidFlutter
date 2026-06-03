@@ -14,4 +14,13 @@ class TreeListViewModel extends _$TreeListViewModel {
     List<TreeNodeData> treeList = await _repository.getTreeList();
     return TreeListState(treeList: treeList);
   }
+
+  Future<void> getTreeList() async {
+    try {
+      List<TreeNodeData> treeList = await _repository.getTreeList();
+      state = AsyncData(state.value!.copyWith(treeList: treeList));
+    } catch (error) {
+      state = AsyncError(error, StackTrace.current);
+    }
+  }
 }

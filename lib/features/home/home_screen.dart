@@ -1,5 +1,6 @@
 import 'package:anotherwanandroidflutter/common/icons.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/article_page.dart';
+import 'package:anotherwanandroidflutter/features/project/ui/project_page.dart';
 import 'package:anotherwanandroidflutter/features/tree/ui/tree_page.dart';
 import 'package:anotherwanandroidflutter/features/wxarticle/ui/wxarticle_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,7 +26,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ArticleScreen(),
     TreePage(title: "体系"),
     WxArticlePage(title: "公众号"),
-    Container(child: Center(child: Text("4"))),
+    ProjectPage(title: "项目"),
     Container(child: Center(child: Text("5"))),
   ];
   @override

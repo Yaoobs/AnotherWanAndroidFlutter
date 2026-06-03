@@ -11,13 +11,13 @@ class WxArticleViewModel extends _$WxArticleViewModel {
   @override
   FutureOr<WxArticleState> build() async {
     _repository = await ref.watch(wxArticleRepositoryProvider.future);
-    List<TreeNodeData> articleChapters = await _repository.getArticleChapters();
+    List<TreeNodeData> articleChapters = await _repository.getWxArticleChapters();
     return WxArticleState(articleChapters: articleChapters);
   }
 
-  Future<void> getArticleChapters() async {
+  Future<void> getWxArticleChapters() async {
     try {
-      List<TreeNodeData> articleChapters = await _repository.getArticleChapters();
+      List<TreeNodeData> articleChapters = await _repository.getWxArticleChapters();
       state = AsyncData(state.value!.copyWith(articleChapters: articleChapters));
     } catch (error) {
       state = AsyncError(error, StackTrace.current);

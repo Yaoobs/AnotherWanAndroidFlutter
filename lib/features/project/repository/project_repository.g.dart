@@ -1,26 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tree_list_view_model.dart';
+part of 'project_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$treeListViewModelHash() => r'b1866f05203838eaf3599359fc444dd7a3cc0061';
+String _$projectRepositoryHash() => r'b0772cde976ee055ce2d08b3860b3334c4d664ae';
 
-/// See also [TreeListViewModel].
-@ProviderFor(TreeListViewModel)
-final treeListViewModelProvider =
-    AutoDisposeAsyncNotifierProvider<TreeListViewModel, TreeListState>.internal(
-      TreeListViewModel.new,
-      name: r'treeListViewModelProvider',
+/// See also [projectRepository].
+@ProviderFor(projectRepository)
+final projectRepositoryProvider =
+    AutoDisposeFutureProvider<ProjectRepository>.internal(
+      projectRepository,
+      name: r'projectRepositoryProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$treeListViewModelHash,
+          : _$projectRepositoryHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$TreeListViewModel = AutoDisposeAsyncNotifier<TreeListState>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef ProjectRepositoryRef = AutoDisposeFutureProviderRef<ProjectRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

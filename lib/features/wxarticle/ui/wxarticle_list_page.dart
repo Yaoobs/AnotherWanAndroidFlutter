@@ -57,7 +57,7 @@ class WxArticleListPageState extends ConsumerState<WxArticleListPage>
                 .read(
                   wxArticleListViewModelProvider(widget.params['id']).notifier,
                 )
-                .getArticleList();
+                .getWxArticleList();
             _controller.finishRefresh();
           },
           onLoad: () async {
@@ -65,7 +65,7 @@ class WxArticleListPageState extends ConsumerState<WxArticleListPage>
                 .read(
                   wxArticleListViewModelProvider(widget.params['id']).notifier,
                 )
-                .getArticleList(loadMore: true);
+                .getWxArticleList(loadMore: true);
             _controller.finishLoad(
               (articleListState.value?.noMore ?? false)
                   ? IndicatorResult.noMore
