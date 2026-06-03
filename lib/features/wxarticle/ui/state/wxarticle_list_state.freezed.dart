@@ -1,0 +1,295 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'wxarticle_list_state.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+// dart format off
+T _$identity<T>(T value) => value;
+
+/// @nodoc
+mixin _$WxArticleListState {
+
+ List<ArticleData> get articles; bool get noMore; int get page; int get id; String? get errorMessage;
+/// Create a copy of WxArticleListState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WxArticleListStateCopyWith<WxArticleListState> get copyWith => _$WxArticleListStateCopyWithImpl<WxArticleListState>(this as WxArticleListState, _$identity);
+
+  /// Serializes this WxArticleListState to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WxArticleListState&&const DeepCollectionEquality().equals(other.articles, articles)&&(identical(other.noMore, noMore) || other.noMore == noMore)&&(identical(other.page, page) || other.page == page)&&(identical(other.id, id) || other.id == id)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(articles),noMore,page,id,errorMessage);
+
+@override
+String toString() {
+  return 'WxArticleListState(articles: $articles, noMore: $noMore, page: $page, id: $id, errorMessage: $errorMessage)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $WxArticleListStateCopyWith<$Res>  {
+  factory $WxArticleListStateCopyWith(WxArticleListState value, $Res Function(WxArticleListState) _then) = _$WxArticleListStateCopyWithImpl;
+@useResult
+$Res call({
+ List<ArticleData> articles, bool noMore, int page, int id, String? errorMessage
+});
+
+
+
+
+}
+/// @nodoc
+class _$WxArticleListStateCopyWithImpl<$Res>
+    implements $WxArticleListStateCopyWith<$Res> {
+  _$WxArticleListStateCopyWithImpl(this._self, this._then);
+
+  final WxArticleListState _self;
+  final $Res Function(WxArticleListState) _then;
+
+/// Create a copy of WxArticleListState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? articles = null,Object? noMore = null,Object? page = null,Object? id = null,Object? errorMessage = freezed,}) {
+  return _then(_self.copyWith(
+articles: null == articles ? _self.articles : articles // ignore: cast_nullable_to_non_nullable
+as List<ArticleData>,noMore: null == noMore ? _self.noMore : noMore // ignore: cast_nullable_to_non_nullable
+as bool,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [WxArticleListState].
+extension WxArticleListStatePatterns on WxArticleListState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _WxArticleListState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _WxArticleListState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _WxArticleListState value)  $default,){
+final _that = this;
+switch (_that) {
+case _WxArticleListState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _WxArticleListState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _WxArticleListState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<ArticleData> articles,  bool noMore,  int page,  int id,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _WxArticleListState() when $default != null:
+return $default(_that.articles,_that.noMore,_that.page,_that.id,_that.errorMessage);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<ArticleData> articles,  bool noMore,  int page,  int id,  String? errorMessage)  $default,) {final _that = this;
+switch (_that) {
+case _WxArticleListState():
+return $default(_that.articles,_that.noMore,_that.page,_that.id,_that.errorMessage);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<ArticleData> articles,  bool noMore,  int page,  int id,  String? errorMessage)?  $default,) {final _that = this;
+switch (_that) {
+case _WxArticleListState() when $default != null:
+return $default(_that.articles,_that.noMore,_that.page,_that.id,_that.errorMessage);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _WxArticleListState implements WxArticleListState {
+  const _WxArticleListState({final  List<ArticleData> articles = const [], this.noMore = false, this.page = 1, this.id = 0, this.errorMessage}): _articles = articles;
+  factory _WxArticleListState.fromJson(Map<String, dynamic> json) => _$WxArticleListStateFromJson(json);
+
+ final  List<ArticleData> _articles;
+@override@JsonKey() List<ArticleData> get articles {
+  if (_articles is EqualUnmodifiableListView) return _articles;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_articles);
+}
+
+@override@JsonKey() final  bool noMore;
+@override@JsonKey() final  int page;
+@override@JsonKey() final  int id;
+@override final  String? errorMessage;
+
+/// Create a copy of WxArticleListState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WxArticleListStateCopyWith<_WxArticleListState> get copyWith => __$WxArticleListStateCopyWithImpl<_WxArticleListState>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$WxArticleListStateToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WxArticleListState&&const DeepCollectionEquality().equals(other._articles, _articles)&&(identical(other.noMore, noMore) || other.noMore == noMore)&&(identical(other.page, page) || other.page == page)&&(identical(other.id, id) || other.id == id)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_articles),noMore,page,id,errorMessage);
+
+@override
+String toString() {
+  return 'WxArticleListState(articles: $articles, noMore: $noMore, page: $page, id: $id, errorMessage: $errorMessage)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$WxArticleListStateCopyWith<$Res> implements $WxArticleListStateCopyWith<$Res> {
+  factory _$WxArticleListStateCopyWith(_WxArticleListState value, $Res Function(_WxArticleListState) _then) = __$WxArticleListStateCopyWithImpl;
+@override @useResult
+$Res call({
+ List<ArticleData> articles, bool noMore, int page, int id, String? errorMessage
+});
+
+
+
+
+}
+/// @nodoc
+class __$WxArticleListStateCopyWithImpl<$Res>
+    implements _$WxArticleListStateCopyWith<$Res> {
+  __$WxArticleListStateCopyWithImpl(this._self, this._then);
+
+  final _WxArticleListState _self;
+  final $Res Function(_WxArticleListState) _then;
+
+/// Create a copy of WxArticleListState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? articles = null,Object? noMore = null,Object? page = null,Object? id = null,Object? errorMessage = freezed,}) {
+  return _then(_WxArticleListState(
+articles: null == articles ? _self._articles : articles // ignore: cast_nullable_to_non_nullable
+as List<ArticleData>,noMore: null == noMore ? _self.noMore : noMore // ignore: cast_nullable_to_non_nullable
+as bool,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+// dart format on

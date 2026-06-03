@@ -19,7 +19,7 @@ class WxArticleApi {
   }
 
   // 公众号文章列表
-  static Future<Map> wxArticleList({int page = 0, required int id}) async {
+  static Future<Map> wxArticleList({int page = 1, required int id}) async {
     Map<String, dynamic> queryParameters = {'page_size': 20};
 
     return HttpManager.get(

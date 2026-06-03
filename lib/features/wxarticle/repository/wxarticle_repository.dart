@@ -14,43 +14,36 @@ Future<WxArticleRepository> wxArticleRepository(Ref ref) async {
 
 class WxArticleRepository {
   WxArticleRepository();
-  final List<TreeNodeData> _articleChapters = [];
 
   Future<List<TreeNodeData>> getArticleChapters() async {
+    final List<TreeNodeData> articleChapters = [];
     try {
-      _articleChapters.clear();
       // 获取 体系列表
-      List<TreeNodeData> articleChapters = await WxArticleApi.wxArticleChapters();
-      _articleChapters.insertAll(0, articleChapters);
+      List<TreeNodeData> results = await WxArticleApi.wxArticleChapters();
+      articleChapters.addAll(results);
     } catch (e) {
       throw Exception('Failed to fetch articleChapters: $e');
     }
-    return _articleChapters;
+    return articleChapters;
   }
 
   Future<ArticleListData> getArticleList({
-    int page = 0,
+    int page = 1,
     int id = 0,
   }) async {
-      final List<ArticleData> _articlesTotal = [];
-      if (page == 0) {
-      _articlesTotal.clear();
-    }
+    final List<ArticleData> articlesTotal = [];
     Map articleList = {};
     try {
-      articleList = await WxArticleApi.wxArticleList(
-        page: page,
-        id: id,
-      );
+      articleList = await WxArticleApi.wxArticleList(page: page, id: id);
       List<ArticleData> articles = List<Map>.from(
         articleList['datas'],
       ).map((dynamic e) => ArticleData.fromJson(e)).toList();
-      _articlesTotal.addAll(articles);
+      articlesTotal.addAll(articles);
     } catch (e) {
       throw Exception('Failed to fetch articles: $e');
     }
     return ArticleListData(
-      datas: _articlesTotal,
+      datas: articlesTotal,
       pageCount: articleList['pageCount'],
       curPage: articleList['curPage'],
     );

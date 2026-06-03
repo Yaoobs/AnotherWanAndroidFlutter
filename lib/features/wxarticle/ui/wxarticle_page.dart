@@ -1,7 +1,7 @@
 import 'package:anotherwanandroidflutter/features/common/ui/base_tab_page.dart';
 import 'package:anotherwanandroidflutter/features/common/ui/widgets/placeholders.dart';
 import 'package:anotherwanandroidflutter/features/wxarticle/ui/view_model/wxarticle_view_model.dart';
-import 'package:anotherwanandroidflutter/features/wxarticle/wxarticle_list_page.dart';
+import 'package:anotherwanandroidflutter/features/wxarticle/ui/wxarticle_list_page.dart';
 import 'package:anotherwanandroidflutter/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
