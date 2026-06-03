@@ -1,3 +1,4 @@
+import 'package:anotherwanandroidflutter/features/common/model/article_data.dart';
 import 'package:anotherwanandroidflutter/features/common/model/article_list_data.dart';
 import 'package:anotherwanandroidflutter/features/search/model/hotkey_data.dart';
 import 'package:anotherwanandroidflutter/features/search/repository/search_repository.dart';
@@ -27,7 +28,10 @@ class SearchViewModel extends _$SearchViewModel {
 
   void clearSearchResults() {
     state = AsyncData(
-      state.value!.copyWith(hotKeys: state.value?.hotKeys ?? [], searchResults: []),
+      state.value!.copyWith(
+        hotKeys: state.value?.hotKeys ?? [],
+        searchResults: [],
+      ),
     );
   }
 
@@ -37,7 +41,9 @@ class SearchViewModel extends _$SearchViewModel {
   }) async {
     try {
       int page = 0;
+      List<ArticleData> searchResults = [];
       if (loadMore) {
+        searchResults = [...state.value?.searchResults ?? []];
         page = state.value?.page ?? 0;
         page++;
       }
@@ -45,10 +51,11 @@ class SearchViewModel extends _$SearchViewModel {
         page: page,
         key: key,
       );
+      searchResults.addAll(articleDatas.datas ?? []);
       state = AsyncData(
         state.value!.copyWith(
           page: page,
-          searchResults: articleDatas.datas ?? [],
+          searchResults: searchResults,
           noMore: (articleDatas.curPage ?? 1) >= (articleDatas.pageCount ?? 1),
         ),
       );

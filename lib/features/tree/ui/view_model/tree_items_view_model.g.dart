@@ -7,7 +7,7 @@ part of 'tree_items_view_model.dart';
 // **************************************************************************
 
 String _$treeItemsViewModelHash() =>
-    r'da39035f249475f5508e92d7aae9d9ab47e4ef46';
+    r'0984593cc40c437f84f36ca5990131884c57be5a';
 
 /// Copied from Dart SDK
 class _SystemHash {

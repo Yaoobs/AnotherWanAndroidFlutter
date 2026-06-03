@@ -1,6 +1,8 @@
 import 'package:anotherwanandroidflutter/features/article/model/banner_data.dart';
 import 'package:anotherwanandroidflutter/features/article/repository/article_repository.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/state/article_state.dart';
+import 'package:anotherwanandroidflutter/features/common/model/article_data.dart'
+    show ArticleData;
 import 'package:anotherwanandroidflutter/features/common/model/article_list_data.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -38,15 +40,17 @@ class ArticleViewModel extends _$ArticleViewModel {
 
   Future<void> loadMoreArticles() async {
     try {
+      List<ArticleData> articlesTotal = [...state.value?.articles ?? []];
       int page = state.value?.page ?? 0;
       page++;
       ArticleListData articleDatas = await _repository.getArticleList(
         page: page,
       );
+      articlesTotal.addAll(articleDatas.datas ?? []);
       state = AsyncData(
         state.value!.copyWith(
           page: page,
-          articles: articleDatas.datas ?? [],
+          articles: articlesTotal,
           noMore: (articleDatas.curPage ?? 1) >= (articleDatas.pageCount ?? 1),
         ),
       );

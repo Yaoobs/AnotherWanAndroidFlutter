@@ -1,3 +1,4 @@
+import 'package:anotherwanandroidflutter/features/common/model/article_data.dart';
 import 'package:anotherwanandroidflutter/features/common/model/article_list_data.dart';
 import 'package:anotherwanandroidflutter/features/tree/repository/tree_list_repository.dart';
 import 'package:anotherwanandroidflutter/features/tree/ui/state/tree_items_state.dart';
@@ -18,7 +19,9 @@ class TreeItemsViewModel extends _$TreeItemsViewModel {
   Future<void> getItemData({int? cid, bool loadMore = false}) async {
     try {
       int page = 0;
+      List<ArticleData> articlesTotal = [];
       if (loadMore) {
+        articlesTotal = [...state.value?.articles ?? []];
         page = state.value?.page ?? 0;
         page++;
       }
@@ -26,10 +29,11 @@ class TreeItemsViewModel extends _$TreeItemsViewModel {
         page: page,
         cid: cid ?? state.value?.cid ?? 0,
       );
+      articlesTotal.addAll(articleDatas.datas ?? []);
       state = AsyncData(
         state.value!.copyWith(
           page: page,
-          articles: articleDatas.datas ?? [],
+          articles: articlesTotal,
           noMore: (articleDatas.curPage ?? 1) >= (articleDatas.pageCount ?? 1),
         ),
       );

@@ -14,7 +14,6 @@ Future<WxArticleRepository> wxArticleRepository(Ref ref) async {
 
 class WxArticleRepository {
   WxArticleRepository();
-  final List<ArticleData> _articlesTotal = [];
   final List<TreeNodeData> _articleChapters = [];
 
   Future<List<TreeNodeData>> getArticleChapters() async {
@@ -33,6 +32,7 @@ class WxArticleRepository {
     int page = 0,
     int id = 0,
   }) async {
+      final List<ArticleData> _articlesTotal = [];
       if (page == 0) {
       _articlesTotal.clear();
     }

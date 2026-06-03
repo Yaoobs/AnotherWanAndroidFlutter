@@ -11,17 +11,16 @@ Future<NaviRepository> naviRepository(Ref ref) async {
 
 class NaviRepository {
   NaviRepository();
-  final List _naviDatas = [];
 
   Future<List> getNaviList() async {
+    final List naviDatas = [];
     try {
-      _naviDatas.clear();
-       // 获取 导航列表
-    List naviDatas = await NaviApi.naviList();
-      _naviDatas.insertAll(0, naviDatas);
+      // 获取 导航列表
+      List results = await NaviApi.naviList();
+      naviDatas.addAll(results);
     } catch (e) {
       throw Exception('Failed to fetch naviDatas: $e');
     }
-    return _naviDatas;
+    return naviDatas;
   }
 }

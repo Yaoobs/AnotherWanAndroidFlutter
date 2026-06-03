@@ -14,52 +14,50 @@ Future<ArticleRepository> articleRepository(Ref ref) async {
 
 class ArticleRepository {
   ArticleRepository();
-  final List<ArticleData> _articlesTotal = [];
-  final List<BannerData> _banners = [];
 
   Future<List<BannerData>> getBanners() async {
+    final List<BannerData> banners = [];
     try {
-      _banners.clear();
       // 获取 banner 数据
-      List<BannerData> banners = await ArticleApi.bannerList();
-      _banners.insertAll(0, banners);
+      List<BannerData> results = await ArticleApi.bannerList();
+      banners.addAll(results);
     } catch (e) {
       throw Exception('Failed to fetch banners: $e');
     }
-    return _banners;
+    return banners;
   }
 
   Future<ArticleListData> getArticleList({
     int page = 0,
     int pageSize = 20,
   }) async {
+     final List<ArticleData> articlesTotal = [];
     if (page == 0) {
-      _articlesTotal.clear();
       try {
         // 获取 置顶文章列表
         List<ArticleData> topArticles = await ArticleApi.topArticleList();
-        _articlesTotal.insertAll(0, topArticles);
+        articlesTotal.addAll(topArticles);
       } catch (e) {
         throw Exception('Failed to fetch top articles: $e');
       }
     }
-    Map articleList = {};
+    Map articleListData = {};
     try {
-      articleList = await ArticleApi.articleList(
+      articleListData = await ArticleApi.articleList(
         page: page,
         pageSize: pageSize,
       );
       List<ArticleData> articles = List<Map>.from(
-        articleList['datas'],
+        articleListData['datas'],
       ).map((dynamic e) => ArticleData.fromJson(e)).toList();
-      _articlesTotal.addAll(articles);
+      articlesTotal.addAll(articles);
     } catch (e) {
       throw Exception('Failed to fetch articles: $e');
     }
     return ArticleListData(
-      datas: _articlesTotal,
-      pageCount: articleList['pageCount'],
-      curPage: articleList['curPage'],
+      datas: articlesTotal,
+      pageCount: articleListData['pageCount'],
+      curPage: articleListData['curPage'],
     );
   }
 }

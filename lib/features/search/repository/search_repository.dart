@@ -14,40 +14,36 @@ Future<SearchRepository> searchRepository(Ref ref) async {
 
 class SearchRepository {
   SearchRepository();
-  final List<ArticleData> _searchResults = [];
-  final List<HotKeyData> _hotKeys = [];
 
   Future<List<HotKeyData>> getHotKeys() async {
+    final List<HotKeyData> hotKeys = [];
     try {
-      _hotKeys.clear();
       // 获取 hotKeys 数据
-      List<HotKeyData> hotKeys = await SearchApi.hotKeys();
-      _hotKeys.insertAll(0, hotKeys);
+      List<HotKeyData> results = await SearchApi.hotKeys();
+      hotKeys.addAll(results);
     } catch (e) {
       throw Exception('Failed to fetch hotKeys: $e');
     }
-    return _hotKeys;
+    return hotKeys;
   }
 
   Future<ArticleListData> getSearchResults({
     int page = 0,
     String key = "",
   }) async {
-    if (page == 0) {
-      _searchResults.clear();
-    }
+    final List<ArticleData> searchResults = [];
     Map articleList = {};
     try {
       articleList = await SearchApi.searchArticle(page: page, key: key);
       List<ArticleData> articles = List<Map>.from(
         articleList['datas'],
       ).map((dynamic e) => ArticleData.fromJson(e)).toList();
-      _searchResults.addAll(articles);
+      searchResults.addAll(articles);
     } catch (e) {
       throw Exception('Failed to fetch searchResults: $e');
     }
     return ArticleListData(
-      datas: _searchResults,
+      datas: searchResults,
       pageCount: articleList['pageCount'],
       curPage: articleList['curPage'],
     );

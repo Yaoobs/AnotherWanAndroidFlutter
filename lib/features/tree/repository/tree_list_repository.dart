@@ -14,25 +14,22 @@ Future<TreeListRepository> treeListRepository(Ref ref) async {
 
 class TreeListRepository {
   TreeListRepository();
-  final List<TreeNodeData> _treeList = [];
 
   Future<List<TreeNodeData>> getTreeList() async {
+    final List<TreeNodeData> treeList = [];
     try {
-      _treeList.clear();
+      treeList.clear();
       // 获取 体系列表
       List<TreeNodeData> results = await TreeApi.treeList();
-      _treeList.insertAll(0, results);
+      treeList.addAll(results);
     } catch (e) {
       throw Exception('Failed to fetch hotKeys: $e');
     }
-    return _treeList;
+    return treeList;
   }
 
   Future<ArticleListData> getItemData({int page = 0, int cid = 0}) async {
     final List<ArticleData> articles = [];
-    if (page == 0) {
-      articles.clear();
-    }
     Map articleList = {};
     try {
       articleList = await TreeApi.treeItems(page: page, cid: cid);
