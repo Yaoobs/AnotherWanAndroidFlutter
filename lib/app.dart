@@ -1,3 +1,4 @@
+import 'package:anotherwanandroidflutter/features/authentication/ui/view_model/authentication_view_model.dart';
 import 'package:anotherwanandroidflutter/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -13,6 +14,7 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(appThemeModeProvider);
+    ref.watch(authenticationViewModelProvider);
     return ScreenUtilInit(
       designSize: Size(1080, 1920),
       builder: () => MaterialApp.router(
@@ -21,7 +23,7 @@ class App extends ConsumerWidget {
         themeMode: themeMode.value,
         routerConfig: router,
         debugShowCheckedModeBanner: false,
-        builder: EasyLoading.init()
+        builder: EasyLoading.init(),
         // builder: (context, child) {
         //   return OfflineContainer(child: child);
         // },

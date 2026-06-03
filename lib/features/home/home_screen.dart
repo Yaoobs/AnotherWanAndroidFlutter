@@ -1,5 +1,6 @@
 import 'package:anotherwanandroidflutter/common/icons.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/article_page.dart';
+import 'package:anotherwanandroidflutter/features/profile/profile_page.dart';
 import 'package:anotherwanandroidflutter/features/project/ui/project_page.dart';
 import 'package:anotherwanandroidflutter/features/tree/ui/tree_page.dart';
 import 'package:anotherwanandroidflutter/features/wxarticle/ui/wxarticle_page.dart';
@@ -27,7 +28,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     TreePage(title: "体系"),
     WxArticlePage(title: "公众号"),
     ProjectPage(title: "项目"),
-    Container(child: Center(child: Text("5"))),
+    ProfilePage(),
   ];
   @override
   void initState() {
