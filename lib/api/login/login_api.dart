@@ -1,5 +1,5 @@
 import 'package:anotherwanandroidflutter/features/authentication/model/user.dart';
-import 'package:anotherwanandroidflutter/features/login/login_api_path.dart';
+import 'package:anotherwanandroidflutter/api/login/login_api_path.dart';
 import 'package:anotherwanandroidflutter/http/http_manager.dart';
 
 class LoginApi {

@@ -1,5 +1,6 @@
 import 'package:anotherwanandroidflutter/features/article/ui/article_detail_page.dart';
 import 'package:anotherwanandroidflutter/features/home/home_screen.dart';
+import 'package:anotherwanandroidflutter/features/login/ui/login_page.dart';
 import 'package:anotherwanandroidflutter/features/search/ui/search_page.dart';
 import 'package:anotherwanandroidflutter/features/tree/ui/tree_items_list_page.dart';
 import 'package:anotherwanandroidflutter/features/tree/ui/tree_items_page.dart';
@@ -96,6 +97,10 @@ final GoRouter router = GoRouter(
         final map = state.extra as Map?;
         return state.slidePage(TreeItemsListPage(params: map ?? {}));
       },
+    ),
+    GoRoute(
+      path: Routes.login,
+      pageBuilder: (context, state) => state.slidePage(const LoginPage()),
     ),
   ],
 );

@@ -1,8 +1,10 @@
 import 'package:anotherwanandroidflutter/features/authentication/repository/authentication_repository.dart';
 import 'package:anotherwanandroidflutter/features/authentication/ui/view_model/authentication_view_model.dart';
+import 'package:anotherwanandroidflutter/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:anotherwanandroidflutter/common/icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 final List _listItems = [
   {'icon': AndotherFonts.article_liked, 'title': '喜欢的文章'},
@@ -16,7 +18,7 @@ class ProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authenticationState = ref.watch(authenticationViewModelProvider);
     List<Widget> slivers = [];
-    slivers.add(_header(ref));
+    slivers.add(_header(context, ref));
     slivers.add(
       SliverToBoxAdapter(
         child: Divider(height: 26, thickness: 0.5, color: Color(0x33999999)),
@@ -25,7 +27,7 @@ class ProfilePage extends ConsumerWidget {
     slivers.add(_list(context));
     if (authenticationState.value?.status ==
         AuthenticationStatus.authenticated) {
-      slivers.add(_logoutBtn(context));
+      slivers.add(_logoutBtn(context, ref));
     } else {
       // slivers.removeAt(slivers.length - 1);
     }
@@ -34,7 +36,7 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  Widget _header(WidgetRef ref) {
+  Widget _header(BuildContext context, WidgetRef ref) {
     final authenticationState = ref.read(authenticationViewModelProvider);
     return SliverToBoxAdapter(
       child: GestureDetector(
@@ -42,6 +44,7 @@ class ProfilePage extends ConsumerWidget {
             authenticationState.value?.status !=
                 AuthenticationStatus.authenticated
             ? () {
+                context.push(Routes.login);
                 // Application.router.navigateTo(context, Routes.login);
               }
             : null,
@@ -119,7 +122,7 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  Widget _logoutBtn(BuildContext context) {
+  Widget _logoutBtn(BuildContext context, WidgetRef ref) {
     return SliverToBoxAdapter(
       child: Padding(
         padding: EdgeInsets.fromLTRB(20, 50, 20, 0),
@@ -144,7 +147,9 @@ class ProfilePage extends ConsumerWidget {
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop(); // 先关闭对话框
-                        // context.read<AuthenticationBloc>().add(LogoutEvent());
+                        ref
+                            .watch(authenticationViewModelProvider.notifier)
+                            .onLogout();
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.blue, // AppColors.primaryColor

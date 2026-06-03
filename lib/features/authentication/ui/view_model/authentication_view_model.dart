@@ -24,7 +24,7 @@ class AuthenticationViewModel extends _$AuthenticationViewModel {
     state = AsyncData(AuthenticationState.authenticated(user));
   }
 
-  void onLogout(User user) {
+  void onLogout() {
     _repository.clearAuthenticationInfo();
     state = AsyncData(AuthenticationState.unauthenticated());
   }
