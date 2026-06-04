@@ -6,7 +6,7 @@ part of 'article_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$articleViewModelHash() => r'090619f19e1035d32edae25daa006b0229327233';
+String _$articleViewModelHash() => r'67618edae3d9ac8b7e4b92c95f56229e9e58839e';
 
 /// See also [ArticleViewModel].
 @ProviderFor(ArticleViewModel)

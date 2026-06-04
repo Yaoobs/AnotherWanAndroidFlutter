@@ -7,13 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ProjectCell extends StatelessWidget {
-  const ProjectCell({super.key, required this.article});
+  const ProjectCell({super.key, required this.article, this.onClickCollect});
   final ArticleData article;
+  final Function? onClickCollect;
 
   @override
   Widget build(BuildContext context) {
-    // bool isCollect = widget.isFromCollect || article.collect;
-    bool isCollect = false;
+    bool isCollect = article.collect == null && article.originId != null
+        ? true
+        : article.collect ?? false;
 
     String authorTitle;
     String author;
@@ -120,13 +122,9 @@ class ProjectCell extends StatelessWidget {
             isCollect ? Icons.favorite : Icons.favorite_border,
             color: isCollect ? Colors.red : null,
           ),
-          onTap: () {
-            // if (widget.onClickCollect != null) {
-            //   widget.onClickCollect.call();
-            //   return;
-            // }
-            // _handleOnItemCollect(article);
-          },
+          onTap: () => onClickCollect != null
+              ? onClickCollect!(article.id, article.originId)
+              : null,
         ),
       ],
     );

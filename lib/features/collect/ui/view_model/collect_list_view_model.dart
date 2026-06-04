@@ -40,4 +40,43 @@ class CollectListViewModel extends _$CollectListViewModel {
       state = AsyncError(error, StackTrace.current);
     }
   }
+
+  Future<void> toggleCollect(int articleId) async {
+    bool currentCollectFlag =
+        state.value?.articles
+            .firstWhere((article) => article.id == articleId)
+            .collect ??
+        true;//默认无此字段
+    // 乐观更新
+    final nextCollectFlag = !currentCollectFlag;
+    updateArticleCollectStatus(articleId, nextCollectFlag);
+
+    try {
+      if (nextCollectFlag) {
+        await _repository.collectArticle(id: articleId);
+      } else {
+        await _repository.uncollectArticleList(id: articleId);
+      }
+    } catch (error) {
+      // 回滚
+      updateArticleCollectStatus(articleId, currentCollectFlag);
+      rethrow;
+    }
+  }
+
+  // 更新单个文章的收藏状态
+  void updateArticleCollectStatus(int articleId, bool collectFlag) {
+    state = state.whenData((currentState) {
+      // 更新 articles 列表
+      final updatedArticles = currentState.articles.map((article) {
+        if (article.id == articleId) {
+          return article.copyWith(collect: collectFlag);
+        }
+        return article;
+      }).toList();
+
+      // 保留其他字段，只更新 articles
+      return currentState.copyWith(articles: updatedArticles);
+    });
+  }
 }

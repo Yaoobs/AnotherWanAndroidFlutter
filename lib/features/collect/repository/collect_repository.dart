@@ -32,4 +32,21 @@ class CollectRepository {
       curPage: collectList['curPage'],
     );
   }
+
+  // 收藏站内文章
+  Future<void> collectArticle({int id = 0}) async {
+    try {
+      await CollectApi.collectArticle(id: id);
+    } catch (e) {
+      throw Exception('Failed to collectArticle: $e');
+    }
+  }
+
+    Future<void> uncollectArticleList({int id = 0}) async {
+    try {
+      await CollectApi.uncollectArticleList(id: id);
+    } catch (e) {
+      throw Exception('Failed to collectArticle: $e');
+    }
+  }
 }

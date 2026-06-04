@@ -1,11 +1,15 @@
 import 'package:anotherwanandroidflutter/common/colors.dart';
 import 'package:anotherwanandroidflutter/common/easy_refresh/easy_refresh_config.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/widget/article_list.dart';
+import 'package:anotherwanandroidflutter/features/authentication/repository/authentication_repository.dart';
+import 'package:anotherwanandroidflutter/features/authentication/ui/view_model/authentication_view_model.dart';
 import 'package:anotherwanandroidflutter/features/search/ui/view_model/search_view_model.dart';
 import 'package:anotherwanandroidflutter/features/search/ui/widgets/hotkeylist_cell.dart';
+import 'package:anotherwanandroidflutter/routing/routes.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
@@ -53,6 +57,15 @@ class SearchPageState extends ConsumerState<SearchPage> {
       ArticleList(
         articles: searchState.value?.searchResults ?? [],
         searchKey: _searchController.text,
+        onClickCollect: (id, originId) {
+          final authenticationState = ref.read(authenticationViewModelProvider);
+          if (authenticationState.value?.status ==
+              AuthenticationStatus.authenticated) {
+            ref.read(searchViewModelProvider.notifier).toggleCollect(id);
+          } else {
+            context.push(Routes.login);
+          }
+        },
       ),
     );
     return Scaffold(

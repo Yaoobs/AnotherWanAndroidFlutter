@@ -5,6 +5,8 @@ import 'package:anotherwanandroidflutter/features/article/ui/view_model/article_
 import 'package:anotherwanandroidflutter/features/article/ui/widget/article_list.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/widget/image_banner.dart';
 import 'package:anotherwanandroidflutter/features/article/ui/widget/sep_divider.dart';
+import 'package:anotherwanandroidflutter/features/authentication/repository/authentication_repository.dart';
+import 'package:anotherwanandroidflutter/features/authentication/ui/view_model/authentication_view_model.dart';
 import 'package:anotherwanandroidflutter/features/common/ui/widgets/placeholders.dart';
 import 'package:anotherwanandroidflutter/routing/routes.dart';
 import 'package:easy_refresh/easy_refresh.dart';
@@ -56,7 +58,7 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen>
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-               context.push(Routes.search);
+              context.push(Routes.search);
             },
           ),
         ],
@@ -127,8 +129,13 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen>
       ArticleList(
         articles: state.articles,
         onClickCollect: (id, originId) {
-          debugPrint("");
-          // widget.articleBloc.collect(id);
+          final authenticationState = ref.read(authenticationViewModelProvider);
+          if (authenticationState.value?.status ==
+              AuthenticationStatus.authenticated) {
+            ref.read(articleViewModelProvider.notifier).toggleCollect(id);
+          } else {
+            context.push(Routes.login);
+          }
         },
       ),
     );

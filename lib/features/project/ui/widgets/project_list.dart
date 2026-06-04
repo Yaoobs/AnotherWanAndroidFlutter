@@ -3,9 +3,10 @@ import 'package:anotherwanandroidflutter/features/project/ui/widgets/project_cel
 import 'package:flutter/material.dart';
 
 class ProjectList extends StatelessWidget {
-  const ProjectList({super.key, required this.articles});
+  const ProjectList({super.key, required this.articles, this.onClickCollect});
 
   final List<ArticleData> articles;
+    final Function? onClickCollect;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,8 @@ class ProjectList extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
           return ProjectCell(
-              article: articles[index]);
+              article: articles[index],
+              onClickCollect: onClickCollect);
         },
         childCount: articles.length,
       ),

@@ -1,10 +1,14 @@
 import 'package:anotherwanandroidflutter/common/easy_refresh/easy_refresh_config.dart';
+import 'package:anotherwanandroidflutter/features/authentication/repository/authentication_repository.dart';
+import 'package:anotherwanandroidflutter/features/authentication/ui/view_model/authentication_view_model.dart';
 import 'package:anotherwanandroidflutter/features/common/ui/widgets/placeholders.dart';
 import 'package:anotherwanandroidflutter/features/project/ui/view_model/project_list_view_model.dart';
 import 'package:anotherwanandroidflutter/features/project/ui/widgets/project_list.dart';
+import 'package:anotherwanandroidflutter/routing/routes.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProjectListPage extends ConsumerStatefulWidget {
@@ -46,7 +50,28 @@ class ProjectListPageState extends ConsumerState<ProjectListPage>
       data: (state) {
         List<Widget> slivers = [];
         if (widget.params['cid'] != 0) {
-          slivers.add(ProjectList(articles: state.articles));
+          slivers.add(
+            ProjectList(
+              articles: state.articles,
+              onClickCollect: (id, originId) {
+                final authenticationState = ref.read(
+                  authenticationViewModelProvider,
+                );
+                if (authenticationState.value?.status ==
+                    AuthenticationStatus.authenticated) {
+                  ref
+                      .read(
+                        projectListViewModelProvider(
+                          widget.params['cid'],
+                        ).notifier,
+                      )
+                      .toggleCollect(id);
+                } else {
+                  context.push(Routes.login);
+                }
+              },
+            ),
+          );
         }
         return EasyRefresh(
           controller: _controller,
