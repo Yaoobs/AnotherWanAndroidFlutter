@@ -6,12 +6,16 @@ import 'package:anotherwanandroidflutter/common/icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+const List _listItems = [
+  {'icon': AndotherFonts.article_liked, 'title': '喜欢的文章'},
+  {'icon': AndotherFonts.about, 'title': '关于我们'},
+];
+
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List _listItems = [];
     final authenticationState = ref.watch(authenticationViewModelProvider);
     List<Widget> slivers = [];
     slivers.add(_header(context, ref));
@@ -20,18 +24,7 @@ class ProfilePage extends ConsumerWidget {
         child: Divider(height: 26, thickness: 0.5, color: Color(0x33999999)),
       ),
     );
-    if (authenticationState.value?.status ==
-        AuthenticationStatus.authenticated) {
-      _listItems = [
-        {'icon': AndotherFonts.article_liked, 'title': '喜欢的文章'},
-        {'icon': AndotherFonts.about, 'title': '关于我们'},
-      ];
-    } else {
-      _listItems = [
-        {'icon': AndotherFonts.about, 'title': '关于我们'},
-      ];
-    }
-    slivers.add(_list(context, _listItems));
+    slivers.add(_list(context, _listItems, ref));
     if (authenticationState.value?.status ==
         AuthenticationStatus.authenticated) {
       slivers.add(_logoutBtn(context, ref));
@@ -83,20 +76,25 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  Widget _list(BuildContext context, List listItem) {
+  Widget _list(BuildContext context, List listItem, WidgetRef ref) {
     return SliverList(
       delegate: SliverChildBuilderDelegate((content, index) {
         if (index.isOdd) {
           return Divider(height: 1, thickness: 0.5, color: Color(0xFFEEEEEE));
         } else {
           Map map = listItem[index ~/ 2];
-          return _listCell(context, map['icon'], map['title']);
+          return _listCell(context, map['icon'], map['title'], ref);
         }
       }, childCount: listItem.length * 2 - 1),
     );
   }
 
-  Widget _listCell(BuildContext context, IconData font, String title) {
+  Widget _listCell(
+    BuildContext context,
+    IconData font,
+    String title,
+    WidgetRef ref,
+  ) {
     return GestureDetector(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -120,7 +118,13 @@ class ProfilePage extends ConsumerWidget {
       ),
       onTap: () {
         if (font == AndotherFonts.article_liked) {
-          context.push(Routes.collectList);
+          final authenticationState = ref.read(authenticationViewModelProvider);
+          if (authenticationState.value?.status ==
+              AuthenticationStatus.authenticated) {
+            context.push(Routes.collectList);
+          } else {
+            context.push(Routes.login);
+          }
         }
       },
     );
