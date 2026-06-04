@@ -1,7 +1,9 @@
 import 'package:anotherwanandroidflutter/common/icons.dart';
 import 'package:anotherwanandroidflutter/features/login/ui/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -25,14 +27,31 @@ class LoginForm extends StatelessWidget {
   }
 }
 
-class _UsernameInput extends ConsumerWidget {
-  final controller = TextEditingController();
+class _UsernameInput extends HookConsumerWidget {
+  const _UsernameInput();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 1. 先从 state 读取初始值
+    final initialUsername = ref.watch(
+      loginViewModelProvider.select(
+        (state) => state.value?.username.value ?? '',
+      ),
+    );
+    // 2. 使用 useTextEditingController，并传入初始值
+    // useTextEditingController 会在组件生命周期内只创建一次
+    // 当 initialPassword 变化时，不会重新创建 controller
+    final controller = useTextEditingController(text: initialUsername);
+    // 同步 state 到 UI（当外部修改 password 时更新输入框）
+    useEffect(() {
+      if (controller.text != initialUsername) {
+        controller.text = initialUsername;
+      }
+      return null;
+    }, [initialUsername]);
     // 只监听 username 相关的字段，其他字段变化不会触发 rebuild
     final usernameError = ref.watch(
       loginViewModelProvider.select(
-        (state) => state.value?.username.isNotValid??false
+        (state) => state.value?.username.isNotValid ?? false
             ? state.value?.username.error
             : null,
       ),
@@ -67,14 +86,32 @@ class _UsernameInput extends ConsumerWidget {
   }
 }
 
-class _PasswordInput extends ConsumerWidget {
-  final controller = TextEditingController();
+class _PasswordInput extends HookConsumerWidget {
+  const _PasswordInput();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 1. 先从 state 读取初始值
+    final initialPassword = ref.watch(
+      loginViewModelProvider.select(
+        (state) => state.value?.password.value ?? '',
+      ),
+    );
+    // 2. 使用 useTextEditingController，并传入初始值
+    // useTextEditingController 会在组件生命周期内只创建一次
+    // 当 initialPassword 变化时，不会重新创建 controller
+    final controller = useTextEditingController(text: initialPassword);
+
+    // 同步 state 到 UI（当外部修改 password 时更新输入框）
+    useEffect(() {
+      if (controller.text != initialPassword) {
+        controller.text = initialPassword;
+      }
+      return null;
+    }, [initialPassword]);
     // 只监听 password 相关的字段，其他字段变化不会触发 rebuild
     final passwordError = ref.watch(
       loginViewModelProvider.select(
-        (state) => state.value?.password.isNotValid??false
+        (state) => state.value?.password.isNotValid ?? false
             ? state.value?.password.error
             : null,
       ),

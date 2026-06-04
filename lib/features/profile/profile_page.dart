@@ -6,16 +6,12 @@ import 'package:anotherwanandroidflutter/common/icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-final List _listItems = [
-  {'icon': AndotherFonts.article_liked, 'title': '喜欢的文章'},
-  {'icon': AndotherFonts.about, 'title': '关于我们'},
-];
-
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    List _listItems = [];
     final authenticationState = ref.watch(authenticationViewModelProvider);
     List<Widget> slivers = [];
     slivers.add(_header(context, ref));
@@ -24,12 +20,21 @@ class ProfilePage extends ConsumerWidget {
         child: Divider(height: 26, thickness: 0.5, color: Color(0x33999999)),
       ),
     );
-    slivers.add(_list(context));
+    if (authenticationState.value?.status ==
+        AuthenticationStatus.authenticated) {
+      _listItems = [
+        {'icon': AndotherFonts.article_liked, 'title': '喜欢的文章'},
+        {'icon': AndotherFonts.about, 'title': '关于我们'},
+      ];
+    } else {
+      _listItems = [
+        {'icon': AndotherFonts.about, 'title': '关于我们'},
+      ];
+    }
+    slivers.add(_list(context, _listItems));
     if (authenticationState.value?.status ==
         AuthenticationStatus.authenticated) {
       slivers.add(_logoutBtn(context, ref));
-    } else {
-      // slivers.removeAt(slivers.length - 1);
     }
     return SafeArea(
       child: Scaffold(body: CustomScrollView(slivers: slivers)),
@@ -79,16 +84,16 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  Widget _list(BuildContext context) {
+  Widget _list(BuildContext context, List listItem) {
     return SliverList(
       delegate: SliverChildBuilderDelegate((content, index) {
         if (index.isOdd) {
           return Divider(height: 1, thickness: 0.5, color: Color(0xFFEEEEEE));
         } else {
-          Map map = _listItems[index ~/ 2];
+          Map map = listItem[index ~/ 2];
           return _listCell(context, map['icon'], map['title']);
         }
-      }, childCount: _listItems.length * 2 - 1),
+      }, childCount: listItem.length * 2 - 1),
     );
   }
 
@@ -146,10 +151,10 @@ class ProfilePage extends ConsumerWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pop(); // 先关闭对话框
                         ref
                             .watch(authenticationViewModelProvider.notifier)
                             .onLogout();
+                        Navigator.of(context).pop(); // 先关闭对话框
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.blue, // AppColors.primaryColor

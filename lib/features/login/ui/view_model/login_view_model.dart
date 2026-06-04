@@ -17,7 +17,10 @@ class LoginViewModel extends _$LoginViewModel {
     // _authenticationViewModel = await ref.watch(
     //   authenticationViewModelProvider.notifier,
     // );
-    return LoginState();
+    return LoginState(
+      username: Username.dirty("15214367328"),
+      password: Password.dirty("123456"),
+    );
   }
 
   void onUsernameChanged(String name) async {
