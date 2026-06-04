@@ -1,4 +1,5 @@
 import 'package:anotherwanandroidflutter/features/article/ui/article_detail_page.dart';
+import 'package:anotherwanandroidflutter/features/collect/ui/collect_list_page.dart';
 import 'package:anotherwanandroidflutter/features/home/home_screen.dart';
 import 'package:anotherwanandroidflutter/features/login/ui/login_page.dart';
 import 'package:anotherwanandroidflutter/features/search/ui/search_page.dart';
@@ -101,6 +102,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.login,
       pageBuilder: (context, state) => state.slidePage(const LoginPage()),
+    ),
+    GoRoute(
+      path: Routes.collectList,
+      pageBuilder: (context, state) => state.slidePage(const CollectListPage()),
     ),
   ],
 );

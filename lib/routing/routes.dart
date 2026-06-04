@@ -7,4 +7,5 @@ class Routes {
   static const search = '/search';
   static const treeItems = '/treeItems';
   static const treeItemsList = '/treeItemsList';
+  static const collectList = '/collectList';
 }

@@ -1,26 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_view_model.dart';
+part of 'collect_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loginViewModelHash() => r'2aedac8b624429cbdf289433f757b81bbd85ad37';
+String _$collectRepositoryHash() => r'a38763c2dd4c848fd96ec028688aad966d27d8d2';
 
-/// See also [LoginViewModel].
-@ProviderFor(LoginViewModel)
-final loginViewModelProvider =
-    AutoDisposeAsyncNotifierProvider<LoginViewModel, LoginState>.internal(
-      LoginViewModel.new,
-      name: r'loginViewModelProvider',
+/// See also [collectRepository].
+@ProviderFor(collectRepository)
+final collectRepositoryProvider =
+    AutoDisposeFutureProvider<CollectRepository>.internal(
+      collectRepository,
+      name: r'collectRepositoryProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$loginViewModelHash,
+          : _$collectRepositoryHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$LoginViewModel = AutoDisposeAsyncNotifier<LoginState>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef CollectRepositoryRef = AutoDisposeFutureProviderRef<CollectRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

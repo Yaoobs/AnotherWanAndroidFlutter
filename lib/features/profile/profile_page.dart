@@ -50,7 +50,6 @@ class ProfilePage extends ConsumerWidget {
                 AuthenticationStatus.authenticated
             ? () {
                 context.push(Routes.login);
-                // Application.router.navigateTo(context, Routes.login);
               }
             : null,
         child: Row(
@@ -121,7 +120,7 @@ class ProfilePage extends ConsumerWidget {
       ),
       onTap: () {
         if (font == AndotherFonts.article_liked) {
-          // Application.router.navigateTo(context, Routes.collect);
+          context.push(Routes.collectList);
         }
       },
     );
